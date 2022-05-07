@@ -1,41 +1,40 @@
-const express = require("express");
-const exphbs = require("express-handlebars");
-const allRoutes = require("./controllers");
-const session = require("express-session");
-const sequelize = require("./config/connection");
-const SequelizeStore = require("connect-session-sequelize")(session.Store);
+const path = require('path');
+const express = require('express');
+const session = require('express-session');
+const exphbs = require('express-handlebars');
+const routes = require('./controllers');
 
-// Sets up the Express App
-// =============================================================
+const sequelize = require('./config/connection');
+
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Sets up the Express app to handle data parsing
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-const sess = {
-    secret: process.env.SESSION_SECRET,
-    cookie: {
-        maxAge: 2 * 60 * 60 * 1000
-    },
-    resave: false,
-    saveUninitialized: true,
-    store: new SequelizeStore({
-        db: sequelize
-    })
-};
-app.use(session(sess));
-// Static directory
-app.use(express.static('public'));
-
 const hbs = exphbs.create({});
+
+const sess = {
+  secret: process.env.SESSION_SECRET,
+//   secret: 'Super secret secret',
+  cookie: {},
+  resave: false,
+  saveUninitialized: true,
+  store: new SequelizeStore({
+    db: sequelize
+  })
+};
+
+app.use(session(sess));
+
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
-app.use("/", allRoutes);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 
-sequelize.sync({ force: false }).then(function () {
-    app.listen(PORT, function () {
-        console.log("App listening on PORT " + PORT);
-    });
+app.use(routes);
+
+sequelize.sync({ force: false }).then(() => {
+  app.listen(PORT, () => console.log('Now listening to port'+ PORT ));
 });

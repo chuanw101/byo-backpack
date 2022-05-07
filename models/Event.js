@@ -1,8 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection.js');
+const sequelize = require('../config/connection');
 
 class Event extends Model { }
-
 Event.init({
     // define columns
     id: {
@@ -14,6 +13,7 @@ Event.init({
     event_name: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
     },
     location: {
         type: DataTypes.STRING,
@@ -45,4 +45,4 @@ Event.init({
 }
 );
 
-module.exports = Event;
+module.exports = Event
