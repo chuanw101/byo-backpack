@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS byob_db;
+CREATE DATABASE byob_db;
