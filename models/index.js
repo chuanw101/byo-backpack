@@ -1,13 +1,7 @@
 // import models
-<<<<<<< HEAD
-const User = require('./User');
-const Event = require('./Event');
-const Item = require('./Item');
-=======
 const Item = require('./Item');
 const User = require('./User');
 const Event = require('./Event');
->>>>>>> dev
 const Attendee = require('./Attendee');
 
 // Item belongsTo Event
