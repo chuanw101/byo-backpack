@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Event, Item, User} = require("../../models");
+const { Event, Item, User } = require("../../models");
 
 
 //find all
@@ -40,6 +40,15 @@ router.get("/:id", (req, res) => {
 
 //create Event
 router.post("/", (req, res) => {
+/* req.body should look like this...
+{
+	"event_name":"new event",
+	"location":"seattle",
+	"date":"2023-01-01T23:28:56.782Z",
+	"picture_path":"random",
+	"items":["stuff", "thing", "anotherthing"]
+}
+*/
     if (!req.session.user) {
         return res.status(401).json({ msg: "must log in to create event!" })
     }
@@ -59,6 +68,7 @@ router.post("/", (req, res) => {
                         event_id: newEvent.id,
                     };
                 });
+                console.log(itemsArray)
                 return Item.bulkCreate(itemsArray);
             }
             // no items just respond
@@ -73,9 +83,18 @@ router.post("/", (req, res) => {
 
 //update Event
 router.put("/:id", (req, res) => {
-    Event.update(req.body, {
+    if (!req.session.user) {
+        return res.status(401).json({ msg: "must log in to create event!" })
+    }
+    Event.update({
+        event_name: req.body.event_name,
+        location: req.body.location,
+        date: req.body.date,
+        picture_path: req.body.picture_path,
+    }, {
         where: {
-            id: req.params.id
+            id: req.params.id,
+            creator_id: req.session.user.id
         }
     }).then(updatedEvent => {
         res.json(updatedEvent);
