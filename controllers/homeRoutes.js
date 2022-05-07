@@ -6,15 +6,19 @@ router.get('/', (req, res) => {
 
   res.render('home')
 });
-router.get('/home', (req, res) => {
+router.get('/profile', (req, res) => {
   
   const user = req.session.user
-  res.render('home', {user });
+  res.render('profile', {user });
 });
+
+
 router.get('/login', (req, res) => {
 
   res.render('login')
 });
+
+
 router.get('/signup', (req, res) => {
  
   res.render('signup')

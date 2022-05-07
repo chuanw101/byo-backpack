@@ -30,5 +30,20 @@ const bcrypt = require("bcrypt");
       res.status(500).json({ msg: "an error occured", err });
     });
   });
-  
+
+
+  router.post("/signup", (req, res) => {
+    User.create(req.body)
+      .then(newUser => {
+        req.session.user = {
+          id:newUser.id,
+          username:newUser.username
+        }
+        res.json(newUser);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({ msg: "This username  exist.Please use another username ", err });
+      });
+  });
 module.exports = router;
