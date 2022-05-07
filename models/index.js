@@ -1,7 +1,7 @@
 // import models
-const Event = require('./Event');
 const Item = require('./Item');
 const User = require('./User');
+const Event = require('./Event');
 const Attendee = require('./Attendee');
 
 // Item belongsTo Event
@@ -42,7 +42,6 @@ Event.belongsToMany(User, {
 
 module.exports = {
     Event,
-    Item,
-    User,
-    Attendee,
+    User
+
 };
