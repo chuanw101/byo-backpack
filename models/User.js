@@ -13,7 +13,7 @@ User.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        name: {
+        user_name: {
             type: DataTypes.STRING,
             allowNull: false,
         },
@@ -27,7 +27,11 @@ User.init(
     }, {
     hooks: {
         beforeCreate: async userData => {
-            userData.password = await bcrypt.has(userData.password, 5)
+            userData.password = await bcrypt.hash(userData.password, 5)
+            return userData
+        },
+        beforeUpdate: async userData => {
+            userData.password = await bcrypt.hash(userData.password, 5)
             return userData
         }
     }

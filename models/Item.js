@@ -12,7 +12,7 @@ Item.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        name: {
+        item_name: {
             type: DataTypes.STRING,
             allowNull: false,
         },
