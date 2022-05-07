@@ -12,10 +12,10 @@ User.init({
         primaryKey: true,
         autoIncrement: true,
     },
-    name: {
+    user_name: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
     },
     password: {
         type: DataTypes.STRING,
@@ -23,16 +23,20 @@ User.init({
         validate: {
             len: [8]
         }
-    }
+    },
 }, {
     hooks: {
-        beforeCreate: async userdata => {
-            userdata.password = await bcrypt.hash(userdata.password, 5)
-            return userdata
+        beforeCreate: async userData => {
+            userData.password = await bcrypt.hash(userData.password, 5)
+            return userData
+        },
+        beforeUpdate: async userData => {
+            userData.password = await bcrypt.hash(userData.password, 5)
+            return userData
         }
     },
     sequelize,
-    timestamps: false,
+    timestamps: true,
     freezeTableName: true,
     underscored: true,
     modelName: 'user',

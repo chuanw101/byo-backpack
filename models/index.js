@@ -42,6 +42,7 @@ Event.belongsToMany(User, {
 
 module.exports = {
     Event,
-    User
-
+    User,
+    Item,
+    Attendee,
 };
