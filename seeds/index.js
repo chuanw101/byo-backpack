@@ -1,41 +1,107 @@
-const sequelize = require("../config/connection")
-const {User,Item,Event,Attendee} = require("../models")
+const sequelize = require("../config/connection");
+const moment = require("moment");
+const {User,Item,Event,Attendee} = require("../models");
 
 const users = [
     {
-        username:"chuan",
+        user_name:"chuan",
         password:"password"
     },
     {
-        username:"lola",
+        user_name:"lola",
         password:"password"
     },
     {
-        username:"saghr",
+        user_name:"saghr",
         password:"password"
     },
     {
-        username:"jeff",
+        user_name:"jeff",
         password:"password"
     }
 ]
 
-const blogs = [
+const events = [
     {
-        title:"my first blog",
-        body:"Welcome to my blog, im going to do this every day! Like share subscribe",
-        UserId:1
+        event_name:"potluck",
+        location:"online",
+        date:moment().toDate(),
+        creator_id:1
     },
     {
-        title:"my final blog",
-        body:"I cant do this anymore, blogging every day is too hard.  It was a fun half week yall",
-        UserId:1
+        event_name:"poker night",
+        location:"online",
+        date:moment().toDate(),
+        creator_id:2
+    },
+]
+
+const items = [
+    {
+        item_name:"food",
+        event_id:1,
+        owner_id:1,
     },
     {
-        title:"Cats: a review",
-        body:"I love cats I love every kind of cat.  I want to hug all them but you cant. Cant hug every cat......Cant hug every cat. ",
-        UserId:2
-    }
+        item_name:"drinks",
+        event_id:1,
+        owner_id:2,
+    },
+    {
+        item_name:"stuff",
+        event_id:1,
+        owner_id:3,
+    },
+    {
+        item_name:"cards",
+        event_id:2,
+        owner_id:2,
+    },
+    {
+        item_name:"snacks",
+        event_id:2,
+        owner_id:3,
+    },
+    {
+        item_name:"beer",
+        event_id:2,
+        owner_id:4,
+    },
+]
+
+const attendees = [
+    {
+        event_id:1,
+        user_id:1,
+    },
+    {
+        event_id:1,
+        user_id:2,
+    },
+    {
+        event_id:1,
+        user_id:3,
+    },
+    {
+        event_id:1,
+        user_id:4,
+    },
+    {
+        event_id:2,
+        user_id:1,
+    },
+    {
+        event_id:2,
+        user_id:2,
+    },
+    {
+        event_id:2,
+        user_id:3,
+    },
+    {
+        event_id:2,
+        user_id:4,
+    },
 ]
 
 const feedMe = async ()=>{
@@ -44,7 +110,9 @@ const feedMe = async ()=>{
         await User.bulkCreate(users,{
             individualHooks:true
         });
-        await Blog.bulkCreate(blogs);
+        await Event.bulkCreate(events);
+        await Item.bulkCreate(items);
+        await Attendee.bulkCreate(attendees);
         process.exit(0);
     } catch(err){
         console.log(err)
