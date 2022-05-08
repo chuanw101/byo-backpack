@@ -15,7 +15,6 @@ router.get("/", (req, res) => {
             model: User,
             as: 'attendees'
         }],
-        nest: true,
     })
         .then(dbEvents => {
             res.json(dbEvents);
@@ -39,7 +38,6 @@ router.get("/:id", (req, res) => {
             model: User,
             as: 'attendees'
         }],
-        nest: true,
     })
         .then(dbEvent => {
             res.json(dbEvent);
@@ -80,7 +78,6 @@ router.post("/", (req, res) => {
                         event_id: newEvent.id,
                     };
                 });
-                console.log(itemsArray)
                 return Item.bulkCreate(itemsArray);
             }
             // no items just respond
