@@ -36,8 +36,9 @@ const bcrypt = require("bcrypt");
     User.create(req.body)
       .then(newUser => {
         req.session.user = {
-          id:newUser.id,
-          username:newUser.username
+          id: newUser.id,
+          user_name: newUser.user_name,
+          logged_in: true
         }
         res.json(newUser);
       })
