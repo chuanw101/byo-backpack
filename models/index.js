@@ -16,6 +16,7 @@ Event.hasMany(Item, {
 
 // Event belongs one creator
 Event.belongsTo(User, {
+    as: 'creator',
     foreignKey: "creator_id"
 });
 User.hasMany(Event, {
@@ -37,6 +38,7 @@ User.belongsToMany(Event, {
 });
 Event.belongsToMany(User, {
     through: Attendee,
+    as: 'attendees',
     foreignKey: 'event_id',
 });
 

@@ -8,7 +8,13 @@ router.get("/", (req, res) => {
         include: [{
             model: Item,
             include: [User]
-        }, User],
+        }, {
+            model: User,
+            as: 'creator'
+        }, {
+            model: User,
+            as: 'attendees'
+        }],
         nest: true,
     })
         .then(dbEvents => {
@@ -26,7 +32,13 @@ router.get("/:id", (req, res) => {
         include: [{
             model: Item,
             include: [User]
-        }, User],
+        }, {
+            model: User,
+            as: 'creator'
+        }, {
+            model: User,
+            as: 'attendees'
+        }],
         nest: true,
     })
         .then(dbEvent => {

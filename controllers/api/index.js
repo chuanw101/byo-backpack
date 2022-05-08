@@ -9,4 +9,7 @@ router.use("/events", eventRoutes);
 const itemRoutes = require("./itemRoutes");
 router.use("/items",itemRoutes);
 
+const attendeeRoutes = require("./attendeeRoutes");
+router.use("/attendees",attendeeRoutes);
+
 module.exports = router;
