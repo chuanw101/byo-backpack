@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Attendee, Event, Item } = require('../../models');
+const { Attendee, Item } = require('../../models');
 const bcrypt = require("bcrypt");
 
 //rsvp for event
