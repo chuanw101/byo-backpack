@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const { Event, Item, User } = require("../../models");
 
-
 //find all
 router.get("/", (req, res) => {
     Event.findAll({
@@ -20,6 +19,7 @@ router.get("/", (req, res) => {
             res.status(500).json({ msg: "an error occured", err });
         });
 });
+
 //find one
 router.get("/:id", (req, res) => {
     Event.findByPk(req.params.id, {
@@ -40,15 +40,15 @@ router.get("/:id", (req, res) => {
 
 //create Event
 router.post("/", (req, res) => {
-/* req.body should look like this...
-{
-	"event_name":"new event",
-	"location":"seattle",
-	"date":"2023-01-01T23:28:56.782Z",
-	"picture_path":"random",
-	"items":["stuff", "thing", "anotherthing"]
-}
-*/
+    /* req.body should look like this...
+    {
+        "event_name":"new event",
+        "location":"seattle",
+        "date":"2023-01-01T23:28:56.782Z",
+        "picture_path":"random",
+        "items":["stuff", "thing", "anotherthing"]
+    }
+    */
     if (!req.session.user) {
         return res.status(401).json({ msg: "must log in to create event!" })
     }
@@ -96,9 +96,10 @@ router.put("/:id", (req, res) => {
             id: req.params.id,
             creator_id: req.session.user.id
         }
-    }).then(updatedEvent => {
-        res.json(updatedEvent);
     })
+        .then(updatedEvent => {
+            res.json(updatedEvent);
+        })
         .catch(err => {
             console.log(err);
             res.status(500).json({ msg: "an error occured", err });
@@ -111,9 +112,10 @@ router.delete("/:id", (req, res) => {
         where: {
             id: req.params.id
         }
-    }).then(delEvent => {
-        res.json(delEvent);
     })
+        .then(delEvent => {
+            res.json(delEvent);
+        })
         .catch(err => {
             console.log(err);
             res.status(500).json({ msg: "an error occured", err });
