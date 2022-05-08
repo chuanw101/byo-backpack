@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Event, Item, User } = require("../../models");
+const { Item, User } = require("../../models");
 
 //find all
 router.get("/", (req, res) => {
@@ -55,7 +55,7 @@ router.put("/:id", (req, res) => {
         return res.status(401).json({ msg: "must log in to create item!" })
     }
     Item.update({
-        owner_id: req.session.user,
+        owner_id: req.session.user.id,
     }, {
         where: {
             id: req.params.id,
