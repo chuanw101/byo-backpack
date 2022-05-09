@@ -1,0 +1,44 @@
+<div class="row d-flex justify-content-center">
+    <div class="card col-12 my-5">
+        <div class="card-body">
+            <h2 class="card-title my-4 text-center">Event Name</h2>
+            <div class="row pt-1">
+                <div class="col d-flex justify-content-end">
+                    <img src="http://placekitten.com/500/400" alt="">
+                </div>
+                <div class="col pt-2">
+                    <h5>Location:</h5>
+                    <p>{{location}}</p>
+                    <h5>Start:</h5>
+                    <p>{{start_date}}</p>
+                    <h5>End:</h5>
+                    <p>{{end_date}}</p>
+                    <h5>Details:</h5>
+                    <p>{{description}}</p>
+                    <h5>Event Host:</h5>
+                    <p>{{creator_id}}</p>
+                </div>
+            </div>
+            <div class="row my-5">
+                <h4 class="text-center mb-3">Backpack Items</h4>
+                <div class="d-flex justify-content-center">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="item1" value="item1">
+                        <label class="form-check-label" for="item1">Item 1</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="item2" value="item2">
+                        <label class="form-check-label" for="item2">Item 2</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="item3" value="item3" disabled>
+                        <label class="form-check-label" for="item3">Item 3 (disabled)</label>
+                    </div>
+                </div>
+            </div>
+            <div class="d-grid gap-2 my-3">
+                <button type="button" class="btn btn-dark" id="rsvp">RSVP</button>
+            </div>
+        </div>
+    </div>
+</div>

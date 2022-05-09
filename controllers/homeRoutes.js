@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
   })
     .then(dbEvents => {
       const hbsEvents = dbEvents.map(event => event.get({ plain: true }))
-      res.render('home', {event: hbsEvents})
+      res.render('home', { event: hbsEvents })
     });
 });
 
@@ -50,9 +50,35 @@ router.get("/eventbyid/:id", (req, res) => {
 
 router.get('/profile', (req, res) => {
 
-  const user = req.session.user
-  res.render('profile', { user });
-});
+  const userEvent = await Event.findAll({
+    include: [{
+      model: Item,
+      include: [User]
+  }, {
+      model: User,
+      as: 'creator'
+  }, 
+  {
+      model: User,
+      as: 'attendees'
+  }
+],
+    where: {
+      id: req.session.user.id
+    }
+  }).catch((err) => {
+    res.json(err)
+  })
+  const events = userEvent.map((event) => event.get({ plain: true }));
+  const user = req.session.user;
+  console.log("---------")
+  console.log(events)
+  // console.log(user)
+ if(events){
+
+   res.render('profile', { events, user });
+ }
+})
 
 
 router.get('/login', (req, res) => {
