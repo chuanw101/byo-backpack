@@ -44,6 +44,12 @@ router.get("/eventbyid/:id", (req, res) => {
           data.user.isRSVP = true;
         }
       }
+      // check if item is brought by user
+      for (const item of data.items) {
+        if (item.owner_id == data.user.id){
+          item.isBroughtByUser = true;
+        }
+      }
       res.render("eventbyid", data)
   })
 })

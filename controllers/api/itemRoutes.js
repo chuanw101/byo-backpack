@@ -49,15 +49,17 @@ router.post("/:event_id", (req, res) => {
         });
 });
 
-//bring item for event
+//bring/cant bring item for event
 router.put("/:id", (req, res) => {
-    console.log("hello")
-    console.log(req)
     if (!req.session.user) {
         return res.status(401).json({ msg: "must log in to create item!" })
     }
+    let id = null;
+    if (req.body.bring) {
+        id = req.session.user.id;
+    }
     Item.update({
-        owner_id: req.session.user.id,
+        owner_id: id,
     }, {
         where: {
             id: req.params.id,
