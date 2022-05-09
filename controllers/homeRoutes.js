@@ -49,8 +49,7 @@ router.get("/eventbyid/:id", (req, res) => {
 })
 
 router.get('/profile', (req, res) => {
-
-  const userEvent = await Event.findAll({
+  const userEvent = Event.findAll({
     include: [{
       model: Item,
       include: [User]
@@ -88,7 +87,6 @@ router.get('/login', (req, res) => {
 
 
 router.get('/signup', (req, res) => {
-
   res.render('signup')
 });
 
