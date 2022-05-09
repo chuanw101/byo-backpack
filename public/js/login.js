@@ -12,7 +12,7 @@ document.querySelector("#login").addEventListener("submit",e=>{
       }
   }).then(res=>{
       if(res.ok){
-        document.location.replace('/profile');
+        document.location.replace('/');
       } else {
           alert("login failed")
       }
