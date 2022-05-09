@@ -51,6 +51,8 @@ router.post("/:event_id", (req, res) => {
 
 //bring item for event
 router.put("/:id", (req, res) => {
+    console.log("hello")
+    console.log(req)
     if (!req.session.user) {
         return res.status(401).json({ msg: "must log in to create item!" })
     }
