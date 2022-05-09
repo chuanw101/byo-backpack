@@ -38,7 +38,68 @@
     </header>
 
     <main class="container container-fluid mt-5">
-        {{{body}}}
+
+
+        <div class="row mt-5">
+            <h1>Welcome, {{username}}!</h1>
+            <div class="card col-12 my-5">
+                <div class="card-body">
+                    <h2 class="card-title  mt-2 mb-3">Create a New Event</h2>
+                    <form>
+                        <div class="mb-3">
+                            <label for="eventName" class="form-label">Event Name</label>
+                            <input class="form-control" id="eventName" placeholder="Beach Bonfire">
+                        </div>
+                        <div class="mb-3">
+                            <label for="location" class="form-label">Location</label>
+                            <input class="form-control" id="location" placeholder="Golden Gardens">
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">Upload Image</label>
+                            <input class="form-control" type="file" id="formFile">
+                          </div>
+
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="startDate" class="form-label">Start Date</label>
+                                <input type="text" class="form-control" placeholder="Click to select" aria-label="startDate" id="startDate">
+                            </div>
+                            <div class="col">
+                                <label for="startTime" class="form-label">Start Time</label>
+                                <input type="text" class="form-control" placeholder="" aria-label="startTime" id="startTime">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="endDate" class="form-label">End Date</label>
+                                <input type="text" class="form-control" placeholder="Click to select" aria-label="endDate" id="endDate">
+                            </div>
+                            <div class="col">
+                                <label for="endTime" class="form-label">End Time</label>
+                                <input type="text" class="form-control" placeholder="" aria-label="endTime" id="endTime">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="backpackItems" class="form-label">Backpack Items</label>
+                            <input class="form-control" id="backpackItems" placeholder="Umbrella, towels, etc.">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="startDate" class="form-label">Event Description</label>
+                            <textarea class="form-control" id="eventDescription" rows="6" placeholder="More details..."></textarea>
+                        </div>
+
+                        <div class="d-grid gap-2 my-3">
+                            <button type="button" class="btn btn-dark" id="newEventSubmit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
     </main>
 
     <footer>
