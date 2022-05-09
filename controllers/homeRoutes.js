@@ -21,7 +21,34 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/profile', async (req, res) => {
+//render event by id
+router.get("/eventbyid/:id", (req, res) => {
+  Event.findByPk(req.params.id, {
+    include: [{
+      model: Item,
+      include: [User]
+    }, {
+      model: User,
+      as: 'creator'
+    }, {
+      model: User,
+      as: 'attendees'
+    }],
+  }).then(eventData => {
+      const data = eventData.get({ plain: true })
+      data.user = req.session?.user
+      data.user.isRSVP = false;
+      // check if user is RSVP'd
+      for (const att of data.attendees) {
+        if (att.id == data.user.id) {
+          data.user.isRSVP = true;
+        }
+      }
+      res.render("eventbyid", data)
+  })
+})
+
+router.get('/profile', (req, res) => {
 
   const userEvent = await Event.findAll({
     include: [{
@@ -66,14 +93,7 @@ router.get('/signup', (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-
-  if (req.session.user.logged_in) {
-    req.session.destroy(() => {
-      res.status(204).end();
-      res.render('/login');
-    });
-  } else {
-    res.status(404).end();
-  }
+  req.session.destroy();
+  res.redirect("/login")
 });
 module.exports = router;

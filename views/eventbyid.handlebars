@@ -1,0 +1,34 @@
+<h3>{{event_name}}</h3>
+<p>At {{location}}, created by {{creator.user_name}}</p>
+<p>{{date}}</p>
+<h4>Stuff to bring:</h4>
+<hr>
+{{#each items}}
+<p>{{comment}}</p>
+<p>{{item_name}} ---
+    {{#unless user.user_name}}
+    <button class="btn btn-secondary brgBtn" value={{id}}>I got this</button>
+    {{else}}
+    {{user.user_name}}
+    {{/unless}}
+</p>
+<hr>
+{{/each}}
+
+<h4>Attendees</h4>
+{{#each attendees}}
+{{user_name}}
+{{/each}}
+
+<hr>
+<h1>RSVP STATUS {{user.isRSVP}}</h1>
+{{#if user.logged_in}}
+{{#unless user.isRSVP}}
+<button class="btn btn-dark" id="rsvpBtn" value={{id}}>RSVP</button>
+{{else}}
+<h4>You Are Already RSVP'd</h4>
+<button class="btn btn-dark" id="leaveBtn" value={{id}}>Leave</button>
+{{/unless}}
+{{/if}}
+
+<script src="/js/eventbyid.js"></script>
