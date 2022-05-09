@@ -6,7 +6,10 @@ router.use('/users', userRoutes);
 const eventRoutes = require("./eventRoutes");
 router.use("/events", eventRoutes);
 
-// const itemRoutes = require("./itemsRoutes");
-// router.use("/items",itemRoutes);
+const itemRoutes = require("./itemRoutes");
+router.use("/items",itemRoutes);
+
+const attendeeRoutes = require("./attendeeRoutes");
+router.use("/attendees",attendeeRoutes);
 
 module.exports = router;

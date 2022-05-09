@@ -1,3 +1,16 @@
-home!!
-
-   
+<h1>Home Page</h1>
+<hr>
+{{#each event}}
+<h3>{{event_name}}</h3>
+<p>At {{location}}, created by {{creator.user_name}}</p>
+<p>{{date}}</p>
+<h4>Stuff to bring:</h4>
+{{#each items}}
+<p>{{item_name}} --- {{user.user_name}}</p>
+{{/each}}
+<h4>Attendees</h4>
+{{#each attendees}}
+{{user_name}}
+{{/each}}
+<hr>
+{{/each}}
