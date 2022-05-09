@@ -32,6 +32,7 @@ const bcrypt = require("bcrypt");
   });
 
 
+
   router.post("/signup", (req, res) => {
     User.create(req.body)
       .then(newUser => {

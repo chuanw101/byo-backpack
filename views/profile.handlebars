@@ -1,1 +1,39 @@
 profile!!
+Welcome{{user.user_name}}
+
+{{#each events as | event|}}
+
+<div>
+    <div>
+        <div class=" ">
+            <h3> {{event.event_name}}</h3>
+        </div>
+        <div>
+            Created by:
+            {{event.creator.user_name}}
+        </div>
+        <div>
+            Items:
+            {{#items}}
+            <ul>
+                <li>{{item_name}}</li>
+            </ul>
+            {{/items}}
+        </div>
+        <div>
+            Attendee:
+            {{#attendees}}
+            <ul>
+                <li>{{user_name}}</li>
+            </ul>
+            {{/attendees}}
+        </div>
+    </div>
+    <div>
+        {{event.location}}
+    </div>
+    <button class="deleteBtn" value="{{event_id}}">delete</button>
+    <button class="updateBtn" value="{{event_id}}">update</button>
+
+</div>
+{{/each}}
