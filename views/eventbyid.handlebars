@@ -11,6 +11,9 @@
     {{else}}
     {{user.user_name}}
     {{/unless}}
+    {{#if isBroughtByUser}}
+    <button class="btn btn-secondary cantBrgBtn" value={{id}}>No longer got this</button>
+    {{/if}}
 </p>
 <hr>
 {{/each}}
