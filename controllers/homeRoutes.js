@@ -21,6 +21,27 @@ router.get('/', (req, res) => {
     });
 });
 
+//render event by id
+router.get("/eventbyid/:id", (req, res) => {
+  Event.findByPk(req.params.id, {
+    include: [{
+      model: Item,
+      include: [User]
+    }, {
+      model: User,
+      as: 'creator'
+    }, {
+      model: User,
+      as: 'attendees'
+    }],
+  }).then(eventData => {
+      const data = eventData.get({ plain: true })
+      data.logged_in = req.session.user ? true : false
+      data.user_name = req.session.user?.username
+      res.render("eventbyid", data)
+  })
+})
+
 router.get('/profile', (req, res) => {
 
   const user = req.session.user
