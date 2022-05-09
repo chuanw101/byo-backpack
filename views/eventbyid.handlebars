@@ -15,10 +15,20 @@
 <hr>
 {{/each}}
 
-<hr>
+<h4>Attendees</h4>
+{{#each attendees}}
+{{user_name}}
+{{/each}}
 
+<hr>
+<h1>RSVP STATUS {{user.isRSVP}}</h1>
 {{#if user.logged_in}}
+{{#unless user.isRSVP}}
 <button class="btn btn-dark" id="rsvpBtn" value={{id}}>RSVP</button>
+{{else}}
+<h4>You Are Already RSVP'd</h4>
+<button class="btn btn-dark" id="leaveBtn" value={{id}}>Leave</button>
+{{/unless}}
 {{/if}}
 
 <script src="/js/eventbyid.js"></script>

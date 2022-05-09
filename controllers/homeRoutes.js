@@ -37,6 +37,13 @@ router.get("/eventbyid/:id", (req, res) => {
   }).then(eventData => {
       const data = eventData.get({ plain: true })
       data.user = req.session?.user
+      data.user.isRSVP = false;
+      // check if user is RSVP'd
+      for (const att of data.attendees) {
+        if (att.id == data.user.id) {
+          data.user.isRSVP = true;
+        }
+      }
       res.render("eventbyid", data)
   })
 })
