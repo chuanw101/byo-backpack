@@ -105,30 +105,43 @@ router.get('/profile', (req, res) => {
     });
 });
 
-//find one
+//find one event 
 router.get("/profile/update/:id", async (req, res) => {
-  console.log("hiiiiiiiiiiiiiiiiiiiiiiiii")
   try {
     const dbEvent =await Event.findByPk(req.params.id, {
       include: [{
-          model: Item,
-          include: [User]
-      }, {
-          model: User,
-          as: 'creator'
-      }, {
-          model: User,
-          as: 'attendees'
-      }],
+        model: Item,
+        include: [User]
+    }, {
+        model: User,
+        as: 'creator'
+    }, {
+        model: User,
+        as: 'attendees',
+    }, {
+        model: User,
+        as: 'noresponses',
+        where: {'$noresponses.attendee.rsvp_status$': 0}, required: false
+    }, {
+        model: User,
+        as: 'yeses',
+        where: {'$yeses.attendee.rsvp_status$': 1}, required: false
+    }, {
+        model: User,
+        as: 'noes',
+        where: {'$noes.attendee.rsvp_status$': 2}, required: false
+    }, {
+        model: User,
+        as: 'maybes',
+        where: {'$maybes.attendee.rsvp_status$': 3}, required: false
+    },
+  ],
   })
       const eventUpdate = dbEvent.get({ plain: true });
       const user = req.session.user
-      // eventUpdate.items.forEach(element => {
-        
-      // });
+     console.log("==========%%%%%%%%%%%%%%%")
 console.log(eventUpdate)
       res.render('updateEvent',{eventUpdate,user})
-      // res.json(eventUpdate);
 
   } catch (err) {
 

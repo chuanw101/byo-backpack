@@ -19,11 +19,12 @@ const newPassword = async (event) => {
                 'Content-Type': 'application/json',
             },
         });
-
+console.log(response)
         if (response.ok) {
             document.location.replace('/profile');
 
         } else {
+            // response.
             alert('Failed to update');
         }
     }
@@ -31,7 +32,9 @@ const newPassword = async (event) => {
         alert('Passwors are not match');
     }
 }catch(err){
-    alert(err)
+    alert('the new password is not valid')
+    console.log(err)
+    // alert(msg)
 }
 };
 document.querySelector('#newPassBtn').addEventListener('click', newPassword);

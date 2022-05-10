@@ -27,7 +27,7 @@ for (const updateBtn of updateBtns) {
     updateBtn.addEventListener('click', updateEvent);
 
      function updateEvent(e) {
-        console.log(`/update/${e.target.value}`)
+       
             document.location.replace(`/profile/update/${e.target.value}`);
         
     }
@@ -100,11 +100,14 @@ for (const button of pubBtns) {
 //     }
 // }
 
-const changePassBtn = document.querySelector("#changePssword");
 
-changePassBtn.addEventListener('click', changePassword);
 
-     function changePassword(e) {
-            document.location.replace(`/profile/changepassword`);
+
+// const changePassBtn = document.querySelector("#changePssword");
+
+// changePassBtn.addEventListener('click', changePassword);
+
+//      function changePassword() {
+//             document.location.replace(`/profile/changepassword`);
         
-    }
+//     }
