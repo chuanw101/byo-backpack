@@ -27,7 +27,6 @@ for (const updateBtn of updateBtns) {
     updateBtn.addEventListener('click', updateEvent);
 
      function updateEvent(e) {
-         console.log(e.target.value)
         console.log(`/update/${e.target.value}`)
             document.location.replace(`/profile/update/${e.target.value}`);
         
@@ -52,3 +51,12 @@ for (const updateBtn of updateBtns) {
 //         }
 //     }
 // }
+
+const changePassBtn = document.querySelector("#changePssword");
+
+changePassBtn.addEventListener('click', changePassword);
+
+     function changePassword(e) {
+            document.location.replace(`/profile/changepassword`);
+        
+    }
