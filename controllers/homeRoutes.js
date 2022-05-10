@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { User, Event, Item } = require('../models');
 
-// home route
+// home route, only shows public events
 router.get('/', (req, res) => {
   Event.findAll({
     include: [{
@@ -9,7 +9,8 @@ router.get('/', (req, res) => {
       include: [User]
     }, {
       model: User,
-      as: 'creator'
+      as: 'creator',
+      where: { '$public$': true }
     }, {
       model: User,
       as: 'attendees'

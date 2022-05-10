@@ -56,13 +56,8 @@ router.put('/chnagePassword/:id', async (req, res) => {
           individualHooks: true
         });
 
-        // if (dbPass) {
-
         res.send("password changed");
-        // }
-        // else {
-        //   res.send("The new password does not validate");
-        // }
+     
       }
       else {
         res.send("The current password does not match");
