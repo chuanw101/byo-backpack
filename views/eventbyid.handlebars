@@ -24,10 +24,10 @@
                 <div class="d-flex flex-column text-center">
                     <hr class="my-2">
                     {{#each items}}
-                    <p>{{comment}}</p>
+                    <p>{{../user.isGoing}}</p>
                     <p class="m-0">{{item_name}} ---
                         {{#unless user.user_name}}
-                        {{#if ../user.isRSVP}}
+                        {{#if ../user.isGoing}}
                         <button class="btn btn-secondary brgBtn" value={{id}}>I got this</button>
                         {{/if}}
                         {{else}}
@@ -42,11 +42,47 @@
                 </div>
             </div>
             <div class="row my-5">
-                <h4 class="text-center mb-3">Attendees</h4>
+                <h4 class="text-center mb-3">Definately Going</h4>
                 <div class="d-flex justify-content-center">
                     <hr>
                     <p class="px-2">|</p>
-                    {{#each attendees}}
+                    {{#each yeses}}
+                    <p class="px-2">{{user_name}}</p>
+                    <p class="px-2">|</p>
+                    {{/each}}
+                    <hr>
+                </div>
+            </div>
+            <div class="row my-5">
+                <h4 class="text-center mb-3">Maybe Going</h4>
+                <div class="d-flex justify-content-center">
+                    <hr>
+                    <p class="px-2">|</p>
+                    {{#each maybes}}
+                    <p class="px-2">{{user_name}}</p>
+                    <p class="px-2">|</p>
+                    {{/each}}
+                    <hr>
+                </div>
+            </div>
+            <div class="row my-5">
+                <h4 class="text-center mb-3">Not Going</h4>
+                <div class="d-flex justify-content-center">
+                    <hr>
+                    <p class="px-2">|</p>
+                    {{#each noes}}
+                    <p class="px-2">{{user_name}}</p>
+                    <p class="px-2">|</p>
+                    {{/each}}
+                    <hr>
+                </div>
+            </div>
+            <div class="row my-5">
+                <h4 class="text-center mb-3">Deciding</h4>
+                <div class="d-flex justify-content-center">
+                    <hr>
+                    <p class="px-2">|</p>
+                    {{#each noresponses}}
                     <p class="px-2">{{user_name}}</p>
                     <p class="px-2">|</p>
                     {{/each}}

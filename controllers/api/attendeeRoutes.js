@@ -35,8 +35,20 @@ router.put("/:event_id", (req, res) => {
         }
     })
         .then(updateAttendee => {
+            // can't bring item if not going, set owner_id of item to null
+            if (req.body.rsvp_status != 1) {
+                return Item.update({
+                    owner_id: null,
+                }, {
+                    where: {
+                        event_id: req.params.event_id,
+                        owner_id: req.session.user.id,
+                    }
+                })
+            }
             res.json(updateAttendee);
         })
+        .then(items => res.json(items))
         .catch(err => {
             console.log(err);
             res.status(500).json({ msg: "an error occured", err });
