@@ -78,9 +78,7 @@ router.get('/profile',async (req, res) => {
   })
   const events = userEvent.map((event) => event.get({ plain: true }));
   const user = req.session.user;
-  console.log("---------")
   console.log(events)
-  console.log(user)
  if(events){
 
     res.render('profile', { events, user });
@@ -105,6 +103,9 @@ router.get("/profile/update/:id", async (req, res) => {
   })
       const eventUpdate = dbEvent.get({ plain: true });
       const user = req.session.user
+      // eventUpdate.items.forEach(element => {
+        
+      // });
 console.log(eventUpdate)
       res.render('updateEvent',{eventUpdate,user})
       // res.json(eventUpdate);
@@ -125,6 +126,9 @@ router.get('/login', (req, res) => {
 
 router.get('/signup', (req, res) => {
   res.render('signup')
+});
+router.get('/profile/changepassword', (req, res) => {
+  res.render('changepassword')
 });
 
 router.get('/logout', (req, res) => {
