@@ -138,6 +138,12 @@ console.log(eventUpdate)
 
 });
 
+router.get("/create_an_event", async (req, res) => {
+  const user = req.session?.user
+res.render('createEvent')
+
+});
+
 router.get('/login', (req, res) => {
 
   res.render('login')
