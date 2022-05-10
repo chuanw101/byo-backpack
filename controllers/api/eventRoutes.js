@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { Event, Item, User } = require("../../models"); 
+const { Event, Item, User } = require("../../models");
 const cloudinary = require("cloudinary").v2
-
 //find all
 router.get("/", (req, res) => {
     Event.findAll({
@@ -41,7 +40,6 @@ router.get("/", (req, res) => {
             res.status(500).json({ msg: "an error occured", err });
         });
 });
-
 //find one
 router.get("/:id", (req, res) => {
     Event.findByPk(req.params.id, {
@@ -80,7 +78,6 @@ router.get("/:id", (req, res) => {
             res.status(500).json({ msg: "an error occured", err });
         });
 });
-
 //create Event
 router.post("/", (req, res) => {
     /* req.body should look like this...
@@ -127,39 +124,33 @@ router.post("/", (req, res) => {
             res.status(500).json({ msg: "an error occured", err });
         });
 });
-
 //update Event
-router.put('/update/:id',async (req, res) => {
-    // try{
-
-    
+router.put("/:id", (req, res) => {
     if (!req.session.user) {
         return res.status(401).json({ msg: "must log in to create event!" })
     }
-    console.log("@@@@@@==========@@@@")
-    console.log(req.body.event_name + " " + req.body.location + " " + req.body.start_time + " " + req.body.end_time + " " + req.body.picture_path + " " + req.body.public + " " + req.body.description + " " )
-
-    const dbEvent= await Event.update({
+    Event.update({
         event_name: req.body.event_name,
         location: req.body.location,
-        // start_time: req.body.start_time,
-        // end_time: req.body.end_time,
-        // picture_path: req.body.picture_path,
+        start_time: req.body.start_time,
+        end_time: req.body.end_time,
+        picture_path: req.body.picture_path,
         description: req.body.description,
-        public: req.body.public,
+        public: req.body.public
     }, {
         where: {
             id: req.params.id,
             creator_id: req.session.user.id
         }
     })
-    console.log(dbEvent)
-        
-// }catch(eer){
-//     res.status(500).json({ msg: "an error occured", err });
-// }
+        .then(updatedEvent => {
+            res.json(updatedEvent);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ msg: "an error occured", err });
+        });
 });
-
 //delete a Event
 router.delete("/:id", (req, res) => {
     Event.destroy({
@@ -175,5 +166,4 @@ router.delete("/:id", (req, res) => {
             res.status(500).json({ msg: "an error occured", err });
         });
 });
-
 module.exports = router;

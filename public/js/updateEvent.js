@@ -55,13 +55,13 @@ const updateEventHandler = async (event) => {
         const eventId = document.querySelector('#updateEventSubmit').value;
   console.log(`/api/events/update/${eventId}`)
         // console.log(event_name + " " + location + " " + picture_path + " " + start_time + " " + end_time + " " + public + " " + description + " " + eventId)
-        const response = await fetch(`/api/events/update/${eventId}`, {
+        const response = await fetch(`/api/events/${eventId}`, {
             method: 'PUT',
             body: JSON.stringify({
                 event_name,
                 location,
-                start_time,
-                end_time,
+                // start_time,
+                // end_time,
                 picture_path,
                 description,
                 public,
@@ -73,7 +73,7 @@ const updateEventHandler = async (event) => {
         });
         // console.log(response)
         // alert('the Event has been updated')
-        // document.location.replace('/profile');
+        document.location.replace('/profile');
 
 
 
