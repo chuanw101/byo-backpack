@@ -25,7 +25,9 @@
                     <p>{{comment}}</p>
                     <p class="m-0">{{item_name}} ---
                         {{#unless user.user_name}}
+                        {{#if ../user.isRSVP}}
                         <button class="btn btn-secondary brgBtn" value={{id}}>I got this</button>
+                        {{/if}}
                         {{else}}
                         {{user.user_name}}
                         {{/unless}}
