@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
             include: [User]
         }, {
             model: User,
-            as: 'creator'
+            as: 'creator',
         }, {
             model: User,
             as: 'attendees',
@@ -30,7 +30,7 @@ router.get("/", (req, res) => {
             model: User,
             as: 'maybes',
             where: { '$maybes.attendee.rsvp_status$': 3 }, required: false
-        }],
+        },],
     })
         .then(dbEvents => {
             res.json(dbEvents);
