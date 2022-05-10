@@ -78,7 +78,7 @@ router.get('/profile',async (req, res) => {
   })
   const events = userEvent.map((event) => event.get({ plain: true }));
   const user = req.session.user;
-  console.log(events)
+  // console.log(events)
  if(events){
 
     res.render('profile', { events, user });
@@ -128,7 +128,8 @@ router.get('/signup', (req, res) => {
   res.render('signup')
 });
 router.get('/profile/changepassword', (req, res) => {
-  res.render('changepassword')
+  const user = req.session.user
+  res.render('changepassword',{user})
 });
 
 router.get('/logout', (req, res) => {
