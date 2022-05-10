@@ -1,0 +1,7 @@
+:root {
+    --mainGreen: #3a5a40;
+}
+
+.custom-nav {
+    background-color: var(--mainGreen)
+}

@@ -7,37 +7,35 @@
                     <img src="http://placekitten.com/500/400" alt="">
                 </div>
                 <div class="col pt-2">
-                    <h5>Location:</h5>
-                    <p>{{location}}</p>
-                    <h5>Starts:</h5>
-                    <p>{{format_time start_time}}</p>
-                    <h5>Ends:</h5>
-                    <p>{{format_time end_time}}</p>
+                    <div class="mb-2">
+                        <h5 class="d-inline">Location:</h5>
+                        <p class="d-inline">{{location}}</p>
+                    </div>
+                    <div class="mb-2">
+                        <h5 class="d-inline">Starts:</h5>
+                        <p class="d-inline">{{format_time start_time}}</p>
+                    </div>
+                    <div class="mb-2">
+                        <h5 class="d-inline">Ends:</h5>
+                        <p class="d-inline">{{format_time end_time}}</p>
+                    </div>
+                    <div class="mb-2">
+                        <h5 class="d-inline">Event Host:</h5>
+                        <p class="d-inline">{{creator.user_name}}</p>
+                    </div>
                     <h5>Description:</h5>
                     <p>{{description}}</p>
-                    <h5>Event Host:</h5>
-                    <p>{{creator.user_name}}</p>
                 </div>
             </div>
             <div class="row my-5">
                 <h4 class="text-center mb-3">Backpack Items</h4>
-                <div class="d-flex flex-column text-center">
+                <div class="d-flex justify-content-center">
                     <hr class="my-2">
                     {{#each items}}
-                    <p>{{../user.isGoing}}</p>
-                    <p class="m-0">{{item_name}} ---
-                        {{#unless user.user_name}}
-                        {{#if ../user.isGoing}}
-                        <button class="btn btn-secondary brgBtn" value={{id}}>I got this</button>
-                        {{/if}}
-                        {{else}}
-                        {{user.user_name}}
-                        {{/unless}}
-                        {{#if isBroughtByUser}}
-                        <button class="btn btn-secondary cantBrgBtn" value={{id}}>No longer got this</button>
-                        {{/if}}
-                    </p>
-                    <hr class="mt-4 mb-3">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input claimCheck" type="checkbox" id={{id}} value={{item_name}} {{#if owner_id}} {{#if isBroughtByUser}} checked {{else}} checked disabled {{/if}}{{/if}}>
+                        <label class="form-check-label" for={{id}}>{{item_name}}{{#if owner_id}}{{#if isBroughtByUser}}{{else}}, claimed by{{user.user_name}}{{/if}}{{/if}}</label>
+                    </div>
                     {{/each}}
                 </div>
             </div>
