@@ -95,7 +95,7 @@ router.get('/profile',async (req, res) => {
     }
     ],
     where: {
-      creator_id: req.session.user.id
+      creator_id: req.session.user?.id
     }
   }).catch((err) => {
     res.json(err)
