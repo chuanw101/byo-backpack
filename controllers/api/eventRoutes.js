@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { Event, Item, User } = require("../../models");
+const { Event, Item, User } = require("../../models"); 
+const cloudinary = require("cloudinary").v2
 
 //find all
 router.get("/", (req, res) => {
@@ -84,7 +85,7 @@ router.post("/", (req, res) => {
     Event.create({
         event_name: req.body.event_name,
         location: req.body.location,
-        start_time: req.body.start_tme,
+        start_time: req.body.start_time,
         end_time: req.body.end_time,
         picture_path: req.body.picture_path,
         description: req.body.description,
@@ -119,7 +120,7 @@ router.put("/:id", (req, res) => {
     Event.update({
         event_name: req.body.event_name,
         location: req.body.location,
-        start_time: req.body.start_tme,
+        start_time: req.body.start_time,
         end_time: req.body.end_time,
         picture_path: req.body.picture_path,
         description: req.body.description,
