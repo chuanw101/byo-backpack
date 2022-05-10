@@ -32,8 +32,11 @@ Welcome{{user.user_name}}
     <div>
         {{event.location}}
     </div>
-    <button class="deleteBtn" value="{{event_id}}">delete</button>
-    <button class="updateBtn" value="{{event_id}}">update</button>
+{{event.event_name}}
+{{event.id}}
+    <button class="deleteBtn" value={{event.id}}>Delete</button>
+    <button class="updateBtn" value={{event.id}}>update</button>
 
 </div>
 {{/each}}
+<script src="/js/eventAction.js"></script>

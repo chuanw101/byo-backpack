@@ -48,8 +48,8 @@ router.get("/eventbyid/:id", (req, res) => {
   })
 })
 
-router.get('/profile', (req, res) => {
-  const userEvent = Event.findAll({
+router.get('/profile',async (req, res) => {
+  const userEvent =await Event.findAll({
     include: [{
       model: Item,
       include: [User]
@@ -63,7 +63,7 @@ router.get('/profile', (req, res) => {
   }
 ],
     where: {
-      id: req.session.user.id
+      creator_id: req.session.user.id
     }
   }).catch((err) => {
     res.json(err)
@@ -72,13 +72,42 @@ router.get('/profile', (req, res) => {
   const user = req.session.user;
   console.log("---------")
   console.log(events)
-  // console.log(user)
+  console.log(user)
  if(events){
 
    res.render('profile', { events, user });
  }
 })
 
+//find one
+router.get("/profile/update/:id", async (req, res) => {
+  console.log("hiiiiiiiiiiiiiiiiiiiiiiiii")
+  try {
+    const dbEvent =await Event.findByPk(req.params.id, {
+      include: [{
+          model: Item,
+          include: [User]
+      }, {
+          model: User,
+          as: 'creator'
+      }, {
+          model: User,
+          as: 'attendees'
+      }],
+  })
+      const eventUpdate = dbEvent.get({ plain: true });
+      const user = req.session.user
+console.log(eventUpdate)
+      res.render('updateEvent',{eventUpdate,user})
+      // res.json(eventUpdate);
+
+  } catch (err) {
+
+      console.log(err);
+      res.status(500).json({ msg: "an error occured", err })
+  }
+
+});
 
 router.get('/login', (req, res) => {
 
