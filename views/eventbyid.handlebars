@@ -29,6 +29,29 @@
             </div>
             <div class="row my-5">
                 <h4 class="text-center mb-3">Backpack Items</h4>
+                <div class="d-flex justify-content-center">
+                    <hr class="my-2">
+                        {{#each items}}
+                        <div class="form-check form-check-inline">
+                            {{!-- {{#if isBroughtByUser}} --}}
+                            <input class="form-check-input" type="checkbox" id={{id}} value={{item_name}} {{#if owner_id}} {{#if isBroughtByUser}} checked {{else}} checked disabled {{/if}}{{/if}}>
+                            <label class="form-check-label" for={{id}}>{{item_name}}</label>
+
+                            {{!-- <input class="form-check-input" type="checkbox" id={{id}} value={{item_name}} {{#if isBroughtByUser}}checked{{/if}}>
+                            <label class="form-check-label" for={{id}}>{{item_name}}</label> --}}
+                            {{!-- {{/if}} --}}
+                            {{!-- {{else owner_id}}
+                            <input class="form-check-input" type="checkbox" id={{id}} value={{item_name}} checked disabled>
+                            <label class="form-check-label" for={{id}}>{{item_name}}, claimed by {{user.user_name}}</label>
+                            {{/if}} --}}
+                        </div>
+                    
+                    <hr class="mt-4 mb-3">
+                    {{/each}}
+                </div>
+            </div>
+            <div class="row my-5">
+                <h4 class="text-center mb-3">Backpack Items</h4>
                 <div class="d-flex flex-column text-center">
                     <hr class="my-2">
                     {{#each items}}
