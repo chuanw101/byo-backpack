@@ -47,6 +47,10 @@ Event.init({
             key: 'id',
         }
     },
+    public: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+    }
 }, {
     sequelize,
     timestamps: true,
