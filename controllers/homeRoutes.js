@@ -93,7 +93,7 @@ router.get('/profile', (req, res) => {
       as: 'attendees'
     }],
     where: {
-      creator_id: req.session.user.id
+      creator_id: req.session.user?.id
     }
   })
     .then(dbEvents => {
