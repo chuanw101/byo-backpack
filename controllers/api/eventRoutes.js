@@ -103,7 +103,8 @@ router.post("/", (req, res) => {
         end_time: req.body.end_time,
         picture_path: req.body.picture_path,
         description: req.body.description,
-        creator_id: req.session.user.id
+        creator_id: req.session.user.id,
+        public: req.body.public
     })
         .then(newEvent => {
             // if have items, get itemsArray, fill in event_id, bulk create item
@@ -138,6 +139,7 @@ router.put("/:id", (req, res) => {
         end_time: req.body.end_time,
         picture_path: req.body.picture_path,
         description: req.body.description,
+        public: req.body.public
     }, {
         where: {
             id: req.params.id,
