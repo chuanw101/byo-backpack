@@ -143,11 +143,9 @@ router.put('/update/:id',async (req, res) => {
         location: req.body.location,
         // start_time: req.body.start_time,
         // end_time: req.body.end_time,
-        picture_path: req.body.picture_path,
+        // picture_path: req.body.picture_path,
         description: req.body.description,
         public: req.body.public,
-        items:["sss", "ttt", "ggg"]
-        // items:req.body.items,
     }, {
         where: {
             id: req.params.id,
