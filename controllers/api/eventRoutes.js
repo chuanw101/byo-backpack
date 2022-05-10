@@ -26,7 +26,7 @@ router.get("/", (req, res) => {
 });
 
 //find one
-router.get("/:id", (req, res) => {
+router.get("update/:id", (req, res) => {
     Event.findByPk(req.params.id, {
         include: [{
             model: Item,

@@ -8,15 +8,14 @@ const users = [
         password:"password"
     },
     {
-        user_name:"lola",
-        password:"password"
-    },
-    {
         user_name:"saghar",
         password:"123"
     },
     {
         user_name:"jeff",
+        password:"password"
+    },{
+        user_name:"lola",
         password:"password"
     }
 ]
@@ -24,6 +23,17 @@ const users = [
 const events = [
     {
         event_name:"potluck",
+        location:"online",
+        date:moment().toDate(),
+        creator_id:1
+    },{
+        event_name:"potluck3",
+        location:"online",
+        date:moment().toDate(),
+        creator_id:1
+    },
+    {
+        event_name:"potluck4",
         location:"online",
         date:moment().toDate(),
         creator_id:1
@@ -55,7 +65,7 @@ const items = [
     {
         item_name:"cards",
         event_id:2,
-        owner_id:2,
+        owner_id:1,
     },
     {
         item_name:"snacks",
@@ -65,7 +75,7 @@ const items = [
     {
         item_name:"beer",
         event_id:2,
-        owner_id:4,
+        owner_id:1,
     },
 ]
 
