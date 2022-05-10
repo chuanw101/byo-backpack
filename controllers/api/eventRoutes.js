@@ -128,31 +128,37 @@ router.post("/", (req, res) => {
 });
 
 //update Event
-router.put("/:id", (req, res) => {
+router.put('/update/:id',async (req, res) => {
+    // try{
+
+    
     if (!req.session.user) {
         return res.status(401).json({ msg: "must log in to create event!" })
     }
-    Event.update({
+    console.log("@@@@@@==========@@@@")
+    console.log(req.body.event_name + " " + req.body.location + " " + req.body.start_time + " " + req.body.end_time + " " + req.body.picture_path + " " + req.body.public + " " + req.body.description + " " )
+
+    const dbEvent= await Event.update({
         event_name: req.body.event_name,
         location: req.body.location,
-        start_time: req.body.start_tme,
-        end_time: req.body.end_time,
+        // start_time: req.body.start_time,
+        // end_time: req.body.end_time,
         picture_path: req.body.picture_path,
         description: req.body.description,
-        public: req.body.public
+        public: req.body.public,
+        items:["sss", "ttt", "ggg"]
+        // items:req.body.items,
     }, {
         where: {
             id: req.params.id,
             creator_id: req.session.user.id
         }
     })
-        .then(updatedEvent => {
-            res.json(updatedEvent);
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({ msg: "an error occured", err });
-        });
+    console.log(dbEvent)
+        
+// }catch(eer){
+//     res.status(500).json({ msg: "an error occured", err });
+// }
 });
 
 //delete a Event
