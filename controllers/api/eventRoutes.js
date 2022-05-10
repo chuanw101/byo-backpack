@@ -65,8 +65,10 @@ router.post("/", (req, res) => {
     Event.create({
         event_name: req.body.event_name,
         location: req.body.location,
-        date: req.body.date,
+        start_time: req.body.start_tme,
+        end_time: req.body.end_time,
         picture_path: req.body.picture_path,
+        description: req.body.description,
         creator_id: req.session.user.id
     })
         .then(newEvent => {
@@ -98,8 +100,10 @@ router.put("/:id", (req, res) => {
     Event.update({
         event_name: req.body.event_name,
         location: req.body.location,
-        date: req.body.date,
+        start_time: req.body.start_tme,
+        end_time: req.body.end_time,
         picture_path: req.body.picture_path,
+        description: req.body.description,
     }, {
         where: {
             id: req.params.id,
