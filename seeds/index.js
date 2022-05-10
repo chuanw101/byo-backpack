@@ -24,24 +24,29 @@ const events = [
     {
         event_name:"potluck",
         location:"online",
-        date:moment().toDate(),
+        start_time:moment().toDate(),
+        end_time:moment().toDate(),
+        description: "a really good potluck",
         creator_id:1
     },{
         event_name:"potluck3",
         location:"online",
-        date:moment().toDate(),
+        start_time:moment().toDate(),
+        end_time:moment().toDate(),
         creator_id:1
     },
     {
         event_name:"potluck4",
         location:"online",
-        date:moment().toDate(),
+        start_time:moment().toDate(),
+        end_time:moment().toDate(),
         creator_id:1
     },
     {
         event_name:"poker night",
         location:"online",
-        date:moment().toDate(),
+        start_time:moment().toDate(),
+        end_time:moment().toDate(),
         creator_id:2
     },
 ]

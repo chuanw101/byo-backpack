@@ -19,12 +19,23 @@ Event.init({
         type: DataTypes.STRING,
         allowNull: false,
     },
-    date: {
+    start_time: {
         type: DataTypes.DATE,
         allowNull: false,
         validate: {
             isDate: true
         }
+    },
+    end_time: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        validate: {
+            isDate: true
+        }
+    },
+    description: {
+        type: DataTypes.TEXT,
+        default: "no description",
     },
     picture_path: {
         type: DataTypes.STRING,
