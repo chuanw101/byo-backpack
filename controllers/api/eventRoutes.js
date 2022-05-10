@@ -54,8 +54,10 @@ router.post("/", (req, res) => {
     {
         "event_name":"new event",
         "location":"seattle",
-        "date":"2023-01-01T23:28:56.782Z",
+        "start_time":"2023-01-01T23:28:56.782Z",
+        "end_time":"2023-01-01T23:28:56.782Z",
         "picture_path":"random",
+        "description:":"cool event"
         "items":["stuff", "thing", "anotherthing"]
     }
     */
