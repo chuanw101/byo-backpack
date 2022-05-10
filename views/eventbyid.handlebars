@@ -7,16 +7,24 @@
                     <img src="http://placekitten.com/500/400" alt="">
                 </div>
                 <div class="col pt-2">
-                    <h5>Location:</h5>
-                    <p>{{location}}</p>
-                    <h5>Starts:</h5>
-                    <p>{{format_time start_time}}</p>
-                    <h5>Ends:</h5>
-                    <p>{{format_time end_time}}</p>
+                    <div class="mb-2">
+                        <h5 class="d-inline">Location:</h5>
+                        <p class="d-inline">{{location}}</p>
+                    </div>
+                    <div class="mb-2">
+                        <h5 class="d-inline">Starts:</h5>
+                        <p class="d-inline">{{format_time start_time}}</p>
+                    </div>
+                    <div class="mb-2">
+                        <h5 class="d-inline">Ends:</h5>
+                        <p class="d-inline">{{format_time end_time}}</p>
+                    </div>
+                    <div class="mb-2">
+                        <h5 class="d-inline">Event Host:</h5>
+                        <p class="d-inline">{{creator.user_name}}</p>
+                    </div>
                     <h5>Description:</h5>
                     <p>{{description}}</p>
-                    <h5>Event Host:</h5>
-                    <p>{{creator.user_name}}</p>
                 </div>
             </div>
             <div class="row my-5">
