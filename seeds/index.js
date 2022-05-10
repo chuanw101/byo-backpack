@@ -9,7 +9,7 @@ const users = [
     },
     {
         user_name:"saghar",
-        password:"123"
+        password:"password"
     },
     {
         user_name:"jeff",
