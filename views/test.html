@@ -38,17 +38,20 @@
     </header>
 
     <main class="container container-fluid mt-5">
-        <div class="row">
-            <h1>Upcoming Events</h1>
-        </div>
-        <div class="row d-flex justify-content-center my-4">
-            <div class="card col-12">
+        <div class="row d-flex justify-content-center">
+            {{#each event}}
+            <div class="card col-12 col-lg-5 my-5 mx-5 p-2">
+                <img src="http://placekitten.com/500/360" class="card-img-top" alt="...">
                 <div class="card-body">
-                  <h5 class="card-title">{{event_name}}</h5>
-                  <p class="card-text">Date of Creation</p>
-                  <a href="#" class="btn btn-dark">Read More</a>
+                    <h2 class="card-title  mt-2 mb-3 text-center">{{event_name}}</h2>
+                    <h5 class="text-center">{{date}}</h5>
+                    <p class="text-center">{{location}}</p>
+                    <div class="d-grid gap-2 mt-3 mb-1">
+                        <button class="btn btn-dark" id="details">Event Details</button>
+                    </div>
                 </div>
             </div>
+            {{/each}}
         </div>
     </main>
 
