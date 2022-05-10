@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { User, Event, Item } = require('../models');
 
-// home route
+// home route, only shows public events
 router.get('/', (req, res) => {
   Event.findAll({
     include: [{
@@ -9,7 +9,8 @@ router.get('/', (req, res) => {
       include: [User]
     }, {
       model: User,
-      as: 'creator'
+      as: 'creator',
+      where: { '$public$': true }
     }, {
       model: User,
       as: 'attendees'
@@ -79,34 +80,30 @@ router.get("/eventbyid/:id", (req, res) => {
   })
 })
 
-router.get('/profile',async (req, res) => {
-  const userEvent =await Event.findAll({
+router.get('/profile', (req, res) => {
+  Event.findAll({
     include: [{
       model: Item,
       include: [User]
     }, {
       model: User,
-      as: 'creator'
-    },
-    {
+      as: 'creator',
+    }, {
       model: User,
       as: 'attendees'
-    }
-    ],
+    }],
     where: {
       creator_id: req.session.user.id
     }
-  }).catch((err) => {
-    res.json(err)
   })
-  const events = userEvent.map((event) => event.get({ plain: true }));
-  const user = req.session.user;
-  // console.log(events)
- if(events){
-
-    res.render('profile', { events, user });
-  }
-})
+    .then(dbEvents => {
+      const events = dbEvents.map(event => event.get({ plain: true }))
+      const publicEvents = events.filter(event => event.public)
+      const privateEvents = events.filter(event => !event.public)
+      const user = req.session?.user
+      res.render('profile', { publicEvents, privateEvents, user })
+    });
+});
 
 //find one
 router.get("/profile/update/:id", async (req, res) => {

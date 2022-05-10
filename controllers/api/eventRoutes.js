@@ -11,28 +11,27 @@ router.get("/", (req, res) => {
             include: [User]
         }, {
             model: User,
-            as: 'creator'
+            as: 'creator',
         }, {
             model: User,
             as: 'attendees',
         }, {
             model: User,
             as: 'noresponses',
-            where: {'$noresponses.attendee.rsvp_status$': 0}, required: false
+            where: { '$noresponses.attendee.rsvp_status$': 0 }, required: false
         }, {
             model: User,
             as: 'yeses',
-            where: {'$yeses.attendee.rsvp_status$': 1}, required: false
+            where: { '$yeses.attendee.rsvp_status$': 1 }, required: false
         }, {
             model: User,
             as: 'noes',
-            where: {'$noes.attendee.rsvp_status$': 2}, required: false
+            where: { '$noes.attendee.rsvp_status$': 2 }, required: false
         }, {
             model: User,
             as: 'maybes',
-            where: {'$maybes.attendee.rsvp_status$': 3}, required: false
-        },
-    ],
+            where: { '$maybes.attendee.rsvp_status$': 3 }, required: false
+        },],
     })
         .then(dbEvents => {
             res.json(dbEvents);
@@ -44,7 +43,7 @@ router.get("/", (req, res) => {
 });
 
 //find one
-router.get("update/:id", (req, res) => {
+router.get("/:id", (req, res) => {
     Event.findByPk(req.params.id, {
         include: [{
             model: Item,
@@ -54,7 +53,23 @@ router.get("update/:id", (req, res) => {
             as: 'creator'
         }, {
             model: User,
-            as: 'attendees'
+            as: 'attendees',
+        }, {
+            model: User,
+            as: 'noresponses',
+            where: { '$noresponses.attendee.rsvp_status$': 0 }, required: false
+        }, {
+            model: User,
+            as: 'yeses',
+            where: { '$yeses.attendee.rsvp_status$': 1 }, required: false
+        }, {
+            model: User,
+            as: 'noes',
+            where: { '$noes.attendee.rsvp_status$': 2 }, required: false
+        }, {
+            model: User,
+            as: 'maybes',
+            where: { '$maybes.attendee.rsvp_status$': 3 }, required: false
         }],
     })
         .then(dbEvent => {
@@ -89,7 +104,8 @@ router.post("/", (req, res) => {
         end_time: req.body.end_time,
         picture_path: req.body.picture_path,
         description: req.body.description,
-        creator_id: req.session.user.id
+        creator_id: req.session.user.id,
+        public: req.body.public
     })
         .then(newEvent => {
             // if have items, get itemsArray, fill in event_id, bulk create item
@@ -124,6 +140,7 @@ router.put("/:id", (req, res) => {
         end_time: req.body.end_time,
         picture_path: req.body.picture_path,
         description: req.body.description,
+        public: req.body.public
     }, {
         where: {
             id: req.params.id,
