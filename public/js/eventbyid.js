@@ -1,34 +1,13 @@
-// user who clicked button is bringing this item
-const brgBtns = document.querySelectorAll(".brgBtn")
-for (const button of brgBtns) {
-    button.addEventListener('click', e => {
-        const obj = {
-            bring: true
-        }
-        fetch(`/api/items/${e.target.value}`, {
-            method: "PUT",
-            body: JSON.stringify(obj),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(res => {
-            if (res.ok) {
-                location.reload()
-            } else {
-                alert("update failed, check if logged in")
-            }
-        })
-    })
-}
-
-// user who clicked button is bringing this item
-const cantBrgBtns = document.querySelectorAll(".cantBrgBtn")
-for (const button of cantBrgBtns) {
-    button.addEventListener('click', e => {
+const claimChecks = document.querySelectorAll(".claimCheck")
+for (const check of claimChecks) {
+    check.addEventListener('click', e => {
         const obj = {
             bring: false
         }
-        fetch(`/api/items/${e.target.value}`, {
+        if(e.target.checked) {
+            obj.bring = true;
+        }
+        fetch(`/api/items/${e.target.id}`, {
             method: "PUT",
             body: JSON.stringify(obj),
             headers: {
@@ -36,7 +15,11 @@ for (const button of cantBrgBtns) {
             }
         }).then(res => {
             if (res.ok) {
-                location.reload()
+                if (obj.bring) {
+                    alert("you are bringing this item!")
+                } else {
+                    alert("you are no longer bringing this item")
+                }
             } else {
                 alert("update failed, check if logged in")
             }
