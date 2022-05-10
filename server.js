@@ -15,6 +15,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const hbs = exphbs.create({ });
+
+// helper for formatting time
 hbs.handlebars.registerHelper('format_time', function(date) {
   return date.toDateString()+ " - " +date.toLocaleTimeString();
 })
