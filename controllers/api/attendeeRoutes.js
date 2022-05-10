@@ -5,15 +5,50 @@ const bcrypt = require("bcrypt");
 //rsvp for event
 router.post("/:event_id", (req, res) => {
     if (!req.session.user) {
-        return res.status(401).json({ msg: "must log in to create join event!" })
+        return res.status(401).json({ msg: "must log in to rsvp event!" })
     }
     Attendee.create({
         event_id: req.params.event_id,
         user_id: req.session.user.id,
+        rsvp_status: req.body.rsvp_status,
     })
         .then(newAttendee => {
             res.json(newAttendee);
         })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ msg: "an error occured", err });
+        });
+});
+
+//change rsvp for event
+router.put("/:event_id", (req, res) => {
+    if (!req.session.user) {
+        return res.status(401).json({ msg: "must log in to rsvp event!" })
+    }
+    Attendee.update({
+        rsvp_status: req.body.rsvp_status,
+    }, {
+        where: {
+            event_id: req.params.event_id,
+            user_id: req.session.user.id,
+        }
+    })
+        .then(updateAttendee => {
+            // can't bring item if not going, set owner_id of item to null
+            if (req.body.rsvp_status != 1) {
+                return Item.update({
+                    owner_id: null,
+                }, {
+                    where: {
+                        event_id: req.params.event_id,
+                        owner_id: req.session.user.id,
+                    }
+                })
+            }
+            res.json(updateAttendee);
+        })
+        .then(items => res.json(items))
         .catch(err => {
             console.log(err);
             res.status(500).json({ msg: "an error occured", err });

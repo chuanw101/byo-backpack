@@ -13,8 +13,25 @@ router.get("/", (req, res) => {
             as: 'creator'
         }, {
             model: User,
-            as: 'attendees'
-        }],
+            as: 'attendees',
+        }, {
+            model: User,
+            as: 'noresponses',
+            where: {'$noresponses.attendee.rsvp_status$': 0}, required: false
+        }, {
+            model: User,
+            as: 'yeses',
+            where: {'$yeses.attendee.rsvp_status$': 1}, required: false
+        }, {
+            model: User,
+            as: 'noes',
+            where: {'$noes.attendee.rsvp_status$': 2}, required: false
+        }, {
+            model: User,
+            as: 'maybes',
+            where: {'$maybes.attendee.rsvp_status$': 3}, required: false
+        },
+    ],
     })
         .then(dbEvents => {
             res.json(dbEvents);
@@ -54,8 +71,10 @@ router.post("/", (req, res) => {
     {
         "event_name":"new event",
         "location":"seattle",
-        "date":"2023-01-01T23:28:56.782Z",
+        "start_time":"2023-01-01T23:28:56.782Z",
+        "end_time":"2023-01-01T23:28:56.782Z",
         "picture_path":"random",
+        "description:":"cool event"
         "items":["stuff", "thing", "anotherthing"]
     }
     */
@@ -65,8 +84,10 @@ router.post("/", (req, res) => {
     Event.create({
         event_name: req.body.event_name,
         location: req.body.location,
-        date: req.body.date,
+        start_time: req.body.start_tme,
+        end_time: req.body.end_time,
         picture_path: req.body.picture_path,
+        description: req.body.description,
         creator_id: req.session.user.id
     })
         .then(newEvent => {
@@ -98,8 +119,10 @@ router.put("/:id", (req, res) => {
     Event.update({
         event_name: req.body.event_name,
         location: req.body.location,
-        date: req.body.date,
+        start_time: req.body.start_tme,
+        end_time: req.body.end_time,
         picture_path: req.body.picture_path,
+        description: req.body.description,
     }, {
         where: {
             id: req.params.id,

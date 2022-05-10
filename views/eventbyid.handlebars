@@ -9,8 +9,10 @@
                 <div class="col pt-2">
                     <h5>Location:</h5>
                     <p>{{location}}</p>
-                    <h5>Date:</h5>
-                    <p>{{start_date}}</p>
+                    <h5>Starts:</h5>
+                    <p>{{format_time start_time}}</p>
+                    <h5>Ends:</h5>
+                    <p>{{format_time end_time}}</p>
                     <h5>Description:</h5>
                     <p>{{description}}</p>
                     <h5>Event Host:</h5>
@@ -22,10 +24,12 @@
                 <div class="d-flex flex-column text-center">
                     <hr class="my-2">
                     {{#each items}}
-                    <p>{{comment}}</p>
+                    <p>{{../user.isGoing}}</p>
                     <p class="m-0">{{item_name}} ---
                         {{#unless user.user_name}}
+                        {{#if ../user.isGoing}}
                         <button class="btn btn-secondary brgBtn" value={{id}}>I got this</button>
+                        {{/if}}
                         {{else}}
                         {{user.user_name}}
                         {{/unless}}
@@ -38,28 +42,73 @@
                 </div>
             </div>
             <div class="row my-5">
-                <h4 class="text-center mb-3">Attendees</h4>
+                <h4 class="text-center mb-3">Definately Going</h4>
                 <div class="d-flex justify-content-center">
                     <hr>
                     <p class="px-2">|</p>
-                    {{#each attendees}}
+                    {{#each yeses}}
                     <p class="px-2">{{user_name}}</p>
                     <p class="px-2">|</p>
                     {{/each}}
                     <hr>
                 </div>
             </div>
-            {{!-- <div>
-                <h4>RSVP STATUS: {{user.isRSVP}}</h4>
-            </div> --}}
+            <div class="row my-5">
+                <h4 class="text-center mb-3">Maybe Going</h4>
+                <div class="d-flex justify-content-center">
+                    <hr>
+                    <p class="px-2">|</p>
+                    {{#each maybes}}
+                    <p class="px-2">{{user_name}}</p>
+                    <p class="px-2">|</p>
+                    {{/each}}
+                    <hr>
+                </div>
+            </div>
+            <div class="row my-5">
+                <h4 class="text-center mb-3">Not Going</h4>
+                <div class="d-flex justify-content-center">
+                    <hr>
+                    <p class="px-2">|</p>
+                    {{#each noes}}
+                    <p class="px-2">{{user_name}}</p>
+                    <p class="px-2">|</p>
+                    {{/each}}
+                    <hr>
+                </div>
+            </div>
+            <div class="row my-5">
+                <h4 class="text-center mb-3">Deciding</h4>
+                <div class="d-flex justify-content-center">
+                    <hr>
+                    <p class="px-2">|</p>
+                    {{#each noresponses}}
+                    <p class="px-2">{{user_name}}</p>
+                    <p class="px-2">|</p>
+                    {{/each}}
+                    <hr>
+                </div>
+            </div>
             <div class="d-grid gap-2 my-3">
                 {{#if user.logged_in}}
                 {{#unless user.isRSVP}}
+                <select name="rsvp-choice" id="rsvp-choice" class="form-control">
+                    <option value=1>I'm attending!</option>
+                    <option value=2>I'm not attending</option>
+                    <option value=3>Maybe</option>
+                </select>
                 <button class="btn btn-dark" id="rsvpBtn" value={{id}}>RSVP</button>
                 {{else}}
                 <hr>
-                <h5 class="text-center">You are registered to attend this event.</h5>
-                <button class="btn btn-dark" id="leaveBtn" value={{id}}>Remove RSVP</button>
+                <h5 class="text-center">Your RSVP Status:</h5>
+                <select name="rsvp-choice" id="rsvp-choice" class="form-control" status={{user.rsvp_status}}>
+                    <option id="option-0" value=0>No response</option>
+                    <option id="option-1" value=1>I'm attending!</option>
+                    <option id="option-2" value=2>I'm not attending</option>
+                    <option id="option-3" value=3>Maybe</option>
+                    <option value=4>Take me off the list</option>
+                </select>
+                <button class="btn btn-dark" id="leaveBtn" value={{id}}>Update RSVP</button>
                 {{/unless}}
                 {{/if}}
             </div>
@@ -68,4 +117,3 @@
 </div>
 
 <script src="/js/eventbyid.js"></script>
-

@@ -8,10 +8,18 @@ const sequelize = require('./config/connection');
 
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
+// Import the custom helper methods
+//const helpers = require('./utils/helpers');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const hbs = exphbs.create({});
+const hbs = exphbs.create({ });
+
+// helper for formatting time
+hbs.handlebars.registerHelper('format_time', function(date) {
+  return date.toDateString()+ " - " +date.toLocaleTimeString();
+})
 
 const sess = {
   secret: process.env.SESSION_SECRET,

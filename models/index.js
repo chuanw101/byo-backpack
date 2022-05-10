@@ -41,6 +41,26 @@ Event.belongsToMany(User, {
     as: 'attendees',
     foreignKey: 'event_id',
 });
+Event.belongsToMany(User, {
+    through: Attendee,
+    as: 'maybes',
+    foreignKey: 'event_id',
+});
+Event.belongsToMany(User, {
+    through: Attendee,
+    as: 'noes',
+    foreignKey: 'event_id',
+});
+Event.belongsToMany(User, {
+    through: Attendee,
+    as: 'noresponses',
+    foreignKey: 'event_id',
+});
+Event.belongsToMany(User, {
+    through: Attendee,
+    as: 'yeses',
+    foreignKey: 'event_id',
+});
 
 module.exports = {
     Event,

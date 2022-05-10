@@ -6,10 +6,10 @@
         <img src="http://placekitten.com/500/360" class="card-img-top" alt="...">
         <div class="card-body">
             <h2 class="card-title  mt-2 mb-3 text-center">{{event_name}}</h2>
-            <h5 class="text-center">{{date}}</h5>
+            <h5 class="text-center">{{format_time start_time}}</h5>
             <p class="text-center">{{location}}</p>
             <div class="d-grid gap-2 mt-3 mb-1">
-                <button class="btn btn-dark" id="details">Event Details</button>
+                <a class="btn btn-dark" href="/eventbyid/{{id}}">Event Details</a>
             </div>
         </div>
     </div>

@@ -25,6 +25,11 @@ Attendee.init({
             key: 'id',
         },
     },
+    rsvp_status: {
+        // 1=attending, 2=not attending, 3=maybe, other=no response
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+    }
 }, {
     sequelize,
     timestamps: true,

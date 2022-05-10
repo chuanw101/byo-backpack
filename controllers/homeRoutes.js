@@ -17,7 +17,8 @@ router.get('/', (req, res) => {
   })
     .then(dbEvents => {
       const hbsEvents = dbEvents.map(event => event.get({ plain: true }))
-      res.render('home', { event: hbsEvents })
+      const user = req.session?.user
+      res.render('home', { event: hbsEvents, user})
     });
 });
 
@@ -27,22 +28,44 @@ router.get("/eventbyid/:id", (req, res) => {
     include: [{
       model: Item,
       include: [User]
-    }, {
+  }, {
       model: User,
       as: 'creator'
-    }, {
+  }, {
       model: User,
-      as: 'attendees'
-    }],
+      as: 'attendees',
+  }, {
+      model: User,
+      as: 'noresponses',
+      where: {'$noresponses.attendee.rsvp_status$': 0}, required: false
+  }, {
+      model: User,
+      as: 'yeses',
+      where: {'$yeses.attendee.rsvp_status$': 1}, required: false
+  }, {
+      model: User,
+      as: 'noes',
+      where: {'$noes.attendee.rsvp_status$': 2}, required: false
+  }, {
+      model: User,
+      as: 'maybes',
+      where: {'$maybes.attendee.rsvp_status$': 3}, required: false
+  },
+],
   }).then(eventData => {
     const data = eventData.get({ plain: true })
     data.user = req.session?.user
     if (data.user) {
       data.user.isRSVP = false;
-      // check if user is RSVP'd
+      data.user.isGoing = false;
+      // check if user is RSVP'd, if so, check if definately going
       for (const att of data.attendees) {
         if (att.id == data.user.id) {
           data.user.isRSVP = true;
+          data.user.rsvp_status = att.attendee.rsvp_status;
+          if (data.user.rsvp_status == 1) {
+            data.user.isGoing = true;
+          }
         }
       }
       // check if item is brought by user
