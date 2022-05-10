@@ -1,34 +1,71 @@
-<h3>{{event_name}}</h3>
-<p>At {{location}}, created by {{creator.user_name}}</p>
-<p>{{date}}</p>
-<h4>Stuff to bring:</h4>
-<hr>
-{{#each items}}
-<p>{{comment}}</p>
-<p>{{item_name}} ---
-    {{#unless user.user_name}}
-    <button class="btn btn-secondary brgBtn" value={{id}}>I got this</button>
-    {{else}}
-    {{user.user_name}}
-    {{/unless}}
-</p>
-<hr>
-{{/each}}
-
-<h4>Attendees</h4>
-{{#each attendees}}
-{{user_name}}
-{{/each}}
-
-<hr>
-<h1>RSVP STATUS {{user.isRSVP}}</h1>
-{{#if user.logged_in}}
-{{#unless user.isRSVP}}
-<button class="btn btn-dark" id="rsvpBtn" value={{id}}>RSVP</button>
-{{else}}
-<h4>You Are Already RSVP'd</h4>
-<button class="btn btn-dark" id="leaveBtn" value={{id}}>Leave</button>
-{{/unless}}
-{{/if}}
+<div class="row d-flex justify-content-center">
+    <div class="card col-12 my-5">
+        <div class="card-body">
+            <h1 class="card-title my-4 text-center">{{event_name}}</h1>
+            <div class="row pt-1">
+                <div class="col d-flex justify-content-end">
+                    <img src="http://placekitten.com/500/400" alt="">
+                </div>
+                <div class="col pt-2">
+                    <h5>Location:</h5>
+                    <p>{{location}}</p>
+                    <h5>Date:</h5>
+                    <p>{{start_date}}</p>
+                    <h5>Description:</h5>
+                    <p>{{description}}</p>
+                    <h5>Event Host:</h5>
+                    <p>{{creator.user_name}}</p>
+                </div>
+            </div>
+            <div class="row my-5">
+                <h4 class="text-center mb-3">Backpack Items</h4>
+                <div class="d-flex flex-column text-center">
+                    <hr class="my-2">
+                    {{#each items}}
+                    <p>{{comment}}</p>
+                    <p class="m-0">{{item_name}} ---
+                        {{#unless user.user_name}}
+                        <button class="btn btn-secondary brgBtn" value={{id}}>I got this</button>
+                        {{else}}
+                        {{user.user_name}}
+                        {{/unless}}
+                        {{#if isBroughtByUser}}
+                        <button class="btn btn-secondary cantBrgBtn" value={{id}}>No longer got this</button>
+                        {{/if}}
+                    </p>
+                    <hr class="mt-4 mb-3">
+                    {{/each}}
+                </div>
+            </div>
+            <div class="row my-5">
+                <h4 class="text-center mb-3">Attendees</h4>
+                <div class="d-flex justify-content-center">
+                    <hr>
+                    <p class="px-2">|</p>
+                    {{#each attendees}}
+                    <p class="px-2">{{user_name}}</p>
+                    <p class="px-2">|</p>
+                    {{/each}}
+                    <hr>
+                </div>
+            </div>
+            {{!-- <div>
+                <h4>RSVP STATUS: {{user.isRSVP}}</h4>
+            </div> --}}
+            <div class="d-grid gap-2 my-3">
+                {{#if user.logged_in}}
+                {{#unless user.isRSVP}}
+                <button class="btn btn-dark" id="rsvpBtn" value={{id}}>RSVP</button>
+                {{else}}
+                <hr>
+                <h5 class="text-center">You are registered to attend this event.</h5>
+                <button class="btn btn-dark" id="leaveBtn" value={{id}}>Remove RSVP</button>
+                {{/unless}}
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="/js/eventbyid.js"></script>
+

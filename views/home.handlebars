@@ -1,16 +1,17 @@
-<h1>Home Page</h1>
+<h1>Upcoming Events</h1>
 <hr>
-{{#each event}}
-<h3>{{event_name}}</h3>
-<p>At {{location}}, created by {{creator.user_name}}</p>
-<p>{{date}}</p>
-<h4>Stuff to bring:</h4>
-{{#each items}}
-<p>{{item_name}} --- {{user.user_name}}</p>
-{{/each}}
-<h4>Attendees</h4>
-{{#each attendees}}
-{{user_name}}
-{{/each}}
-<hr>
-{{/each}}
+<div class="row d-flex justify-content-center">
+    {{#each event}}
+    <div class="card col-12 col-md-5 my-3 mx-3 p-2">
+        <img src="http://placekitten.com/500/360" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h2 class="card-title  mt-2 mb-3 text-center">{{event_name}}</h2>
+            <h5 class="text-center">{{date}}</h5>
+            <p class="text-center">{{location}}</p>
+            <div class="d-grid gap-2 mt-3 mb-1">
+                <button class="btn btn-dark" id="details">Event Details</button>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>

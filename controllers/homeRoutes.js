@@ -35,8 +35,9 @@ router.get("/eventbyid/:id", (req, res) => {
       as: 'attendees'
     }],
   }).then(eventData => {
-      const data = eventData.get({ plain: true })
-      data.user = req.session?.user
+    const data = eventData.get({ plain: true })
+    data.user = req.session?.user
+    if (data.user) {
       data.user.isRSVP = false;
       // check if user is RSVP'd
       for (const att of data.attendees) {
@@ -44,7 +45,14 @@ router.get("/eventbyid/:id", (req, res) => {
           data.user.isRSVP = true;
         }
       }
-      res.render("eventbyid", data)
+      // check if item is brought by user
+      for (const item of data.items) {
+        if (item.owner_id == data.user.id) {
+          item.isBroughtByUser = true;
+        }
+      }
+    }
+    res.render("eventbyid", data)
   })
 })
 
@@ -53,15 +61,15 @@ router.get('/profile',async (req, res) => {
     include: [{
       model: Item,
       include: [User]
-  }, {
+    }, {
       model: User,
       as: 'creator'
-  }, 
-  {
+    },
+    {
       model: User,
       as: 'attendees'
-  }
-],
+    }
+    ],
     where: {
       creator_id: req.session.user.id
     }
@@ -75,8 +83,8 @@ router.get('/profile',async (req, res) => {
   console.log(user)
  if(events){
 
-   res.render('profile', { events, user });
- }
+    res.render('profile', { events, user });
+  }
 })
 
 //find one
