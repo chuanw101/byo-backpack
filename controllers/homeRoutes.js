@@ -44,6 +44,7 @@ router.get("/eventbyid/:id", (req, res) => {
       for (const att of data.attendees) {
         if (att.id == data.user.id) {
           data.user.isRSVP = true;
+          data.user.rsvp_status = att.attendee.rsvp_status;
         }
       }
       // check if item is brought by user

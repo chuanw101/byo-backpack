@@ -56,11 +56,23 @@
             <div class="d-grid gap-2 my-3">
                 {{#if user.logged_in}}
                 {{#unless user.isRSVP}}
+                <select name="rsvp-choice" id="rsvp-choice" class="form-control">
+                    <option value=1>I'm attending!</option>
+                    <option value=2>I'm not attending</option>
+                    <option value=3>Maybe</option>
+                </select>
                 <button class="btn btn-dark" id="rsvpBtn" value={{id}}>RSVP</button>
                 {{else}}
                 <hr>
-                <h5 class="text-center">You are registered to attend this event.</h5>
-                <button class="btn btn-dark" id="leaveBtn" value={{id}}>Remove RSVP</button>
+                <h5 class="text-center">Your RSVP Status:</h5>
+                <select name="rsvp-choice" id="rsvp-choice" class="form-control" status={{user.rsvp_status}}>
+                    <option id="option-0" value=0>No response</option>
+                    <option id="option-1" value=1>I'm attending!</option>
+                    <option id="option-2" value=2>I'm not attending</option>
+                    <option id="option-3" value=3>Maybe</option>
+                    <option value=4>Take me off the list</option>
+                </select>
+                <button class="btn btn-dark" id="leaveBtn" value={{id}}>Update RSVP</button>
                 {{/unless}}
                 {{/if}}
             </div>
@@ -69,4 +81,3 @@
 </div>
 
 <script src="/js/eventbyid.js"></script>
-
