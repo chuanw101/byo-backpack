@@ -17,7 +17,8 @@ router.get('/', (req, res) => {
   })
     .then(dbEvents => {
       const hbsEvents = dbEvents.map(event => event.get({ plain: true }))
-      res.render('home', { event: hbsEvents })
+      const user = req.session?.user
+      res.render('home', { event: hbsEvents, user})
     });
 });
 
