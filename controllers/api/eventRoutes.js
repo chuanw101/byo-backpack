@@ -97,6 +97,8 @@ router.post("/", (req, res) => {
     Event.create({
         event_name: req.body.event_name,
         location: req.body.location,
+        city: req.body.city,
+        state: req.body.state,
         start_time: req.body.start_time,
         end_time: req.body.end_time,
         picture_path: req.body.picture_path,
