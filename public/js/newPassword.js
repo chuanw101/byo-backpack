@@ -9,33 +9,34 @@ const newPassword = async (event) => {
         const userId = document.querySelector('#newPassBtn').value;
 
 
-        if (!currentPass || !newPass ) {
+        if (!currentPass || !newPass) {
             alert("Please enter password information")
-        } else {
-console.log("in here")
-            if (checkNewPass === newPass) {
-                const response = await fetch(`/api/users/changePassword/${userId}`, {
-                    method: 'PUT',
-                    body: JSON.stringify({
-                        currentPass,
-                        newPass,
-                        userId,
-                    }),
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-                console.log(response)
-                // if (response.ok) {
-                    document.location.replace('/profile');
+        } else if (checkNewPass != newPass) {
+            alert("New password dont match")
+        } else if (newPass.length < 8) {
+            alert("New password should be at least 8 character")
+        }
+        else {
 
-                // } else {
-                //     // response.
-                //     alert('Failed to update');
-                // }
+            const response = await fetch(`/api/users/changePassword/${userId}`, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    currentPass,
+                    newPass,
+                    userId,
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            console.log(response)
+            if (response.ok) {
+            document.location.replace('/profile');
             }
-            else {
-                alert('New Passwors are not match');
+            else if (response.status ===401){
+                alert("The current password does not match")
+            }else{
+                alert("password change failed!")
             }
         }
     } catch (err) {
