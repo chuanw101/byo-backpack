@@ -138,16 +138,16 @@ router.get('/profile/invite/:id', async (req, res) => {
         if (event.id == req.params.id) {
           found = true;
         }
-        if (found) {
-          users.splice(i, 1);
-        }
+      }
+      if (found) {
+        users.splice(i, 1);
       }
     }
 
     //get curEvent
     const currentEvent = await Event.findByPk(req.params.id);
     const curEvent = currentEvent.get({ plain: true })
-    
+
     const user = req.session?.user;
 
     res.render('invite', { users, user, curEvent })
