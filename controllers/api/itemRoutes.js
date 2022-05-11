@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Item, User } = require("../../models");
+const { Item, User, Event } = require("../../models");
 
 //find all
 router.get("/", (req, res) => {
@@ -31,22 +31,26 @@ router.get("/:id", (req, res) => {
 });
 
 //create new item for event
-router.post("/:event_id", (req, res) => {
+router.post("/:event_id", async (req, res) => {
     if (!req.session.user) {
         return res.status(401).json({ msg: "must log in to create item!" })
     }
-    Item.create({
-        item_name: req.body.item_name,
-        owner_id: req.body.owner_id,
-        event_id: req.params.event_id,
-    })
-        .then(newItem => {
-            res.json(newItem);
+    try {
+        const curEvent = await Event.findByPk(req.params.event_id);
+        // only creator can add items
+        if (curEvent.creator_id != req.session?.user?.id) {
+            return res.status(401).json({ msg: "you don't have access to change this event!" })
+        }
+        const newItem = await Item.create({
+            item_name: req.body.item_name,
+            owner_id: req.body.owner_id,
+            event_id: req.params.event_id,
         })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({ msg: "an error occured", err });
-        });
+        res.json(newItem);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ msg: "an error occured", err });
+    }
 });
 
 //bring/cant bring item for event
