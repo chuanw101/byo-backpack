@@ -26,6 +26,16 @@ document.getElementById("upload_widget").addEventListener(
   false
 );
 
+// make it so you can't have end date before start date
+const startEl = document.querySelector('#startDate');
+const endEl = document.querySelector('#endDate')
+startEl.addEventListener("change", e=> {
+  endEl.min = e.target.value;
+})
+endEl.addEventListener("change", e=> {
+  startEl.max = e.target.value;
+})
+
 document.querySelector("#newEventSubmit").addEventListener("click", e => {
   e.preventDefault();
 
