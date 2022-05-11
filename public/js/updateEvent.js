@@ -5,18 +5,11 @@ console.log(document.querySelector('#startTime').getAttribute("temp"))
 const radioButtons = document.querySelectorAll('input[name="eventType"]');
 for (const radioButton of radioButtons) {
     radioButton.addEventListener('click', radioBtnEvent);
-
     function radioBtnEvent(e) {
-
-
         if (e.target.value == 1) {
-
-
             public = true;
-
         } else {
             public = false;
-
         }
     }
 }
@@ -51,9 +44,7 @@ document.getElementById("upload_widget").addEventListener(
 
 // update Event
 const updateEventHandler = async (event) => {
-
     try {
-
         event.preventDefault();
         const event_name = document.querySelector('#eventName').value;
         const location = document.querySelector('#location').value;
@@ -90,17 +81,12 @@ const updateEventHandler = async (event) => {
         alert('the Event has been updated')
         document.location.replace('/profile');
 
-
-
     } catch (err) {
         alert('the event didnt updated')
         console.log(err)
-
     }
 };
 document.querySelector('#updateEventSubmit').addEventListener('click', updateEventHandler);
-
-
 // delete Item
 const deleteItems = document.querySelectorAll(".deleteItem");
 for (const deleteItem of deleteItems) {
