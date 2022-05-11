@@ -4,12 +4,10 @@
             <h1 class="card-title my-4 text-center">Welcome back, {{user.user_name}}!</h1>
             <hr>
             <div class="d-flex justify-content-center">
-                <button class="btn btn-dark m-3" id="changePssword">Change Password</button>
-                <button class="btn btn-dark m-3"><a href="#publicEvents" class="text-reset text-decoration-none">My
-                        Public Events</a></button>
-                <button class="btn btn-dark m-3"><a href="#privateEvents" class="text-reset text-decoration-none">My
-                        Private Events</a></button>
-                <button class="btn btn-dark m-3"><a href="#invitedEvents" class="text-reset text-decoration-none">Event Invitations</a></button>
+                <a href="/profile/changepassword" class="btn btn-dark m-3" id="changePssword">Change Password</a>
+                <a class="btn btn-dark m-3" href="#publicEvents">My Public Events</a>
+                <a class="btn btn-dark m-3" href="#privateEvents">My Private Events</a>
+                <a class="btn btn-dark m-3" href="#invitedEvents">My Invited Events</a>
             </div>
         </div>
     </div>
