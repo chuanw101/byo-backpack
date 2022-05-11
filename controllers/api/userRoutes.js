@@ -33,15 +33,15 @@ router.post('/login', async (req, res) => {
 
 
 
-router.put('/chnagePassword/:id', async (req, res) => {
-
+router.put('/changePassword/:id', async (req, res) => {
+console.log("whyyyyyyyyyyyyy")
   try {
     const userDb = await User.findOne({
       where: {
         id: req.params.id
       }
     })
-    if (userDb) {
+    // if (userDb) {
 
       if (bcrypt.compareSync(req.body.currentPass, userDb.password)) {
 
@@ -57,12 +57,12 @@ router.put('/chnagePassword/:id', async (req, res) => {
         });
 
         res.send("password changed");
-     
+
       }
       else {
         res.send("The current password does not match");
       }
-    }
+    // }
   } catch (err) {
 
     res.statusCode(500).send({ err, msg: "the new password is not valid" })
