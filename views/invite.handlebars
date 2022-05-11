@@ -1,7 +1,18 @@
-<h1>Users you can invite for <a class="link-info" href="/eventbyid/{{curEvent.id}}">{{curEvent.event_name}}</a>:</h1>
+<div class="row">
+    <div class="col">
+        <h1>Invite Users to your  <a class="link-info text-reset" href="/eventbyid/{{curEvent.id}}">{{curEvent.event_name}}</a></h1>
+    </div>
+</div>
 <hr>
-{{#each users}}
-<li class="display-6">{{user_name}} <button class="btn btn-dark ms-4 inviteBtn" eventId={{../curEvent.id}} value={{id}}>Invite</button></li>
-{{/each}}
+<div class="row d-flex justify-content-center">
+    <div class="col-4">
+        {{#each users}}
+        <ul class="list-group list-group-horizontal">
+            <li class="list-group-item flex-fill border-0 border-bottom pb-1">{{user_name}}</li>
+            <li><button class="btn btn-dark inviteBtn flex-fill m-1" eventId={{../curEvent.id}} value={{id}}>Invite</button></li>
+        </ul>
+        {{/each}}
+    </div>
+</div>
 
 <script src="/js/invite.js"></script>
