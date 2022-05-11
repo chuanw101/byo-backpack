@@ -85,14 +85,10 @@ router.get('/profile', async (req, res) => {
     const dbEvents = await Event.findAll({
       include: [{
         model: Item,
-        include: [User]
       }, {
         model: User,
-        as: 'creator',
-      }, {
-        model: User,
-        as: 'attendees',
-        where: { '$attendees.attendee.rsvp_status$': 1 }, required: false
+        as: 'yeses',
+        where: { '$yeses.attendee.rsvp_status$': 1 }, required: false
       }],
       where: {
         creator_id: req.session.user?.id
@@ -102,7 +98,23 @@ router.get('/profile', async (req, res) => {
     const publicEvents = events.filter(event => event.public)
     const privateEvents = events.filter(event => !event.public)
     const user = req.session?.user
-    res.render('profile', { publicEvents, privateEvents, user })
+    const invited = await Event.findAll({
+      include: [{
+        model: Item,
+      }, {
+        model: User,
+        as: 'attendees',
+      },  {
+        model: User,
+        as: 'yeses',
+        where: { '$yeses.attendee.rsvp_status$': 1 }, required: false
+      }],
+      where: {
+        '$attendees.id$' : req.session.user?.id,
+      }
+    })
+    const invitedEvents = invited.map(event => event.get({ plain: true }))
+    res.render('profile', { publicEvents, privateEvents, invitedEvents, user })
   } catch (err) {
     console.log(err);
     res.status(500).json({ msg: "an error occured", err })
