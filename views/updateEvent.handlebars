@@ -44,27 +44,27 @@
 
                     <div class="mb-3">
                         <label for="backpackItems" class="form-label">Backpack Items</label>
+                        
                         <ul>
-
                             {{#eventUpdate.items}}
                             <li>
 
                                 {{item_name}}
 
-                                <button class="deleteItem" value={{id}} name={{event_id}}>
-                                    <img src="../public/images/close_cross_icon.png" width="10%" height="10%" />
-                                </button>
+                                {{!-- <button class="deleteItem" value={{id}} name={{event_id}}> --}}
+                                    <img class="deleteItem" src="/images/close_cross_icon.png" value={{id}}
+                                        name={{event_id}} width="3%" height="3%">
+                                    {{!-- </img> --}}
                             </li>
                             {{/eventUpdate.items}}
-
-
                         </ul>
+                       
 
-                 
                         <div class="mb-3">
                             <label for="newItem" class="form-label">New Item</label>
                             <input class="form-control" id="newItem">
-                            <button class="newItemBtn" value={{eventUpdate.creator_id}} name={{eventUpdate.id}}> Add Item
+                            <button class="newItemBtn" value={{eventUpdate.creator_id}} name={{eventUpdate.id}}> Add
+                                Item
                             </button>
                         </div>
                     </div>

@@ -30,8 +30,9 @@ document.querySelector("#newEventSubmit").addEventListener("click", e => {
   e.preventDefault();
 
   // get items array
-  const itemsTemp = document.querySelector("#backpackItems").value.split(',')
-  const items = itemsTemp.map(item => item.trim())
+  const itemsTemp = document.querySelector("#backpackItems").value.split(',');
+  const temp = itemsTemp.map(item => item.trim());
+  const items = temp.filter(item => item);
 
   const eventObj = {
     event_name: document.querySelector("#eventName").value,
@@ -45,7 +46,7 @@ document.querySelector("#newEventSubmit").addEventListener("click", e => {
 
   // add in photo url of last photo if photo uploaded
   if (photoArr.length) {
-    eventObj.picture_path = photoArr[photoArr.length-1].url.toString();
+    eventObj.picture_path = photoArr[photoArr.length - 1].url.toString();
   }
 
   fetch("/api/events/", {

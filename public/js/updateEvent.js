@@ -42,7 +42,7 @@ const updateEventHandler = async (event) => {
             location,
             // start_time,
             // end_time,
-            picture_path,
+            // picture_path,
             description,
             public,
             // items: req.body.items,
@@ -74,7 +74,7 @@ for (const deleteItem of deleteItems) {
 
     async function deleteEvent(e) {
         e.preventDefault();
-        const response = await fetch(`/api/items/${e.target.value}`, {
+        const response = await fetch(`/api/items/${e.target.getAttribute("value")}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -93,22 +93,26 @@ const newItemHandler = async (event) => {
     try {
 
     event.preventDefault();
-    const item_name = document.querySelector('#newItem').value;
-    const eventId = document.querySelector(".newItemBtn").getAttribute("name");
-const owner_id = document.querySelector(".newItemBtn").value
-    const response = await fetch(`/api/items/${eventId}`, {
-        method: 'POST',
-        body: JSON.stringify({
-            item_name,
-            owner_id,
-
-        }),
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-    document.location.replace(`/profile/update/${eventId}`);
-
+    const item_name = document.querySelector('#newItem').value.trim();
+    if(item_name){
+        const eventId = document.querySelector(".newItemBtn").getAttribute("name");
+        const owner_id = document.querySelector(".newItemBtn").value
+            const response = await fetch(`/api/items/${eventId}`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    item_name,
+                    owner_id,
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            document.location.replace(`/profile/update/${eventId}`);
+        
+    }else{
+        alert("please enter Item name")
+    }
+    
 
 
     } catch (err) {
