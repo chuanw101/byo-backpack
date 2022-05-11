@@ -84,6 +84,11 @@ router.get("/eventbyid/:id", (req, res) => {
       }
     }
     res.render("eventbyid", data)
+  }).catch(err => {
+    console.log(err)
+    //res.status(500).json({ msg: "an error occured", err })
+    const user = req.session?.user
+    res.render('error404', { user })
   })
 })
 
@@ -91,7 +96,7 @@ router.get('/profile', async (req, res) => {
   try {
     const user = req.session?.user
     if (!req.session?.user?.logged_in) {
-      res.render('error401', {user});
+      res.render('error401', { user });
     } else {
       const dbEvents = await Event.findAll({
         include: [{
@@ -109,7 +114,7 @@ router.get('/profile', async (req, res) => {
       const events = dbEvents.map(event => event.get({ plain: true }))
       const publicEvents = events.filter(event => event.public)
       const privateEvents = events.filter(event => !event.public)
-      
+
       const invited = await Event.findAll({
         include: [{
           model: Item,
@@ -139,14 +144,14 @@ router.get('/profile/invite/:id', async (req, res) => {
   try {
     const user = req.session?.user;
     if (!req.session?.user?.logged_in) {
-      res.render('error401', {user});
+      res.render('error401', { user });
     } else {
       //get curEvent
       const currentEvent = await Event.findByPk(req.params.id);
       const curEvent = currentEvent.get({ plain: true })
       // check to see if user is the owner, access deny if not
       if (curEvent.creator_id != req.session.user.id) {
-        res.render('error401', {user});
+        res.render('error401', { user });
       } else {
         const dbUsers = await User.findAll({
           include: [{
@@ -167,14 +172,15 @@ router.get('/profile/invite/:id', async (req, res) => {
             users.splice(i, 1);
           }
         }
-        
+
         res.render('invite', { users, user, curEvent })
       }
     }
   }
   catch (err) {
-    console.log(err);
-    res.status(500).json({ msg: "an error occured", err })
+    //res.status(500).json({ msg: "an error occured", err })
+    const user = req.session?.user
+    res.render('error404', { user })
   }
 })
 
@@ -216,13 +222,15 @@ router.get("/profile/update/:id", async (req, res) => {
       res.render('error401');
     } else if (eventUpdate.creator_id != req.session?.user?.id) {
       // give 401 error page if not the owner trying to update event
-      res.render('error401', {user});
-    }else {
+      res.render('error401', { user });
+    } else {
       res.render('updateEvent', { eventUpdate, user })
     }
   } catch (err) {
     console.log(err);
-    res.status(500).json({ msg: "an error occured", err })
+    //res.status(500).json({ msg: "an error occured", err })
+    const user = req.session?.user
+    res.render('error404', { user })
   }
 
 });
@@ -256,7 +264,7 @@ router.get('/logout', (req, res) => {
 
 router.get('*', (req, res) => {
   const user = req.session?.user
-  res.render('error404', {user})
+  res.render('error404', { user })
 })
 
 module.exports = router;
