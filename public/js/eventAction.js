@@ -85,11 +85,11 @@ for (const button of pubBtns) {
 
 
 
-// const changePassBtn = document.querySelector("#changePssword");
+const changePassBtn = document.querySelector("#changePssword");
 
-// changePassBtn.addEventListener('click', changePassword);
+changePassBtn.addEventListener('click', changePassword);
 
-//      function changePassword() {
-//             document.location.replace(`/profile/changepassword`);
+     function changePassword() {
+            document.location.replace(`/profile/changepassword`);
         
-//     }
+    }

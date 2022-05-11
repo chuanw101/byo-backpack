@@ -137,16 +137,13 @@ router.get("/profile/update/:id", async (req, res) => {
       }, {
         model: User,
         as: 'maybes',
-        where: { '$maybes.attendee.rsvp_status$': 3 }, required: false
-      },
-      ],
-    })
-    const eventUpdate = dbEvent.get({ plain: true });
-
-    const user = req.session.user
-    console.log("==========%%%%%%%%%%%%%%%")
-    console.log(eventUpdate)
-    res.render('updateEvent', { eventUpdate, user })
+        where: {'$maybes.attendee.rsvp_status$': 3}, required: false
+    },
+  ],
+  })
+      const eventUpdate = dbEvent.get({ plain: true });
+      const user = req.session.user
+      res.render('updateEvent',{eventUpdate,user})
 
   } catch (err) {
 
