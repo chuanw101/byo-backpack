@@ -7,6 +7,8 @@ const myWidget = cloudinary.createUploadWidget(
     cloudName: 'da2jrzaai',
     uploadPreset: 'usrvqzja',
     maxImageFileSize: 2000000,  //restrict file size to less than 2MB
+    multiple: false,
+    theme: "minimal"
   },
   (error, result) => {
     if (!error && result && result.event === "success") {
@@ -51,7 +53,7 @@ document.querySelector("#newEventSubmit").addEventListener("click", e => {
     end_time: document.querySelector("#endDate").value,
     location: document.querySelector("#location").value.trim(),
     city: document.querySelector("#city").value.trim(),
-    state: document.querySelector("#state").value.trim(),
+    state: document.querySelector("#city").valuedocument.querySelector("#city").valuedocument.querySelector("#city").value.trim(),
     description: document.querySelector("#eventDescription").value.trim(),
     items: items,
     public: (document.querySelector("#public").checked),

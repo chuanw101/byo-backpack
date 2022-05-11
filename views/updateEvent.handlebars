@@ -8,12 +8,20 @@
                     <label for="eventName" class="form-label">Event Name</label>
                     <input class="form-control" id="eventName" value="{{eventUpdate.event_name}}">
                 </div>
-                <div class="mb-3">
-                    <label for="location" class="form-label">Location</label>
+               <div class="mb-3">
+                    <label for="location" class="form-label">Address</label>
                     <input class="form-control" id="location" value="{{eventUpdate.location}}">
                 </div>
+                <div class="mb-3">
+                    <label for="city" class="form-label">City</label>
+                    <input class="form-control" id="city" value="{{eventUpdate.city}}">
+                </div>
+                <div class="mb-3">
+                    <label for="state" class="form-label">State</label>
+                    <input class="form-control" id="state" value="{{eventUpdate.state}}">
+                </div>
              <div>
-                    <img id="uploadedimage" src={{eventUpdate.picture_path}}></img>
+                    <img id="uploadedimage" src={{eventUpdate.picture_path}} width="500" height="360"></img>
                 </div>
                 <div class="mb-3">
                     <button for="formFile" id="upload_widget" class="form-label, cloudinary-button">Upload
@@ -28,8 +36,8 @@
                     </div>--}}
                     <div class="row mb-3" <div class="col">
                         <label for="startTime" class="form-label">Start Time</label>
-                        <input type="datetime-local" class="form-control" value="{{eventUpdate.start_time}}"
-                            aria-label="startTime" id="startTime">
+                        <input type="datetime-local" class="form-control" temp="{{eventUpdate.start_time}}"
+                            value="" aria-label="startTime" id="startTime">
                     </div>
                     {{!--
                     <div class="row mb-3">

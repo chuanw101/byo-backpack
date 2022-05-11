@@ -115,46 +115,56 @@ router.get("/eventbyid/:id", (req, res) => {
       }
     }
     res.render("eventbyid", data)
+  }).catch(err => {
+    console.log(err)
+    //res.status(500).json({ msg: "an error occured", err })
+    const user = req.session?.user
+    res.render('error404', { user })
   })
 })
 
 router.get('/profile', async (req, res) => {
   try {
-    const dbEvents = await Event.findAll({
-      include: [{
-        model: Item,
-      }, {
-        model: User,
-        as: 'yeses',
-        where: { '$yeses.attendee.rsvp_status$': 1 }, required: false
-      }],
-      where: {
-        creator_id: req.session.user?.id
-      },
-      order: ['start_time']
-    })
-    const events = dbEvents.map(event => event.get({ plain: true }))
-    const publicEvents = events.filter(event => event.public)
-    const privateEvents = events.filter(event => !event.public)
     const user = req.session?.user
-    const invited = await Event.findAll({
-      include: [{
-        model: Item,
-      }, {
-        model: User,
-        as: 'attendees',
-      }, {
-        model: User,
-        as: 'yeses',
-        where: { '$yeses.attendee.rsvp_status$': 1 }, required: false
-      }],
-      where: {
-        '$attendees.id$': req.session.user?.id,
-      },
-      order: ['start_time']
-    })
-    const invitedEvents = invited.map(event => event.get({ plain: true }))
-    res.render('profile', { publicEvents, privateEvents, invitedEvents, user })
+    if (!req.session?.user?.logged_in) {
+      res.render('error401', { user });
+    } else {
+      const dbEvents = await Event.findAll({
+        include: [{
+          model: Item,
+        }, {
+          model: User,
+          as: 'yeses',
+          where: { '$yeses.attendee.rsvp_status$': 1 }, required: false
+        }],
+        where: {
+          creator_id: req.session.user?.id
+        },
+        order: ['start_time']
+      })
+      const events = dbEvents.map(event => event.get({ plain: true }))
+      const publicEvents = events.filter(event => event.public)
+      const privateEvents = events.filter(event => !event.public)
+
+      const invited = await Event.findAll({
+        include: [{
+          model: Item,
+        }, {
+          model: User,
+          as: 'attendees',
+        }, {
+          model: User,
+          as: 'yeses',
+          where: { '$yeses.attendee.rsvp_status$': 1 }, required: false
+        }],
+        where: {
+          '$attendees.id$': req.session.user?.id,
+        },
+        order: ['start_time']
+      })
+      const invitedEvents = invited.map(event => event.get({ plain: true }))
+      res.render('profile', { publicEvents, privateEvents, invitedEvents, user })
+    }
   } catch (err) {
     console.log(err);
     res.status(500).json({ msg: "an error occured", err })
@@ -163,36 +173,45 @@ router.get('/profile', async (req, res) => {
 
 router.get('/profile/invite/:id', async (req, res) => {
   try {
-    const dbUsers = await User.findAll({
-      include: [{
-        model: Event,
-        as: "invited",
-      }],
-    });
-    const users = dbUsers.map(user => user.get({ plain: true }));
-    // filter out users who are already invited
-    for (let i = users.length - 1; i >= 0; i--) {
-      let found = false;
-      for (const event of users[i].invited) {
-        if (event.id == req.params.id) {
-          found = true;
+    const user = req.session?.user;
+    if (!req.session?.user?.logged_in) {
+      res.render('error401', { user });
+    } else {
+      //get curEvent
+      const currentEvent = await Event.findByPk(req.params.id);
+      const curEvent = currentEvent.get({ plain: true })
+      // check to see if user is the owner, access deny if not
+      if (curEvent.creator_id != req.session.user.id) {
+        res.render('error401', { user });
+      } else {
+        const dbUsers = await User.findAll({
+          include: [{
+            model: Event,
+            as: "invited",
+          }],
+        });
+        const users = dbUsers.map(user => user.get({ plain: true }));
+        // filter out users who are already invited
+        for (let i = users.length - 1; i >= 0; i--) {
+          let found = false;
+          for (const event of users[i].invited) {
+            if (event.id == req.params.id) {
+              found = true;
+            }
+          }
+          if (found) {
+            users.splice(i, 1);
+          }
         }
-      }
-      if (found) {
-        users.splice(i, 1);
+
+        res.render('invite', { users, user, curEvent })
       }
     }
-
-    //get curEvent
-    const currentEvent = await Event.findByPk(req.params.id);
-    const curEvent = currentEvent.get({ plain: true })
-
-    const user = req.session?.user;
-
-    res.render('invite', { users, user, curEvent })
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ msg: "an error occured", err })
+  }
+  catch (err) {
+    //res.status(500).json({ msg: "an error occured", err })
+    const user = req.session?.user
+    res.render('error404', { user })
   }
 })
 
@@ -228,23 +247,35 @@ router.get("/profile/update/:id", async (req, res) => {
       ],
     })
     const eventUpdate = dbEvent.get({ plain: true });
-    const user = req.session.user
-    res.render('updateEvent', { eventUpdate, user })
+    const user = req.session?.user
+
+    if (!req.session?.user?.logged_in) {
+      res.render('error401');
+    } else if (eventUpdate.creator_id != req.session?.user?.id) {
+      // give 401 error page if not the owner trying to update event
+      res.render('error401', { user });
+    } else {
+      res.render('updateEvent', { eventUpdate, user })
+    }
   } catch (err) {
     console.log(err);
-    res.status(500).json({ msg: "an error occured", err })
+    //res.status(500).json({ msg: "an error occured", err })
+    const user = req.session?.user
+    res.render('error404', { user })
   }
 
 });
 
 router.get("/create_an_event", async (req, res) => {
-  const user = req.session?.user
-  res.render('createEvent', { user })
-
+  if (!req.session?.user?.logged_in) {
+    res.render('error401');
+  } else {
+    const user = req.session?.user
+    res.render('createEvent', { user })
+  }
 });
 
 router.get('/login', (req, res) => {
-
   res.render('login')
 });
 
@@ -261,4 +292,10 @@ router.get('/logout', (req, res) => {
   req.session.destroy();
   res.redirect("/login")
 });
+
+router.get('*', (req, res) => {
+  const user = req.session?.user
+  res.render('error404', { user })
+})
+
 module.exports = router;
