@@ -167,7 +167,7 @@ router.get("/profile/update/:id", async (req, res) => {
 
 router.get("/create_an_event", async (req, res) => {
   const user = req.session?.user
-  res.render('createEvent')
+  res.render('createEvent', { user })
 
 });
 
