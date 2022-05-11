@@ -16,6 +16,7 @@ router.get('/', (req, res) => {
       model: User,
       as: 'attendees'
     }],
+    order: ['start_time']
   })
     .then(dbEvents => {
       const hbsEvents = dbEvents.map(event => event.get({ plain: true }))
@@ -93,7 +94,8 @@ router.get('/profile', async (req, res) => {
       }],
       where: {
         creator_id: req.session.user?.id
-      }
+      },
+      order: ['start_time']
     })
     const events = dbEvents.map(event => event.get({ plain: true }))
     const publicEvents = events.filter(event => event.public)
@@ -112,7 +114,8 @@ router.get('/profile', async (req, res) => {
       }],
       where: {
         '$attendees.id$': req.session.user?.id,
-      }
+      },
+      order: ['start_time']
     })
     const invitedEvents = invited.map(event => event.get({ plain: true }))
     res.render('profile', { publicEvents, privateEvents, invitedEvents, user })
