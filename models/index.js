@@ -34,6 +34,7 @@ User.hasMany(Item, {
 // Many to many relationship between User and Event through Attendee
 User.belongsToMany(Event, {
     through: Attendee,
+    as: "invited",
     foreignKey: 'user_id',
 });
 Event.belongsToMany(User, {

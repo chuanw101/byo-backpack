@@ -9,6 +9,8 @@
                         Public Events</a></button>
                 <button class="btn btn-dark m-3"><a href="#privateEvents" class="text-reset text-decoration-none">My
                         Private Events</a></button>
+                <button class="btn btn-dark m-3"><a href="#invitedEvents" class="text-reset text-decoration-none">My
+                        Invited Events</a></button>
             </div>
         </div>
     </div>
@@ -49,7 +51,7 @@
                 <div class="col border m-2 p-2">
                     <h5>Attendees:</h5>
                     <ul>
-                        {{#each attendees}}
+                        {{#each yeses}}
                         <li>{{user_name}}</li>
                         {{/each}}
                     </ul>
@@ -69,6 +71,9 @@
                         <button class="btn btn-danger m-1 deleteBtn" value={{event.id}}>Delete Event</button>
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                <a href="/profile/invite/{{id}}" class="btn btn-dark m-1">Invite People</a>
             </div>
 
         </div>
@@ -110,7 +115,7 @@
                 <div class="col border m-2 p-2">
                     <h5>Attendees:</h5>
                     <ul>
-                        {{#each attendees}}
+                        {{#each yeses}}
                         <li>{{user_name}}</li>
                         {{/each}}
                     </ul>
@@ -131,7 +136,58 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <a href="/profile/invite/{{id}}" class="btn btn-dark m-1">Invite People</a>
+            </div>
 
+        </div>
+    </div>
+    {{/each}}
+</div>
+<div class="row d-flex justify-content-center mt-5">
+    <h1 class="mb-4 text-center" id="invitedEvents">My Invited Events</h1>
+    {{#each invitedEvents as |event|}}
+    <div class="card col-12 col-lg-5 mb-3 mx-3">
+        <div class="card-body">
+            <h2 class="card-title my-4 text-center">{{event.event_name}}</h2>
+            <hr>
+            <img src={{picture_path}} class="card-img-top" width="500" height="360" alt={{picture_path}}>
+            <hr>
+            <div class="row mb-3">
+                <div class="mb-2">
+                    <h5 class="d-inline">Location:</h5>
+                    <p class="d-inline">{{location}}</p>
+                </div>
+                <div class="mb-2">
+                    <h5 class="d-inline">Starts:</h5>
+                    <p class="d-inline">{{format_time start_time}}</p>
+                </div>
+                <div class="mb-2">
+                    <h5 class="d-inline">Ends:</h5>
+                    <p class="d-inline">{{format_time end_time}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col border m-2 p-2">
+                    <h5>Backpack:</h5>
+                    <ul>
+                        {{#each items}}
+                        <li>{{item_name}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <div class="col border m-2 p-2">
+                    <h5>Attendees:</h5>
+                    <ul>
+                        {{#each yeses}}
+                        <li>{{user_name}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <a href="/eventbyid/{{id}}" class="btn btn-dark m-1">View Details</a>
+            </div>
         </div>
     </div>
     {{/each}}
@@ -194,7 +250,7 @@
             Items:
             {{#items}}
             <ul>
-                <li>{{item_name}}</li> 
+                <li>{{item_name}}</li>
 
             </ul>
             {{/items}}

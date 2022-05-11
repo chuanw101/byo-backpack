@@ -12,6 +12,14 @@
                         <p class="d-inline">{{location}}</p>
                     </div>
                     <div class="mb-2">
+                        <h5 class="d-inline">Event Type:</h5>
+                        {{#if public}}
+                        <p class="d-inline">Public</p>
+                        {{else}}
+                        <p class="d-inline">Private</p>
+                        {{/if}}
+                    </div>
+                    <div class="mb-2">
                         <h5 class="d-inline">Starts:</h5>
                         <p class="d-inline">{{format_time start_time}}</p>
                     </div>

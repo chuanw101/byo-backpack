@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { User, Event, Item } = require('../models');
+const Op = require('sequelize').Op;
 
 // home route, only shows public events
 router.get('/', (req, res) => {
@@ -19,7 +20,7 @@ router.get('/', (req, res) => {
     .then(dbEvents => {
       const hbsEvents = dbEvents.map(event => event.get({ plain: true }))
       const user = req.session?.user
-      res.render('home', { event: hbsEvents, user})
+      res.render('home', { event: hbsEvents, user })
     });
 });
 
@@ -29,30 +30,30 @@ router.get("/eventbyid/:id", (req, res) => {
     include: [{
       model: Item,
       include: [User]
-  }, {
+    }, {
       model: User,
       as: 'creator'
-  }, {
+    }, {
       model: User,
       as: 'attendees',
-  }, {
+    }, {
       model: User,
       as: 'noresponses',
-      where: {'$noresponses.attendee.rsvp_status$': 0}, required: false
-  }, {
+      where: { '$noresponses.attendee.rsvp_status$': 0 }, required: false
+    }, {
       model: User,
       as: 'yeses',
-      where: {'$yeses.attendee.rsvp_status$': 1}, required: false
-  }, {
+      where: { '$yeses.attendee.rsvp_status$': 1 }, required: false
+    }, {
       model: User,
       as: 'noes',
-      where: {'$noes.attendee.rsvp_status$': 2}, required: false
-  }, {
+      where: { '$noes.attendee.rsvp_status$': 2 }, required: false
+    }, {
       model: User,
       as: 'maybes',
-      where: {'$maybes.attendee.rsvp_status$': 3}, required: false
-  },
-],
+      where: { '$maybes.attendee.rsvp_status$': 3 }, required: false
+    },
+    ],
   }).then(eventData => {
     const data = eventData.get({ plain: true })
     data.user = req.session?.user
@@ -80,79 +81,126 @@ router.get("/eventbyid/:id", (req, res) => {
   })
 })
 
-router.get('/profile', (req, res) => {
-  Event.findAll({
-    include: [{
-      model: Item,
-      include: [User]
-    }, {
-      model: User,
-      as: 'creator',
-    }, {
-      model: User,
-      as: 'attendees',
-      where: {'$attendees.attendee.rsvp_status$': 1}, required: false
-    }],
-    where: {
-      creator_id: req.session.user?.id
-    }
-  })
-    .then(dbEvents => {
-      const events = dbEvents.map(event => event.get({ plain: true }))
-      const publicEvents = events.filter(event => event.public)
-      const privateEvents = events.filter(event => !event.public)
-      const user = req.session?.user
-      res.render('profile', { publicEvents, privateEvents, user })
-    });
+router.get('/profile', async (req, res) => {
+  try {
+    const dbEvents = await Event.findAll({
+      include: [{
+        model: Item,
+      }, {
+        model: User,
+        as: 'yeses',
+        where: { '$yeses.attendee.rsvp_status$': 1 }, required: false
+      }],
+      where: {
+        creator_id: req.session.user?.id
+      }
+    })
+    const events = dbEvents.map(event => event.get({ plain: true }))
+    const publicEvents = events.filter(event => event.public)
+    const privateEvents = events.filter(event => !event.public)
+    const user = req.session?.user
+    const invited = await Event.findAll({
+      include: [{
+        model: Item,
+      }, {
+        model: User,
+        as: 'attendees',
+      }, {
+        model: User,
+        as: 'yeses',
+        where: { '$yeses.attendee.rsvp_status$': 1 }, required: false
+      }],
+      where: {
+        '$attendees.id$': req.session.user?.id,
+      }
+    })
+    const invitedEvents = invited.map(event => event.get({ plain: true }))
+    res.render('profile', { publicEvents, privateEvents, invitedEvents, user })
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "an error occured", err })
+  }
 });
 
-//find one event 
+router.get('/profile/invite/:id', async (req, res) => {
+  try {
+    const dbUsers = await User.findAll({
+      include: [{
+        model: Event,
+        as: "invited",
+      }],
+    });
+    const users = dbUsers.map(user => user.get({ plain: true }));
+    // filter out users who are already invited
+    for (let i = users.length - 1; i >= 0; i--) {
+      let found = false;
+      for (const event of users[i].invited) {
+        if (event.id == req.params.id) {
+          found = true;
+        }
+      }
+      if (found) {
+        users.splice(i, 1);
+      }
+    }
+
+    //get curEvent
+    const currentEvent = await Event.findByPk(req.params.id);
+    const curEvent = currentEvent.get({ plain: true })
+
+    const user = req.session?.user;
+
+    res.render('invite', { users, user, curEvent })
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "an error occured", err })
+  }
+})
+
 router.get("/profile/update/:id", async (req, res) => {
   try {
-    const dbEvent =await Event.findByPk(req.params.id, {
+    const dbEvent = await Event.findByPk(req.params.id, {
       include: [{
         model: Item,
         include: [User]
-    }, {
+      }, {
         model: User,
         as: 'creator'
-    }, {
+      }, {
         model: User,
         as: 'attendees',
-    }, {
+      }, {
         model: User,
         as: 'noresponses',
-        where: {'$noresponses.attendee.rsvp_status$': 0}, required: false
-    }, {
+        where: { '$noresponses.attendee.rsvp_status$': 0 }, required: false
+      }, {
         model: User,
         as: 'yeses',
-        where: {'$yeses.attendee.rsvp_status$': 1}, required: false
-    }, {
+        where: { '$yeses.attendee.rsvp_status$': 1 }, required: false
+      }, {
         model: User,
         as: 'noes',
-        where: {'$noes.attendee.rsvp_status$': 2}, required: false
-    }, {
+        where: { '$noes.attendee.rsvp_status$': 2 }, required: false
+      }, {
         model: User,
         as: 'maybes',
-        where: {'$maybes.attendee.rsvp_status$': 3}, required: false
-    },
-  ],
-  })
-      const eventUpdate = dbEvent.get({ plain: true });
-      const user = req.session.user
-      res.render('updateEvent',{eventUpdate,user})
-
+        where: { '$maybes.attendee.rsvp_status$': 3 }, required: false
+      },
+      ],
+    })
+    const eventUpdate = dbEvent.get({ plain: true });
+    const user = req.session.user
+    res.render('updateEvent', { eventUpdate, user })
   } catch (err) {
-
-      console.log(err);
-      res.status(500).json({ msg: "an error occured", err })
+    console.log(err);
+    res.status(500).json({ msg: "an error occured", err })
   }
 
 });
 
 router.get("/create_an_event", async (req, res) => {
   const user = req.session?.user
-res.render('createEvent')
+  res.render('createEvent', { user })
 
 });
 
@@ -167,7 +215,7 @@ router.get('/signup', (req, res) => {
 });
 router.get('/profile/changepassword', (req, res) => {
   const user = req.session.user
-  res.render('changepassword',{user})
+  res.render('changepassword', { user })
 });
 
 router.get('/logout', (req, res) => {
