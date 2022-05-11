@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col">
+        <h1>Upcoming Events in {{state}}</h1>
+    </div>
+    <div class="col d-flex justify-content-end">
+        <form class="d-inline-flex">
+            <input type="search" class="form-control m-2" placeholder="Location" id="searchInput">
+            <button class="btn btn-dark my-2" type="submit" id="searchBtn">Search</button>
+        </form>
+    </div>
+</div>
+<hr>
+<div class="row d-flex justify-content-center">
+    {{#each event}}
+    <div class="card col-12 col-md-5 my-3 mx-3 p-2">
+        <img src={{picture_path}} class="card-img-top" width="500" height="360" alt={{picture_path}}>
+        <div class="card-body">
+            <h2 class="card-title  mt-2 mb-3 text-center">{{event_name}}</h2>
+            <h5 class="text-center">{{format_time start_time}}</h5>
+            <p class="text-center">{{location}}</p>
+            <div class="d-grid gap-2 mt-3 mb-1">
+                <a class="btn btn-dark" href="/eventbyid/{{id}}">Event Details</a>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
