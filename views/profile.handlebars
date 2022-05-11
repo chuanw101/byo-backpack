@@ -1,7 +1,140 @@
-Welcome {{user.user_name}}
-<button id="changePssword">Change Password</button>
+<div class="row d-flex justify-content-center">
+    <div class="card col-12 my-5">
+        <div class="card-body">
+            <h1 class="card-title my-4 text-center">Welcome back, {{user.user_name}}!</h1>
+            <hr>
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-dark m-3" id="changePssword">Change Password</button>
+                <button class="btn btn-dark m-3"><a href="#publicEvents" class="text-reset text-decoration-none">My Public Events</a></button>
+                <button class="btn btn-dark m-3"><a href="#privateEvents" class="text-reset text-decoration-none">My Private Events</a></button>
+            </div>
+        </div>
+    </div>
+</div>
 
-<h1>Public Events</h1>
+<div class="row d-flex justify-content-center mt-5">
+    <h1 class="mb-4 text-center" id="publicEvents">My Public Events</h1>
+    {{#each publicEvents as |event|}}
+    <div class="card col-12 col-lg-5 mb-3 mx-3">
+        <div class="card-body">
+            <h2 class="card-title my-4 text-center">{{event.event_name}}</h2>
+            <hr>
+            <div class="row mb-3">
+                <div class="mb-2">
+                    <h5 class="d-inline">Location:</h5>
+                    <p class="d-inline">{{location}}</p>
+                </div>
+                <div class="mb-2">
+                    <h5 class="d-inline">Starts:</h5>
+                    <p class="d-inline">{{format_time start_time}}</p>
+                </div>
+                <div class="mb-2">
+                    <h5 class="d-inline">Ends:</h5>
+                    <p class="d-inline">{{format_time end_time}}</p>
+                </div>
+            </div>
+            {{!-- <hr> --}}
+            <div class="row">
+                <div class="col border m-2 p-2">
+                    <h5>Backpack:</h5>
+                    <ul>
+                        {{#each items}}
+                        <li>{{item_name}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <div class="col border m-2 p-2">
+                    <h5>Attendees:</h5>
+                    <ul>
+                        {{#each attendees}}
+                        <li>{{user_name}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col">
+                    <div class="d-grid gap-2 my-3">
+                        <button class="btn btn-dark m-1"><a href="/eventbyid/{{id}}" class="text-reset text-decoration-none">View Details</a></button>
+                        <button class="btn btn-dark m-1" id="privBtn" value={{event.id}}>Make Private</button>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="d-grid gap-2 my-3">
+                        <button class="btn btn-dark m-1" id="updateBtn" value={{event.id}}>Update Details</button>
+                        <button class="btn btn-dark m-1" id="deleteBtn" value={{event.id}}>Delete Event</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {{/each}}
+</div>
+<div class="row d-flex justify-content-center mt-5">
+    <h1 class="mb-4 text-center" id="privateEvents">My Private Events</h1>
+    {{#each privateEvents as |event|}}
+    <div class="card col-12 col-lg-5 mb-3 mx-3">
+        <div class="card-body">
+            <h2 class="card-title my-4 text-center">{{event.event_name}}</h2>
+            <hr>
+            <div class="row mb-3">
+                <div class="mb-2">
+                    <h5 class="d-inline">Location:</h5>
+                    <p class="d-inline">{{location}}</p>
+                </div>
+                <div class="mb-2">
+                    <h5 class="d-inline">Starts:</h5>
+                    <p class="d-inline">{{format_time start_time}}</p>
+                </div>
+                <div class="mb-2">
+                    <h5 class="d-inline">Ends:</h5>
+                    <p class="d-inline">{{format_time end_time}}</p>
+                </div>
+            </div>
+            {{!-- <hr> --}}
+            <div class="row">
+                <div class="col border m-2 p-2">
+                    <h5>Backpack:</h5>
+                    <ul>
+                        {{#each items}}
+                        <li>{{item_name}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <div class="col border m-2 p-2">
+                    <h5>Attendees:</h5>
+                    <ul>
+                        {{#each attendees}}
+                        <li>{{user_name}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col">
+                    <div class="d-grid gap-2 my-3">
+                        <button class="btn btn-dark m-1"><a href="/eventbyid/{{id}}" class="text-reset text-decoration-none">View Details</a></button>
+                        <button class="btn btn-dark m-1" id="pubBtn" value={{event.id}}>Make Public</button>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="d-grid gap-2 my-3">
+                        <button class="btn btn-dark m-1" id="updateBtn" value={{event.id}}>Update Details</button>
+                        <button class="btn btn-dark m-1" id="deleteBtn" value={{event.id}}>Delete Event</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {{/each}}
+</div>
+<script src="/js/eventAction.js"></script>
+
+{{!-- <h1>My Public Events</h1>
 {{#each publicEvents as |event|}}
 <div>
     <div>
@@ -79,6 +212,5 @@ Welcome {{user.user_name}}
     <button class="pubBtn" value={{event.id}}>Make Public</button>
     <a class="btn btn-dark" href="/eventbyid/{{id}}">Event Details</a>
 </div>
-{{/each}}
+{{/each}} --}}
 
-<script src="/js/eventAction.js"></script>
