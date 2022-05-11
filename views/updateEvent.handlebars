@@ -12,9 +12,12 @@
                     <label for="location" class="form-label">Location</label>
                     <input class="form-control" id="location" value="{{eventUpdate.location}}">
                 </div>
+             <div>
+                    <img id="uploadedimage" src={{eventUpdate.picture_path}}></img>
+                </div>
                 <div class="mb-3">
-                    <label for="formFile" class="form-label">Upload Image</label>
-                    <input class="form-control" type="file" id="formFile">
+                    <button for="formFile" id="upload_widget" class="form-label, cloudinary-button">Upload
+                        Image</button>
                 </div>
 
                 {{!-- <div class="row mb-3">
@@ -25,7 +28,7 @@
                     </div>--}}
                     <div class="row mb-3" <div class="col">
                         <label for="startTime" class="form-label">Start Time</label>
-                        <input type="text" class="form-control" value="{{format_time eventUpdate.start_time}}"
+                        <input type="datetime-local" class="form-control" value="{{eventUpdate.start_time}}"
                             aria-label="startTime" id="startTime">
                     </div>
                     {{!--
@@ -37,7 +40,7 @@
                         </div> --}}
                         <div class="col">
                             <label for="endTime" class="form-label">End Time</label>
-                            <input type="text" class="form-control" value="{{format_time eventUpdate.end_time}}"
+                            <input type="datetime-local" class="form-control" value="{{format_time eventUpdate.end_time}}"
                                 aria-label="endTime" id="endTime">
                         </div>
                     </div>
@@ -102,5 +105,5 @@
         </div>
     </div>
 </div>
-
+<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
 <script src="/js/updateEvent.js"></script>

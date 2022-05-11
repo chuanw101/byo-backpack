@@ -1,4 +1,5 @@
 let public = ( document.querySelector("#public").getAttribute("checked") == "checked" );
+var photoArr = []
 
 const radioButtons = document.querySelectorAll('input[name="eventType"]');
 for (const radioButton of radioButtons) {
@@ -19,18 +20,45 @@ for (const radioButton of radioButtons) {
     }
 }
 
+const myWidget = cloudinary.createUploadWidget(
+    {
+      cloudName: 'da2jrzaai',
+      uploadPreset: 'usrvqzja',
+      maxImageFileSize: 2000000,  //restrict file size to less than 2MB
+    },
+    (error, result) => {
+      if (!error && result && result.event === "success") {
+        console.log("Done! Here is the image info: ", result.info);
+        document
+          .getElementById("uploadedimage")
+          .setAttribute("src", result.info.secure_url);
+        photoArr.push(result.info)
+      }
+    }
+  );
+  
+  document.getElementById("upload_widget").addEventListener(
+    "click", e => {
+      e.preventDefault()
+      myWidget.open();
+    },
+    false
+  );
+
+
 // update Event
 const updateEventHandler = async (event) => {
+    
     try {
 
     event.preventDefault();
     const event_name = document.querySelector('#eventName').value;
     const location = document.querySelector('#location').value;
-    const picture_path = document.querySelector('#formFile').value;
     const start_time = document.querySelector('#startTime').value;
     const end_time = document.querySelector('#endTime').value;
+    const picture_path = document.querySelector('#uploadedimage').src;
     // const items = document.querySelector('#backpackItems').value;
-
+   
     const description = document.querySelector('#eventDescription').value;
 
     const eventId = document.querySelector('#updateEventSubmit').value;
@@ -42,7 +70,7 @@ const updateEventHandler = async (event) => {
             location,
             // start_time,
             // end_time,
-            // picture_path,
+            picture_path,
             description,
             public,
             // items: req.body.items,
@@ -53,7 +81,7 @@ const updateEventHandler = async (event) => {
     });
     
     alert('the Event has been updated')
-    document.location.replace('/profile');
+   document.location.replace('/profile');
 
 
 
