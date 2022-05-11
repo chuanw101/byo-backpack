@@ -1,5 +1,6 @@
 let public = ( document.querySelector("#public").getAttribute("checked") == "checked" );
 var photoArr = []
+console.log(document.querySelector('#startTime').getAttribute("temp"))
 
 const radioButtons = document.querySelectorAll('input[name="eventType"]');
 for (const radioButton of radioButtons) {
@@ -60,6 +61,8 @@ const updateEventHandler = async (event) => {
     const end_time = document.querySelector('#endTime').value;
     const picture_path = document.querySelector('#uploadedimage').src;
     // const items = document.querySelector('#backpackItems').value;
+    const city = document.querySelector("#city").value
+    const state = document.querySelector("#state").value
    
     const description = document.querySelector('#eventDescription').value;
 
@@ -70,6 +73,8 @@ const updateEventHandler = async (event) => {
         body: JSON.stringify({
             event_name,
             location,
+            city,
+            state,
             // start_time,
             // end_time,
             picture_path,
