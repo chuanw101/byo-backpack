@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
       model: User,
       as: 'attendees'
     }],
-    where : { start_time : { [Op.gt]: dateTime } }, 
+    where: { start_time: { [Op.gt]: dateTime } },
     order: ['start_time']
   })
     .then(dbEvents => {
@@ -89,41 +89,45 @@ router.get("/eventbyid/:id", (req, res) => {
 
 router.get('/profile', async (req, res) => {
   try {
-    const dbEvents = await Event.findAll({
-      include: [{
-        model: Item,
-      }, {
-        model: User,
-        as: 'yeses',
-        where: { '$yeses.attendee.rsvp_status$': 1 }, required: false
-      }],
-      where: {
-        creator_id: req.session.user?.id
-      },
-      order: ['start_time']
-    })
-    const events = dbEvents.map(event => event.get({ plain: true }))
-    const publicEvents = events.filter(event => event.public)
-    const privateEvents = events.filter(event => !event.public)
-    const user = req.session?.user
-    const invited = await Event.findAll({
-      include: [{
-        model: Item,
-      }, {
-        model: User,
-        as: 'attendees',
-      }, {
-        model: User,
-        as: 'yeses',
-        where: { '$yeses.attendee.rsvp_status$': 1 }, required: false
-      }],
-      where: {
-        '$attendees.id$': req.session.user?.id,
-      },
-      order: ['start_time']
-    })
-    const invitedEvents = invited.map(event => event.get({ plain: true }))
-    res.render('profile', { publicEvents, privateEvents, invitedEvents, user })
+    if (!req.session?.user?.logged_in) {
+      res.render('error401');
+    } else {
+      const dbEvents = await Event.findAll({
+        include: [{
+          model: Item,
+        }, {
+          model: User,
+          as: 'yeses',
+          where: { '$yeses.attendee.rsvp_status$': 1 }, required: false
+        }],
+        where: {
+          creator_id: req.session.user?.id
+        },
+        order: ['start_time']
+      })
+      const events = dbEvents.map(event => event.get({ plain: true }))
+      const publicEvents = events.filter(event => event.public)
+      const privateEvents = events.filter(event => !event.public)
+      const user = req.session?.user
+      const invited = await Event.findAll({
+        include: [{
+          model: Item,
+        }, {
+          model: User,
+          as: 'attendees',
+        }, {
+          model: User,
+          as: 'yeses',
+          where: { '$yeses.attendee.rsvp_status$': 1 }, required: false
+        }],
+        where: {
+          '$attendees.id$': req.session.user?.id,
+        },
+        order: ['start_time']
+      })
+      const invitedEvents = invited.map(event => event.get({ plain: true }))
+      res.render('profile', { publicEvents, privateEvents, invitedEvents, user })
+    }
   } catch (err) {
     console.log(err);
     res.status(500).json({ msg: "an error occured", err })
