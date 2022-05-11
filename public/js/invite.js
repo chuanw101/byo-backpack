@@ -15,7 +15,7 @@ for (const button of inviteBtns) {
             if (res.ok) {
                 location.reload()
             } else {
-                alert("rsvp failed, check if logged in")
+                alert("you cannot invite for this event")
             }
         })
     });
