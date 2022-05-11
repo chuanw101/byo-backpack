@@ -93,9 +93,6 @@ document.querySelector("#newEventSubmit").addEventListener("click", e => {
   }
 })
 
-
-
-
 var stateInputEl = $('#state');
 var handleSateList = function (event) {
   event.preventDefault();
@@ -155,7 +152,6 @@ $(function () {
     'WV',
     'WI',
     'WY',
-
   ];
   $('#state').autocomplete({
     source: stateNames,

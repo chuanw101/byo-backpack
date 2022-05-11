@@ -5,3 +5,9 @@
 .custom-nav {
     background-color: var(--mainGreen)
 }
+
+/* overload autocomplete bg so its not transparent */
+.ui-autocomplete {
+    background: white;
+    z-index: 2;
+}
