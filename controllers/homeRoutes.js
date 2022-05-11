@@ -139,6 +139,7 @@ router.get("/profile/update/:id", async (req, res) => {
   ],
   })
       const eventUpdate = dbEvent.get({ plain: true });
+      
       const user = req.session.user
      console.log("==========%%%%%%%%%%%%%%%")
 console.log(eventUpdate)

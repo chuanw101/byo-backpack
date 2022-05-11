@@ -21,6 +21,7 @@ for (const deleteBtn of deleteBtns) {
 }
 
 
+
 const updateBtns = document.querySelectorAll(".updateBtn");
 
 for (const updateBtn of updateBtns) {
@@ -80,25 +81,6 @@ for (const button of pubBtns) {
     });
 }
 
-// const updateBtns = document.querySelectorAll(".updateBtn");
-
-// for (const updateBtn of updateBtns) {
-//     updateBtn.addEventListener('click', deleteEvent);
-
-//     async function deleteEvent(e) {
-//         const response = await fetch(`/api/events/${e.target.value}`, {
-//             method: 'PUT',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             }
-//         });
-//         if (response.ok) {
-//             document.location.replace('/profile');
-//         } else {
-//             alert('Failed to delete');
-//         }
-//     }
-// }
 
 
 
