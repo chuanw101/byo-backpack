@@ -25,9 +25,7 @@ for (const updateBtn of updateBtns) {
     updateBtn.addEventListener('click', updateEvent);
 
      function updateEvent(e) {
-       
             document.location.replace(`/profile/update/${e.target.value}`);
-        
     }
 }
 
@@ -58,7 +56,6 @@ for (const button of privBtns) {
 const pubBtns = document.querySelectorAll(".pubBtn");
 for (const button of pubBtns) {
     button.addEventListener('click', e => {
-        console.log("click")
         const obj = {
             public: true
         }

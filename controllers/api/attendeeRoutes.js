@@ -21,6 +21,25 @@ router.post("/:event_id", (req, res) => {
         });
 });
 
+//invite for event
+router.post("/invite/:event_id", (req, res) => {
+    if (!req.session.user) {
+        return res.status(401).json({ msg: "must log in to invite for event!" })
+    }
+    Attendee.create({
+        event_id: req.params.event_id,
+        user_id: req.body.user_id,
+        rsvp_status: 0,
+    })
+        .then(newAttendee => {
+            res.json(newAttendee);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ msg: "an error occured", err });
+        });
+});
+
 //change rsvp for event
 router.put("/:event_id", (req, res) => {
     if (!req.session.user) {
