@@ -33,8 +33,8 @@
                     <hr class="my-2">
                     {{#each items}}
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input claimCheck" type="checkbox" id={{id}} value={{item_name}} {{#if owner_id}} {{#if isBroughtByUser}} checked {{else}} checked disabled {{/if}}{{/if}}>
-                        <label class="form-check-label" for={{id}}>{{item_name}}{{#if owner_id}}{{#if isBroughtByUser}}{{else}}, claimed by {{user.user_name}}{{/if}}{{/if}}</label>
+                        <input class="form-check-input claimCheck" type="checkbox" id={{id}} value={{item_name}} {{#unless ../user.isGoing}}disabled{{/unless}} {{#if owner_id}} {{#if isBroughtByUser}} checked {{else}} checked disabled {{/if}}{{/if}}>
+                        <label class="form-check-label" for={{id}}>{{item_name}}{{#if owner_id}}{{#if isBroughtByUser}}{{else}}, claimed by{{user.user_name}}{{/if}}{{/if}}</label>
                     </div>
                     {{/each}}
                 </div>
