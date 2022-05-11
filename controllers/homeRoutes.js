@@ -4,6 +4,10 @@ const Op = require('sequelize').Op;
 
 // home route, only shows public events
 router.get('/', (req, res) => {
+  const today = new Date();
+  const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+  const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  const dateTime = date + ' ' + time;
   Event.findAll({
     include: [{
       model: Item,
@@ -16,6 +20,7 @@ router.get('/', (req, res) => {
       model: User,
       as: 'attendees'
     }],
+    where : { start_time : { [Op.gt]: dateTime } }, 
     order: ['start_time']
   })
     .then(dbEvents => {
