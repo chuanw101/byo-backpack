@@ -90,7 +90,8 @@ router.get('/profile', (req, res) => {
       as: 'creator',
     }, {
       model: User,
-      as: 'attendees'
+      as: 'attendees',
+      where: {'$attendees.attendee.rsvp_status$': 1}, required: false
     }],
     where: {
       creator_id: req.session.user?.id

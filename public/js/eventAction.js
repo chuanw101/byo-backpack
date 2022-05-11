@@ -2,10 +2,9 @@
 const deleteBtns = document.querySelectorAll(".deleteBtn");
 
 for (const deleteBtn of deleteBtns) {
-    // console.log('hello');
     deleteBtn.addEventListener('click', deleteEvent);
-
     async function deleteEvent(e) {
+        if (confirm("ARE YOU SURE YOU WANT TO PERMANENTLY DELETE EVENT?")) {
         const response = await fetch(`/api/events/${e.target.value}`, {
             method: 'DELETE',
             headers: {
@@ -17,6 +16,7 @@ for (const deleteBtn of deleteBtns) {
         } else {
             alert('Failed to delete');
         }
+    }
     }
 }
 
