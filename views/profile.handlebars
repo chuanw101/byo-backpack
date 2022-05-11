@@ -73,7 +73,9 @@
                 </div>
             </div>
             <div class="row">
-                <a href="/profile/invite/{{id}}" class="btn btn-dark m-1">Invite People</a>
+                <div class="d-grid gap-2 mb-3">
+                    <a href="/profile/invite/{{id}}" class="btn btn-dark m-1">Invite People</a>
+                </div>
             </div>
 
         </div>
@@ -145,7 +147,7 @@
     {{/each}}
 </div>
 <div class="row d-flex justify-content-center mt-5">
-    <h1 class="mb-4 text-center" id="invitedEvents">My Invited Events</h1>
+    <h1 class="mb-4 text-center" id="invitedEvents">Event Invites</h1>
     {{#each invitedEvents as |event|}}
     <div class="card col-12 col-lg-5 mb-3 mx-3">
         <div class="card-body">
