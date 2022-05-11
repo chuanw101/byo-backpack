@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
       model: User,
       as: 'attendees'
     }],
-    where : { start_time : { [Op.gt]: dateTime } }, 
+    where: { start_time: { [Op.gt]: dateTime } },
     order: ['start_time']
   })
     .then(dbEvents => {
@@ -29,7 +29,38 @@ router.get('/', (req, res) => {
       res.render('home', { event: hbsEvents, user })
     });
 });
-
+// home route, only shows public events
+router.get('/search/:location', (req, res) => {
+  const today = new Date();
+  const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+  const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  const dateTime = date + ' ' + time;
+  Event.findAll({
+    include: [{
+      model: Item,
+      include: [User]
+    }, {
+      model: User,
+      as: 'creator',
+      where: { '$public$': true }
+    }, {
+      model: User,
+      as: 'attendees'
+    }],
+    where: {
+      start_time: { [Op.gt]: dateTime },
+      city: req.params.location
+    },
+    order: ['start_time'],
+    
+  })
+    .then(dbEvents => {
+      console.log(dbEvents)
+      const hbsEvents = dbEvents.map(event => event.get({ plain: true }))
+      const user = req.session?.user
+      res.render('searchResult', { event: hbsEvents, user })
+    });
+});
 //render event by id
 router.get("/eventbyid/:id", (req, res) => {
   Event.findByPk(req.params.id, {
