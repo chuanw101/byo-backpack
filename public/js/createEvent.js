@@ -7,6 +7,8 @@ const myWidget = cloudinary.createUploadWidget(
     cloudName: 'da2jrzaai',
     uploadPreset: 'usrvqzja',
     maxImageFileSize: 2000000,  //restrict file size to less than 2MB
+    multiple: false,
+    theme: "minimal"
   },
   (error, result) => {
     if (!error && result && result.event === "success") {
