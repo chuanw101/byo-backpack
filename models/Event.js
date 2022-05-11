@@ -35,10 +35,11 @@ Event.init({
     },
     description: {
         type: DataTypes.TEXT,
-        default: "no description",
+        defaultValue: "no description",
     },
     picture_path: {
         type: DataTypes.STRING,
+        defaultValue: "/images/BYOB_Logo_Crop.png",
     },
     creator_id: {
         type: DataTypes.INTEGER,

@@ -3,7 +3,7 @@
 <div class="row d-flex justify-content-center">
     {{#each event}}
     <div class="card col-12 col-md-5 my-3 mx-3 p-2">
-        <img src="http://placekitten.com/500/360" class="card-img-top" alt="...">
+        <img src={{picture_path}} class="card-img-top" width="500" height="360" alt={{picture_path}}>
         <div class="card-body">
             <h2 class="card-title  mt-2 mb-3 text-center">{{event_name}}</h2>
             <h5 class="text-center">{{format_time start_time}}</h5>
