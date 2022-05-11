@@ -1,4 +1,3 @@
-
 const deleteBtns = document.querySelectorAll(".deleteBtn");
 
 for (const deleteBtn of deleteBtns) {
