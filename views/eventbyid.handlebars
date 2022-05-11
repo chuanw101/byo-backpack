@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="row my-5">
-                <h4 class="text-center mb-3">Backpack Items</h4>
+                <h2 class="text-center mb-3">Backpack Items</h2>
                 <div class="d-flex justify-content-center">
                     <hr class="my-2">
                     {{#each items}}
@@ -47,54 +47,42 @@
                     {{/each}}
                 </div>
             </div>
-            <div class="row my-5">
-                <h4 class="text-center mb-3">Definately Going</h4>
-                <div class="d-flex justify-content-center">
-                    <hr>
-                    <p class="px-2">|</p>
-                    {{#each yeses}}
-                    <p class="px-2">{{user_name}}</p>
-                    <p class="px-2">|</p>
-                    {{/each}}
-                    <hr>
+            <div class="row my-5 d-flex flex-wrap justify-content-around">
+                <h2 class="text-center mb-3">Attendees</h2>
+                <div class="col px-3 mx-2 text-center border py-3">
+                    <h5>No Response</h5>
+                    <ul class="list-group list-group-flush">
+                        {{#each noresponses}}
+                        <li class="list-group-item">{{user_name}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <div class="col px-3 mx-2 text-center border py-3">
+                    <h5>Attending</h5>
+                    <ul class="list-group list-group-flush">
+                        {{#each yeses}}
+                        <li class="list-group-item">{{user_name}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <div class="col px-3 mx-2 text-center border py-3">
+                    <h5>Maybe</h5>
+                    <ul class="list-group list-group-flush">
+                        {{#each maybes}}
+                        <li class="list-group-item">{{user_name}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <div class="col px-3 mx-2 text-center border py-3">
+                    <h5>Declined</h5>
+                    <ul class="list-group list-group-flush">
+                        {{#each noes}}
+                        <li class="list-group-item">{{user_name}}</li>
+                        {{/each}}
+                    </ul>
                 </div>
             </div>
-            <div class="row my-5">
-                <h4 class="text-center mb-3">Maybe Going</h4>
-                <div class="d-flex justify-content-center">
-                    <hr>
-                    <p class="px-2">|</p>
-                    {{#each maybes}}
-                    <p class="px-2">{{user_name}}</p>
-                    <p class="px-2">|</p>
-                    {{/each}}
-                    <hr>
-                </div>
-            </div>
-            <div class="row my-5">
-                <h4 class="text-center mb-3">Not Going</h4>
-                <div class="d-flex justify-content-center">
-                    <hr>
-                    <p class="px-2">|</p>
-                    {{#each noes}}
-                    <p class="px-2">{{user_name}}</p>
-                    <p class="px-2">|</p>
-                    {{/each}}
-                    <hr>
-                </div>
-            </div>
-            <div class="row my-5">
-                <h4 class="text-center mb-3">Deciding</h4>
-                <div class="d-flex justify-content-center">
-                    <hr>
-                    <p class="px-2">|</p>
-                    {{#each noresponses}}
-                    <p class="px-2">{{user_name}}</p>
-                    <p class="px-2">|</p>
-                    {{/each}}
-                    <hr>
-                </div>
-            </div>
+
             <div class="d-grid gap-2 my-3">
                 {{#if user.logged_in}}
                 {{#unless user.isRSVP}}
@@ -105,8 +93,8 @@
                 </select>
                 <button class="btn btn-dark" id="rsvpBtn" value={{id}}>RSVP</button>
                 {{else}}
-                <hr>
-                <h5 class="text-center">Your RSVP Status:</h5>
+                {{!-- <hr> --}}
+                <h2 class="text-center">Your RSVP Status</h2>
                 <select name="rsvp-choice" id="rsvp-choice" class="form-control" status={{user.rsvp_status}}>
                     <option id="option-0" value=0>No response</option>
                     <option id="option-1" value=1>I'm attending!</option>
