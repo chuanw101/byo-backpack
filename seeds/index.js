@@ -24,6 +24,8 @@ const events = [
     {
         event_name:"potluck",
         location:"online",
+        city:"seattle",
+        state:"Wa",
         start_time:moment().toDate(),
         end_time:moment().toDate(),
         description: "a really good potluck",
@@ -31,6 +33,8 @@ const events = [
     },{
         event_name:"potluck3",
         location:"online",
+        city:"seattle",
+        state:"Wa",
         start_time:moment().toDate(),
         end_time:moment().toDate(),
         creator_id:1
@@ -38,6 +42,8 @@ const events = [
     {
         event_name:"potluck4",
         location:"online",
+        city:"seattle",
+        state:"Wa",
         start_time:moment().toDate(),
         end_time:moment().toDate(),
         creator_id:1
@@ -45,6 +51,8 @@ const events = [
     {
         event_name:"poker night",
         location:"online",
+        city:"seattle",
+        state:"Wa",
         start_time:moment().toDate(),
         end_time:moment().toDate(),
         creator_id:2

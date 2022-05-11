@@ -19,6 +19,14 @@ Event.init({
         type: DataTypes.STRING,
         allowNull: false,
     },
+    city: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    state: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     start_time: {
         type: DataTypes.DATE,
         allowNull: false,
