@@ -11,3 +11,24 @@
     background: white;
     z-index: 2;
 }
+
+@media screen and (max-width: 992px) {
+    #custom-navbar {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+    #custom-navlinks {
+        flex-direction: row;
+    }
+    #custom-navlinks li {
+        margin: 10px;
+    }
+    #custom-search {
+        justify-content: center !important;
+    }
+    #cust-upcoming h1 {
+        text-align: center;
+        font-size: xx-large !important;
+    }
+}
