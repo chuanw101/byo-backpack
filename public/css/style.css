@@ -44,7 +44,8 @@
         align-items: center;
         justify-content: center;
     }
-    /* #cust-img {
-
-    } */
+    #cust-img {
+        justify-content: center !important;
+        margin-bottom: 10px;
+    }
 }
