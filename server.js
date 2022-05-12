@@ -20,7 +20,7 @@ const hbs = exphbs.create({ });
 
 // helper for formatting time
 hbs.handlebars.registerHelper('format_time', function(date) {
-  return date.toDateString()+ " - " +date.toLocaleTimeString();
+  return date.toDateString()+ " at " + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
 })
 hbs.handlebars.registerHelper('format_time_value', function(date) {
   return moment(date).format("YYYY-MM-DDThh:mm");
