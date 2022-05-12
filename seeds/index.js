@@ -1,6 +1,6 @@
 const sequelize = require("../config/connection");
 const moment = require("moment");
-const {User,Item,Event,Attendee} = require("../models");
+const { User, Item, Event, Attendee } = require("../models");
 
 const users = [
     {
@@ -111,37 +111,37 @@ const items = [
 
 const attendees = [
     {
-        event_id:1,
-        user_id:1,
+        event_id: 1,
+        user_id: 1,
     },
     {
-        event_id:1,
-        user_id:2,
+        event_id: 1,
+        user_id: 2,
     },
     {
-        event_id:1,
-        user_id:3,
+        event_id: 1,
+        user_id: 3,
     },
     {
-        event_id:1,
-        user_id:4,
+        event_id: 1,
+        user_id: 4,
     },
     
     {
-        event_id:2,
-        user_id:1,
+        event_id: 2,
+        user_id: 1,
     },
     {
-        event_id:2,
-        user_id:2,
+        event_id: 2,
+        user_id: 2,
     },
     {
-        event_id:2,
-        user_id:3,
+        event_id: 2,
+        user_id: 3,
     },
     {
-        event_id:2,
-        user_id:4,
+        event_id: 2,
+        user_id: 4,
     },
     
     {
@@ -180,17 +180,17 @@ const attendees = [
     
 ]
 
-const feedMe = async ()=>{
-    try{
-        await sequelize.sync({force:true})
-        await User.bulkCreate(users,{
-            individualHooks:true
+const feedMe = async () => {
+    try {
+        await sequelize.sync({ force: true })
+        await User.bulkCreate(users, {
+            individualHooks: true
         });
         await Event.bulkCreate(events);
         await Item.bulkCreate(items);
         await Attendee.bulkCreate(attendees);
         process.exit(0);
-    } catch(err){
+    } catch (err) {
         console.log(err)
     }
 }

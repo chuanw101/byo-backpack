@@ -1,3 +1,4 @@
+// delete event
 const deleteBtns = document.querySelectorAll(".deleteBtn");
 
 for (const deleteBtn of deleteBtns) {
@@ -11,20 +12,20 @@ for (const deleteBtn of deleteBtns) {
             }
         });
         if (response.ok) {
-            document.location.replace('/profile');
+            location.reload();
         } else {
             alert('Failed to delete');
         }
     }
     }
 }
-
+// direct the update event page
 const updateBtns = document.querySelectorAll(".updateBtn");
 for (const updateBtn of updateBtns) {
     updateBtn.addEventListener('click', updateEvent);
 
      function updateEvent(e) {
-            document.location.replace(`/profile/update/${e.target.value}`);
+            document.location.href =`/profile/update/${e.target.value}`;
     }
 }
 
@@ -73,35 +74,3 @@ for (const button of pubBtns) {
         })
     });
 }
-
-// const updateBtns = document.querySelectorAll(".updateBtn");
-
-// for (const updateBtn of updateBtns) {
-//     updateBtn.addEventListener('click', deleteEvent);
-
-//     async function deleteEvent(e) {
-//         const response = await fetch(`/api/events/${e.target.value}`, {
-//             method: 'PUT',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             }
-//         });
-//         if (response.ok) {
-//             document.location.replace('/profile');
-//         } else {
-//             alert('Failed to delete');
-//         }
-//     }
-// }
-
-
-
-
-// const changePassBtn = document.querySelector("#changePssword");
-
-// changePassBtn.addEventListener('click', changePassword);
-
-//      function changePassword() {
-//             document.location.replace(`/profile/changepassword`);
-        
-//     }

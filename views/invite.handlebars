@@ -1,16 +1,29 @@
+{{!-- invite user to event page --}}
 <div class="row">
     <div class="col">
-        <h1>Invite Users to your  <a class="link-info text-reset" href="/eventbyid/{{curEvent.id}}">{{curEvent.event_name}}</a></h1>
+        <h1>Invite people to your <a class="link-info text-reset"
+                href="/eventbyid/{{curEvent.id}}">{{curEvent.event_name}}</a> Event</h1>
     </div>
 </div>
 <hr>
 <div class="row d-flex justify-content-center">
     <div class="col-4">
         {{#each users}}
+        {{#unless isInvited}}
         <ul class="list-group list-group-horizontal">
             <li class="list-group-item flex-fill border-0 border-bottom pb-1">{{user_name}}</li>
-            <li><button class="btn btn-dark inviteBtn flex-fill m-1" eventId={{../curEvent.id}} value={{id}}>Invite</button></li>
+            <li><button class="btn btn-dark inviteBtn flex-fill m-1" eventId={{../curEvent.id}}
+                    value={{id}}>Invite</button></li>
         </ul>
+        {{/unless}}
+        {{/each}}
+        {{#each users}}
+        {{#if isInvited}}
+        <ul class="list-group list-group-horizontal">
+            <li class="list-group-item flex-fill border-0 border-bottom pb-1">{{user_name}}</li>
+            <li><button class="btn btn-dark inviteBtn flex-fill m-1 disabled">Invited</button></li>
+        </ul>
+        {{/if}}
         {{/each}}
     </div>
 </div>

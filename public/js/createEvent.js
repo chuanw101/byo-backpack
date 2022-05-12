@@ -11,7 +11,6 @@ const myWidget = cloudinary.createUploadWidget(
   },
   (error, result) => {
     if (!error && result && result.event === "success") {
-      console.log("Done! Here is the image info: ", result.info);
       document
         .getElementById("uploadedimage")
         .setAttribute("src", result.info.secure_url);
@@ -27,7 +26,6 @@ document.getElementById("upload_widget").addEventListener(
   },
   false
 );
-
 
 const startEl = document.querySelector('#startDate');
 const endEl = document.querySelector('#endDate')
@@ -109,6 +107,7 @@ document.querySelector("#newEventSubmit").addEventListener("click", e => {
   }
 })
 
+// auto complete staes
 var stateInputEl = $('#state');
 var handleSateList = function (event) {
   event.preventDefault();

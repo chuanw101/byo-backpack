@@ -1,3 +1,4 @@
+// add item to event 
 const claimChecks = document.querySelectorAll(".claimCheck")
 for (const check of claimChecks) {
     check.addEventListener('click', e => {

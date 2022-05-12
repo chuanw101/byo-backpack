@@ -1,3 +1,4 @@
+// check the private/private event type 
 let public = (document.querySelector("#public").getAttribute("checked") == "checked");
 var photoArr = []
 
@@ -82,7 +83,7 @@ const updateEventHandler = async (event) => {
     if (photoArr.length) {
         eventObj.picture_path = photoArr[photoArr.length - 1].url.toString();
     }
-
+    // update the event changes
     const eventId = document.querySelector('#updateEventSubmit').value;
     try {
         if (!eventObj.event_name) {
@@ -108,7 +109,7 @@ const updateEventHandler = async (event) => {
 
             if (res.ok) {
                 alert('the Event has been updated')
-                document.location.replace('/profile');
+                location.href = '/profile';
             } else {
                 alert('update failed')
             }
@@ -120,6 +121,8 @@ const updateEventHandler = async (event) => {
     }
 };
 document.querySelector('#updateEventSubmit').addEventListener('click', updateEventHandler);
+
+
 // delete Item
 const deleteItems = document.querySelectorAll(".deleteItem");
 for (const deleteItem of deleteItems) {
@@ -173,6 +176,7 @@ const newItemHandler = async (event) => {
 };
 document.querySelector('.newItemBtn').addEventListener('click', newItemHandler);
 
+//Autocomplete state 
 var stateInputEl = $('#state');
 var handleSateList = function (event) {
     event.preventDefault();
