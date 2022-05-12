@@ -193,7 +193,7 @@ router.get("/eventbyid/:id", (req, res) => {
 router.get('/profile', async (req, res) => {
   try {
     const user = req.session?.user
-    if (!req.session?.user?.logged_in) {
+    if (!user?.logged_in) {
       res.render('error401', { user });
     } else {
       const dbEvents = await Event.findAll({
@@ -266,9 +266,7 @@ router.get('/profile/invite/:id', async (req, res) => {
               found = true;
             }
           }
-          if (found) {
-            users.splice(i, 1);
-          }
+          users[i].isInvited = found;
         }
 
         res.render('invite', { users, user, curEvent })

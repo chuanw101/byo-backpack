@@ -31,7 +31,7 @@ const newPassword = async (event) => {
             });
             console.log(response)
             if (response.ok) {
-            document.location.replace('/profile');
+            document.location.href = '/profile';
             }
             else if (response.status ===401){
                 alert("The current password does not match")
@@ -52,7 +52,7 @@ document.querySelector('#newPassBtn').addEventListener('click', newPassword);
 const cancelEvent = async (event) => {
     event.preventDefault();
     try {
-        document.location.replace('/profile');
+        document.location.href = '/profile';
     } catch (err) {
 
         console.log(err)
