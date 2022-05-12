@@ -6,14 +6,14 @@
     <div class="col-12 col-md-6 d-flex justify-content-end" id="custom-search">
         <form class="d-inline-flex">
             <input type="search" class="form-control m-2" placeholder="Location" id="searchInput">
-            <button class="btn btn-dark my-2" type="submit" id="searchBtn">Search</button>
+            <button class="btn btn-dark my-2 cust-btn" type="submit" id="searchBtn">Search</button>
         </form>
     </div>
 </div>
 <hr>
 <div class="row d-flex justify-content-center">
     {{#each event}}
-    <div class="card col-12 col-md-5 my-3 mx-3 p-2">
+    <div class="card col-12 col-md-5 my-3 mx-3 p-2 cust-card">
         <img src={{picture_path}} class="card-img-top img-fluid" width="500" height="360" alt={{picture_path}}>
         <div class="card-body">
             <h2 class="card-title  mt-2 mb-3 text-center">{{event_name}}</h2>
@@ -23,7 +23,7 @@
                     target="_blank">{{location}}<br>{{city}}, {{state}}</a>
             </div>
             <div class="d-grid gap-2 mt-3 mb-1">
-                <a class="btn btn-dark" href="/eventbyid/{{id}}">Event Details</a>
+                <a class="btn btn-dark cust-btn" href="/eventbyid/{{id}}">Event Details</a>
             </div>
         </div>
     </div>

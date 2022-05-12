@@ -1,9 +1,34 @@
 :root {
     --mainGreen: #3a5a40;
+    --publicGreen: #cef7d528;
+    --privGreen: #9fb0a228;
+    --darkGreen: #29402d;
+    --mainTaupe: #dad7cd;
+    --lightTaupe: #dad7cd63;
+}
+
+body {
+    background-color: var(--lightTaupe);
 }
 
 .custom-nav {
     background-color: var(--mainGreen)
+}
+
+.cust-card {
+    border: 2px solid var(--mainGreen);
+}
+
+.cust-public {
+    background-color: var(--publicGreen);
+}
+
+.cust-priv {
+    background-color: var(--privGreen);
+}
+
+.cust-btn {
+    background-color: var(--darkGreen);
 }
 
 /* overload autocomplete bg so its not transparent */
