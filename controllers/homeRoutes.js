@@ -29,6 +29,7 @@ router.get('/', (req, res) => {
       res.render('home', { event: hbsEvents, user })
     });
 });
+
 // search events by city or state
 router.get('/search/:location', (req, res) => {
   const today = new Date();
@@ -63,7 +64,8 @@ router.get('/search/:location', (req, res) => {
         res.render('searchResult', { event: hbsEvents, user })
       });
   }
-  // its a sate
+
+  // its a state search
   else {
     Event.findAll({
       include: [{
@@ -124,10 +126,11 @@ router.get('/search/:city/:state', (req, res) => {
     .then(dbEvents => {
       const hbsEvents = dbEvents.map(event => event.get({ plain: true }))
       const user = req.session?.user
-      user.searchTerm = req.params.city+", "+req.params.state;
+      user.searchTerm = req.params.city + ", " + req.params.state;
       res.render('searchResult', { event: hbsEvents, user })
     });
 });
+
 //render event by id
 router.get("/eventbyid/:id", (req, res) => {
   Event.findByPk(req.params.id, {
@@ -184,12 +187,12 @@ router.get("/eventbyid/:id", (req, res) => {
     res.render("eventbyid", data)
   }).catch(err => {
     console.log(err)
-    //res.status(500).json({ msg: "an error occured", err })
     const user = req.session?.user
     res.render('error404', { user })
   })
 })
 
+// render profile
 router.get('/profile', async (req, res) => {
   try {
     const user = req.session?.user
@@ -238,6 +241,7 @@ router.get('/profile', async (req, res) => {
   }
 });
 
+// render invite user invite
 router.get('/profile/invite/:id', async (req, res) => {
   try {
     const user = req.session?.user;
@@ -274,12 +278,12 @@ router.get('/profile/invite/:id', async (req, res) => {
     }
   }
   catch (err) {
-    //res.status(500).json({ msg: "an error occured", err })
     const user = req.session?.user
     res.render('error404', { user })
   }
 })
 
+// render update page
 router.get("/profile/update/:id", async (req, res) => {
   try {
     const dbEvent = await Event.findByPk(req.params.id, {
@@ -324,7 +328,6 @@ router.get("/profile/update/:id", async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    //res.status(500).json({ msg: "an error occured", err })
     const user = req.session?.user
     res.render('error404', { user })
   }

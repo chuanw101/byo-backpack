@@ -80,8 +80,7 @@ router.put("/:id", (req, res) => {
 
 //delete a Item
 router.delete("/:id", (req, res) => {
-    console.log("//////////////////iiiii")
-    console.log(req.params.id)
+
     Item.destroy({
         where: {
             id: req.params.id

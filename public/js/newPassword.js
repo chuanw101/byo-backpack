@@ -29,26 +29,24 @@ const newPassword = async (event) => {
                     'Content-Type': 'application/json',
                 },
             });
-            console.log(response)
             if (response.ok) {
-            document.location.href = '/profile';
+                document.location.href = '/profile';
             }
-            else if (response.status ===401){
+            else if (response.status === 401) {
                 alert("The current password does not match")
-            }else{
+            } else {
                 alert("password change failed!")
             }
         }
     } catch (err) {
         alert('the new password is not valid')
         console.log(err)
-        // alert(msg)
+
     }
 };
 document.querySelector('#newPassBtn').addEventListener('click', newPassword);
 
-
-// cancel bottun 
+// cancel changing password bottun 
 const cancelEvent = async (event) => {
     event.preventDefault();
     try {
@@ -56,7 +54,6 @@ const cancelEvent = async (event) => {
     } catch (err) {
 
         console.log(err)
-        // alert(msg)
     }
 };
 document.querySelector('#cancelpass').addEventListener('click', cancelEvent);
