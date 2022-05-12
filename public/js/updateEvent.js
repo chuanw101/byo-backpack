@@ -78,11 +78,11 @@ const updateEventHandler = async (event) => {
         description: document.querySelector("#eventDescription").value.trim(),
         public: (document.querySelector("#public").checked),
     }
-    console.log("hello")
-    console.log(eventObj.start_time)
+
     if (photoArr.length) {
         eventObj.picture_path = photoArr[photoArr.length - 1].url.toString();
     }
+    
     const eventId = document.querySelector('#updateEventSubmit').value;
     try {
         if (!eventObj.event_name) {
