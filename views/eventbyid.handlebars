@@ -51,7 +51,7 @@
             </div>
             <div class="row my-5 d-flex flex-wrap justify-content-around">
                 <h2 class="text-center mb-3">Attendees</h2>
-                <div class="col px-3 mx-2 text-center border py-3">
+                <div class="col px-3 mx-2 text-center border py-3" id="noRes" value={{id}}>
                     <h5>No Response</h5>
                     <ul class="list-group list-group-flush">
                         {{#each noresponses}}
@@ -59,7 +59,7 @@
                         {{/each}}
                     </ul>
                 </div>
-                <div class="col px-3 mx-2 text-center border py-3">
+                <div class="col px-3 mx-2 text-center border py-3" id="attend">
                     <h5>Attending</h5>
                     <ul class="list-group list-group-flush">
                         {{#each yeses}}
@@ -67,7 +67,7 @@
                         {{/each}}
                     </ul>
                 </div>
-                <div class="col px-3 mx-2 text-center border py-3">
+                <div class="col px-3 mx-2 text-center border py-3" id="maybe">
                     <h5>Maybe</h5>
                     <ul class="list-group list-group-flush">
                         {{#each maybes}}
@@ -75,7 +75,7 @@
                         {{/each}}
                     </ul>
                 </div>
-                <div class="col px-3 mx-2 text-center border py-3">
+                <div class="col px-3 mx-2 text-center border py-3" id="decline">
                     <h5>Declined</h5>
                     <ul class="list-group list-group-flush">
                         {{#each noes}}
@@ -113,3 +113,6 @@
 </div>
 
 <script src="/js/eventbyid.js"></script>
+{{#if user.isRSVP}}
+<script src="/js/changeRsvp.js"></script>
+{{/if}}

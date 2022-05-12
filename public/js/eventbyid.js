@@ -48,7 +48,7 @@ if (rsvpBtn) {
     })
 }
 
-
+// update rsvp
 const leaveBtn = document.querySelector("#leaveBtn")
 if (leaveBtn) {
     //change default select to user's choice
@@ -84,7 +84,7 @@ if (leaveBtn) {
                 if (res.ok) {
                     location.reload()
                 } else {
-                    alert("rsvp failed, check if logged in")
+                    alert("rsvp failed, check if logged in/invited")
                 }
             })
         }
