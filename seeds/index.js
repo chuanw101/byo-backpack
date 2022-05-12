@@ -4,91 +4,108 @@ const {User,Item,Event,Attendee} = require("../models");
 
 const users = [
     {
-        user_name:"chuan",
+        user_name:"Chuan",
         password:"password"
     },
     {
-        user_name:"saghar",
+        user_name:"Saghar",
         password:"123"
     },
     {
-        user_name:"jeff",
+        user_name:"Jeff",
         password:"password"
     },{
-        user_name:"lola",
+        user_name:"Lola",
         password:"password"
     }
 ]
 
 const events = [
     {
-        event_name:"potluck",
-        location:"online",
+        event_name:"Cheese Tasting Party",
+        location:"Cheese Hall",
         city:"Seattle",
         state:"WA",
-        start_time:moment().add(1,'days').toDate(),
-        end_time:moment().add(1,'days').toDate(),
-        description: "a really good potluck",
-        creator_id:1
+        start_time:"2022-05-24T15:30",
+        end_time:"2022-05-24T17:45",
+        description: "We will be tasting a variety of cheeses!",
+       picture_path: "http://res.cloudinary.com/da2jrzaai/image/upload/v1652382671/epj86yurxd9txk4thwwr.jpg",
+        creator_id:3
     },{
-        event_name:"potluck3",
-        location:"online",
-        city:"Seattle",
-        state:"WA",
-        start_time:moment().add(1,'days').toDate(),
-        end_time:moment().add(1,'days').toDate(),
+        event_name:"Pub Crawl",
+        location:"Thunderbolt",
+        city:"Los Angeles",
+        state:"CA",
+        start_time:"2022-06-01T17:00",
+        end_time:"2022-06-21T17:00",
+        description: "We are starting at the Tunderbolt bar in LA and crawling North until we hit Seattle. We won't stop hiking or drinking the whole time!",
+        picture_path: "http://res.cloudinary.com/da2jrzaai/image/upload/v1652382780/udnctsa9paulo6v0s6aj.jpg",
         creator_id:1
     },
     {
-        event_name:"potluck4",
-        location:"online",
+        event_name:"Dungeons and Dragons",
+        location:"Mox",
         city:"Seattle",
         state:"WA",
-        start_time:moment().add(1,'days').toDate(),
-        end_time:moment().add(1,'days').toDate(),
-        creator_id:1
-    },
-    {
-        event_name:"poker night",
-        location:"online",
-        city:"Seattle",
-        state:"WA",
-        start_time:moment().add(1,'days').toDate(),
-        end_time:moment().add(1,'days').toDate(),
+        start_time:"2022-05-28T10:00",
+        end_time:"2022-05-28T23:59",
+        description: "Ready your dice and join me for a once in a lifetime exculsive campaign!",
+       picture_path: "http://res.cloudinary.com/da2jrzaai/image/upload/v1652382481/dw3mkitqbxw8zyehzykx.png",
         creator_id:2
+    },
+    {
+        event_name:"Beach Party",
+        location:"Alki Beach",
+        city:"Seattle",
+        state:"WA",
+        start_time:"2022-07-13T15:00",
+        end_time:"2022-07-13T20:00",
+        description: "Everyone knows Wednesday's are the best days to throw a massive beach party! Come join me for a wonderful day on the beach. ",
+        picture_path: "http://res.cloudinary.com/da2jrzaai/image/upload/v1652382833/tm7vqsevolhs3deuk41v.jpg",
+        creator_id:4
     },
 ]
 
 const items = [
     {
-        item_name:"food",
+        item_name:"Burrata",
         event_id:1,
-        owner_id:1,
+    },
+    {
+        item_name:"Greek Feta",
+        event_id:1
+    },
+    {
+        item_name:"Brie de Meaux-Style Brie",
+        event_id:1,
+    },
+    {
+        item_name:"Pyrénées Sheep",
+        event_id:1,
+    },
+    {
+        item_name:"Comté",
+        event_id:1,
     },
     {
         item_name:"drinks",
-        event_id:1,
-        owner_id:2,
+        event_id:3,
     },
     {
-        item_name:"stuff",
-        event_id:1,
-        owner_id:3,
+        item_name:"Pizza",
+        event_id:3,
     },
     {
-        item_name:"cards",
-        event_id:2,
-        owner_id:1,
+        item_name:"Large Umbrella",
+        event_id:4,
     },
     {
-        item_name:"snacks",
-        event_id:2,
-        owner_id:3,
+        item_name:"Lounge Blanket/Towel",
+        event_id:4,
     },
     {
-        item_name:"beer",
-        event_id:2,
-        owner_id:1,
+        item_name:"Volleyball",
+        event_id:4,
     },
 ]
 
@@ -109,6 +126,7 @@ const attendees = [
         event_id:1,
         user_id:4,
     },
+    
     {
         event_id:2,
         user_id:1,
@@ -125,6 +143,41 @@ const attendees = [
         event_id:2,
         user_id:4,
     },
+    
+    {
+        event_id:3,
+        user_id:1,
+    },
+    {
+        event_id:3,
+        user_id:2,
+    },
+    {
+        event_id:3,
+        user_id:3,
+    },
+    {
+        event_id:3,
+        user_id:4,
+    },
+    
+    {
+        event_id:4,
+        user_id:1,
+    },
+    {
+        event_id:4,
+        user_id:2,
+    },
+    {
+        event_id:4,
+        user_id:3,
+    },
+    {
+        event_id:4,
+        user_id:4,
+    },
+    
 ]
 
 const feedMe = async ()=>{
