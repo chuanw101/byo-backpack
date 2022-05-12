@@ -10,10 +10,10 @@ const searchLocationHandler = async (event) => {
         if (locationArr != "") {
             if (locationArr.length === 1) {
 
-                document.location.replace(`/search/${locationArr[0]}`);
+                document.location.href = `/search/${locationArr[0]}`;
             }
             else {
-                document.location.replace(`/search/${locationArr[0]}/${locationArr[1]}`);
+                document.location.href = `/search/${locationArr[0]}/${locationArr[1]}`;
             }
 
         } else {
