@@ -48,11 +48,14 @@ endEl.value = futTime;
 
 // make it so you can't have end date before start date
 startEl.addEventListener("change", e => {
-  console.log (e.target.value)
-  endEl.min = e.target.value;
+  if (endEl.value < e.target.value) {
+      endEl.value = e.target.value;
+  }
 })
 endEl.addEventListener("change", e => {
-  startEl.max = e.target.value;
+  if (startEl.value > e.target.value) {
+      startEl.value = e.target.value;
+  }
 })
 
 document.querySelector("#newEventSubmit").addEventListener("click", e => {
@@ -90,9 +93,6 @@ document.querySelector("#newEventSubmit").addEventListener("click", e => {
   }else if(!eventObj.end_time){
     alert("Please fill the End time!")
   } else {
-    // add in photo url of last photo if photo uploaded
-
-
     fetch("/api/events/", {
       method: "POST",
       body: JSON.stringify(eventObj),
