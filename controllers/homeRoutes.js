@@ -29,8 +29,72 @@ router.get('/', (req, res) => {
       res.render('home', { event: hbsEvents, user })
     });
 });
-// home route, only shows public events
+// search events by city or state
 router.get('/search/:location', (req, res) => {
+  const today = new Date();
+  const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+  const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  const dateTime = date + ' ' + time;
+  // its a city
+  if (req.params.location.length > 2) {
+    Event.findAll({
+      include: [{
+        model: Item,
+        include: [User]
+      }, {
+        model: User,
+        as: 'creator',
+        where: { '$public$': true }
+      }, {
+        model: User,
+        as: 'attendees'
+      }],
+      where: {
+        start_time: { [Op.gt]: dateTime },
+        city: req.params.location
+      },
+      order: ['start_time'],
+
+    })
+      .then(dbEvents => {
+        const hbsEvents = dbEvents.map(event => event.get({ plain: true }))
+        const user = req.session?.user
+        res.render('searchResult', { event: hbsEvents, user })
+      });
+  }
+  // its a sate
+  else {
+    Event.findAll({
+      include: [{
+        model: Item,
+        include: [User]
+      }, {
+        model: User,
+        as: 'creator',
+        where: { '$public$': true }
+      }, {
+        model: User,
+        as: 'attendees'
+      }],
+      where: {
+        start_time: { [Op.gt]: dateTime },
+        state: req.params.location
+      },
+      order: ['start_time'],
+
+    })
+      .then(dbEvents => {
+        const hbsEvents = dbEvents.map(event => event.get({ plain: true }))
+        const user = req.session?.user
+        res.render('searchResult', { event: hbsEvents, user })
+      });
+  }
+
+});
+
+
+// search events by city and state
+router.get('/search/:city/:state', (req, res) => {
   const today = new Date();
   const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
   const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -49,13 +113,13 @@ router.get('/search/:location', (req, res) => {
     }],
     where: {
       start_time: { [Op.gt]: dateTime },
-      city: req.params.location
+      city: req.params.city,
+      state: req.params.state
     },
     order: ['start_time'],
-    
+
   })
     .then(dbEvents => {
-      console.log(dbEvents)
       const hbsEvents = dbEvents.map(event => event.get({ plain: true }))
       const user = req.session?.user
       res.render('searchResult', { event: hbsEvents, user })

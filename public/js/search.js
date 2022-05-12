@@ -4,16 +4,25 @@ const searchLocationHandler = async (event) => {
     try {
 
         event.preventDefault();
-        const search_name = document.querySelector('#searchInput').value.trim();
-        if (search_name) {
-            console.log("search")
-            document.location.replace(`/search/${search_name}`);
+        const search_name = document.querySelector('#searchInput').value.split(',');
+        const locationArr = search_name.map(name => name.trim());
+
+        if (locationArr != "") {
+            console.log(locationArr.length)
+            console.log(locationArr)
+            if(locationArr.length ===1){
+
+                document.location.replace(`/search/${locationArr[0]}`);
+            }
+            else{
+                document.location.replace(`/search/${locationArr[0]}/${locationArr[1]}`);
+            }
 
         } else {
             alert("please enter location!")
         }
     } catch (err) {
-        alert('the event didnt updated')
+        alert('Search failed!')
         console.log(err)
     }
 };
