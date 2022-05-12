@@ -4,7 +4,7 @@ const session = require('express-session');
 const exphbs = require('express-handlebars');
 const routes = require('./controllers');
 require("dotenv").config();
-const cloudinary = require('cloudinary').v2
+const moment = require('moment');
 
 const sequelize = require('./config/connection');
 
@@ -21,6 +21,9 @@ const hbs = exphbs.create({ });
 // helper for formatting time
 hbs.handlebars.registerHelper('format_time', function(date) {
   return date.toDateString()+ " - " +date.toLocaleTimeString();
+})
+hbs.handlebars.registerHelper('format_time_value', function(date) {
+  return moment(date).format("YYYY-MM-DDThh:mm");
 })
 
 const sess = {
