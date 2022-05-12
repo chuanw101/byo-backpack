@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Event, Item, User } = require("../../models");
+const { Event, Item, User, Attendee } = require("../../models");
 const cloudinary = require("cloudinary").v2
 //find all
 router.get("/", (req, res) => {
@@ -107,6 +107,14 @@ router.post("/", (req, res) => {
         public: req.body.public
     })
         .then(newEvent => {
+            Attendee.create({
+                event_id: newEvent.id,
+                user_id: newEvent.creator_id,
+                rsvp_status: 1
+            })
+            return newEvent;
+        })
+        .then(newEvent => {
             // if have items, get itemsArray, fill in event_id, bulk create item
             if (req.body.items?.length) {
                 const itemsArray = req.body.items.map((item_name) => {
@@ -168,7 +176,7 @@ router.delete("/:id", async (req, res) => {
         const curEvent = await Event.findByPk(req.params.id);
         // only creator can delete event
         if (curEvent.creator_id != req.session?.user?.id) {
-            console.log (curEvent)
+            console.log(curEvent)
             return res.status(401).json({ msg: "you don't have access to delete this event!" })
         }
         const delEvent = await Event.destroy({

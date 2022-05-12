@@ -38,7 +38,7 @@ date.setTime(date.getTime() + 2 * 60 * 60 * 1000);
 // take off offset
 temp = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
 // get rid of time zone and seconds
-const futTime = temp.substring(0, temp.length-8);
+const futTime = temp.substring(0, temp.length - 8);
 
 // set mins and values
 startEl.min = futTime;
@@ -49,12 +49,12 @@ endEl.value = futTime;
 // make it so you can't have end date before start date
 startEl.addEventListener("change", e => {
   if (endEl.value < e.target.value) {
-      endEl.value = e.target.value;
+    endEl.value = e.target.value;
   }
 })
 endEl.addEventListener("change", e => {
   if (startEl.value > e.target.value) {
-      startEl.value = e.target.value;
+    startEl.value = e.target.value;
   }
 })
 
@@ -82,15 +82,15 @@ document.querySelector("#newEventSubmit").addEventListener("click", e => {
   }
   if (!eventObj.event_name) {
     alert("Please fill the Event name!")
-  }else if(!eventObj.location){
+  } else if (!eventObj.location) {
     alert("Please fill the Address!")
-  }else if(!eventObj.city){
+  } else if (!eventObj.city) {
     alert("Please fill the City!")
-  }else if(!eventObj.state){
+  } else if (!eventObj.state) {
     alert("Please fill the State!")
-  }else if(!eventObj.start_time){
+  } else if (!eventObj.start_time) {
     alert("Please fill the Start time!")
-  }else if(!eventObj.end_time){
+  } else if (!eventObj.end_time) {
     alert("Please fill the End time!")
   } else {
     fetch("/api/events/", {
@@ -136,6 +136,7 @@ $(function () {
     'IA',
     'KS',
     'KY',
+    'LA',
     'ME',
     'MD',
     'MA',
@@ -144,7 +145,7 @@ $(function () {
     'MS',
     'MO',
     'MT',
-    'ME',
+    'NE',
     'NV',
     'NH',
     'NJ',

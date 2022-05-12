@@ -47,7 +47,7 @@ let date = new Date();
 // take off offset
 temp = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
 // get rid of time zone and seconds
-const curTime = temp.substring(0, temp.length-8);
+const curTime = temp.substring(0, temp.length - 8);
 
 // set mins
 startEl.min = curTime;
@@ -78,11 +78,11 @@ const updateEventHandler = async (event) => {
         description: document.querySelector("#eventDescription").value.trim(),
         public: (document.querySelector("#public").checked),
     }
-    console.log("hello")
-    console.log(eventObj.start_time)
+
     if (photoArr.length) {
         eventObj.picture_path = photoArr[photoArr.length - 1].url.toString();
     }
+
     const eventId = document.querySelector('#updateEventSubmit').value;
     try {
         if (!eventObj.event_name) {
@@ -172,3 +172,71 @@ const newItemHandler = async (event) => {
     }
 };
 document.querySelector('.newItemBtn').addEventListener('click', newItemHandler);
+
+var stateInputEl = $('#state');
+var handleSateList = function (event) {
+    event.preventDefault();
+
+    var nameInput = stateInputEl.val();
+};
+
+// Autocomplete widget
+$(function () {
+    let stateNames = [
+        'AL',
+        'AK',
+        'AZ',
+        'AR',
+        'CA',
+        'CO',
+        'CT',
+        'DE',
+        'FL',
+        'GA',
+        'HI',
+        'ID',
+        'IL',
+        'IN',
+        'IA',
+        'KS',
+        'KY',
+        'LA',
+        'ME',
+        'MD',
+        'MA',
+        'MI',
+        'MN',
+        'MS',
+        'MO',
+        'MT',
+        'NE',
+        'NV',
+        'NH',
+        'NJ',
+        'NM',
+        'NY',
+        'NC',
+        'ND',
+        'OH',
+        'OK',
+        'OR',
+        'PA',
+        'RI',
+        'SC',
+        'SD',
+        'TN',
+        'TX',
+        'UT',
+        'VT',
+        'VA',
+        'WA',
+        'WV',
+        'WI',
+        'WY',
+    ];
+    $('#state').autocomplete({
+        source: stateNames,
+    });
+});
+
+stateInputEl.on('click', handleSateList)

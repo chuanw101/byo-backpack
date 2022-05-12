@@ -8,8 +8,10 @@
                 </div>
                 <div class="col pt-2">
                     <div class="mb-2">
-                        <h5 class="d-inline">Location:</h5>
-                        <p class="d-inline">{{location}}</p>
+                        <h5 class="d-inline">Address:</h5>
+                        <a class="d-inline link-dark"
+                            href="https://maps.google.com/?q={{location}},+{{city}},+{{state}}"
+                            target="_blank">{{location}} {{city}}, {{state}}</a>
                     </div>
                     <div class="mb-2">
                         <h5 class="d-inline">Event Type:</h5>

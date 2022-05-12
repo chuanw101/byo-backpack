@@ -59,6 +59,7 @@ router.get('/search/:location', (req, res) => {
       .then(dbEvents => {
         const hbsEvents = dbEvents.map(event => event.get({ plain: true }))
         const user = req.session?.user
+        user.searchTerm = req.params.location;
         res.render('searchResult', { event: hbsEvents, user })
       });
   }
@@ -86,6 +87,7 @@ router.get('/search/:location', (req, res) => {
       .then(dbEvents => {
         const hbsEvents = dbEvents.map(event => event.get({ plain: true }))
         const user = req.session?.user
+        user.searchTerm = req.params.location;
         res.render('searchResult', { event: hbsEvents, user })
       });
   }
@@ -122,6 +124,7 @@ router.get('/search/:city/:state', (req, res) => {
     .then(dbEvents => {
       const hbsEvents = dbEvents.map(event => event.get({ plain: true }))
       const user = req.session?.user
+      user.searchTerm = req.params.city+", "+req.params.state;
       res.render('searchResult', { event: hbsEvents, user })
     });
 });
