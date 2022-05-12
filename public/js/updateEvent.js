@@ -47,7 +47,7 @@ let date = new Date();
 // take off offset
 temp = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
 // get rid of time zone and seconds
-const curTime = temp.substring(0, temp.length-8);
+const curTime = temp.substring(0, temp.length - 8);
 
 // set mins
 startEl.min = curTime;
@@ -175,68 +175,68 @@ document.querySelector('.newItemBtn').addEventListener('click', newItemHandler);
 
 var stateInputEl = $('#state');
 var handleSateList = function (event) {
-  event.preventDefault();
+    event.preventDefault();
 
-  var nameInput = stateInputEl.val();
+    var nameInput = stateInputEl.val();
 };
 
 // Autocomplete widget
 $(function () {
-  let stateNames = [
-    'AL',
-    'AK',
-    'AZ',
-    'AR',
-    'CA',
-    'CO',
-    'CT',
-    'DE',
-    'FL',
-    'GA',
-    'HI',
-    'ID',
-    'IL',
-    'IN',
-    'IA',
-    'KS',
-    'KY',
-    'LA',
-    'ME',
-    'MD',
-    'MA',
-    'MI',
-    'MN',
-    'MS',
-    'MO',
-    'MT',
-    'NE',
-    'NV',
-    'NH',
-    'NJ',
-    'NM',
-    'NY',
-    'NC',
-    'ND',
-    'OH',
-    'OK',
-    'OR',
-    'PA',
-    'RI',
-    'SC',
-    'SD',
-    'TN',
-    'TX',
-    'UT',
-    'VT',
-    'VA',
-    'WA',
-    'WV',
-    'WI',
-    'WY',
-  ];
-  $('#state').autocomplete({
-    source: stateNames,
-  });
+    let stateNames = [
+        'AL',
+        'AK',
+        'AZ',
+        'AR',
+        'CA',
+        'CO',
+        'CT',
+        'DE',
+        'FL',
+        'GA',
+        'HI',
+        'ID',
+        'IL',
+        'IN',
+        'IA',
+        'KS',
+        'KY',
+        'LA',
+        'ME',
+        'MD',
+        'MA',
+        'MI',
+        'MN',
+        'MS',
+        'MO',
+        'MT',
+        'NE',
+        'NV',
+        'NH',
+        'NJ',
+        'NM',
+        'NY',
+        'NC',
+        'ND',
+        'OH',
+        'OK',
+        'OR',
+        'PA',
+        'RI',
+        'SC',
+        'SD',
+        'TN',
+        'TX',
+        'UT',
+        'VT',
+        'VA',
+        'WA',
+        'WV',
+        'WI',
+        'WY',
+    ];
+    $('#state').autocomplete({
+        source: stateNames,
+    });
 });
 
 stateInputEl.on('click', handleSateList)
