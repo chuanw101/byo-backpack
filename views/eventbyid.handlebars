@@ -2,8 +2,8 @@
     <div class="card col-12 my-5">
         <div class="card-body">
             <h1 class="card-title my-4 text-center">{{event_name}}</h1>
-            <div class="row pt-1">
-                <div class="col d-flex justify-content-end">
+            <div class="row pt-1" id="cust-detail">
+                <div class="col d-flex justify-content-end" id="cust-img">
                     <img src={{picture_path}} width="500" height="360" alt={{picture_path}}>
                 </div>
                 <div class="col pt-2">
@@ -44,7 +44,7 @@
                     {{#each items}}
                     <div class="form-check form-check-inline">
                         <input class="form-check-input claimCheck" type="checkbox" id={{id}} value={{item_name}} {{#unless ../user.isGoing}}disabled{{/unless}} {{#if owner_id}} {{#if isBroughtByUser}} checked {{else}} checked disabled {{/if}}{{/if}}>
-                        <label class="form-check-label" for={{id}}>{{item_name}}{{#if owner_id}}{{#if isBroughtByUser}}{{else}}, claimed by{{user.user_name}}{{/if}}{{/if}}</label>
+                        <label class="form-check-label" for={{id}}>{{item_name}}{{#if owner_id}}{{#if isBroughtByUser}}{{else}}, claimed by {{user.user_name}}{{/if}}{{/if}}</label>
                     </div>
                     {{/each}}
                 </div>
