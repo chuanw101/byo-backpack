@@ -1,16 +1,17 @@
 <div class="row">
     <div class="col">
-        <h1>Upcoming Events in {{state}}</h1>
+        <h2>Upcoming Events in: {{user.searchTerm}}</h2>
     </div>
     <div class="col d-flex justify-content-end">
         <form class="d-inline-flex">
-            <input type="search" class="form-control m-2" placeholder="Location" id="searchInput">
+            <input type="search" class="form-control m-2" placeholder="Seattle, WA" id="searchInput">
             <button class="btn btn-dark my-2" type="submit" id="searchBtn">Search</button>
         </form>
     </div>
 </div>
 <hr>
 <div class="row d-flex justify-content-center">
+    {{#if event}}
     {{#each event}}
     <div class="card col-12 col-md-5 my-3 mx-3 p-2">
         <img src={{picture_path}} class="card-img-top" width="500" height="360" alt={{picture_path}}>
@@ -27,5 +28,8 @@
         </div>
     </div>
     {{/each}}
+    {{else}}
+    <h2>No Results</h2>
+    {{/if}}
 </div>
 <script src="/js/search.js"></script>
