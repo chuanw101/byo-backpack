@@ -9,7 +9,7 @@ const logout = async () => {
   if (response.ok) {
 
   
-    document.location.replace('/login');
+    document.location.href = '/login';
   } else {
     alert('Failed to log out');
   }

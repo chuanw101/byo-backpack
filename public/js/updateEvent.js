@@ -108,7 +108,7 @@ const updateEventHandler = async (event) => {
 
             if (res.ok) {
                 alert('the Event has been updated')
-                document.location.replace('/profile');
+                location.href = '/profile';
             } else {
                 alert('update failed')
             }
