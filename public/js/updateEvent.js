@@ -23,6 +23,7 @@ const myWidget = cloudinary.createUploadWidget(
         theme: "minimal",
         cropping: true,
         croppingAspectRatio: 1.389,
+        showSkipCropButton: false,
     },
     (error, result) => {
         if (!error && result && result.event === "success") {
@@ -30,7 +31,7 @@ const myWidget = cloudinary.createUploadWidget(
             document
                 .getElementById("uploadedimage")
                 .setAttribute("src", `https://res.cloudinary.com/da2jrzaai/image/upload/c_crop,g_custom/` + result.info.path);
-            photoArr.push(result.info)
+            photoArr.push(`https://res.cloudinary.com/da2jrzaai/image/upload/c_crop,g_custom/` + result.info.path)
         }
     }
 );
@@ -83,7 +84,7 @@ const updateEventHandler = async (event) => {
     }
 
     if (photoArr.length) {
-        eventObj.picture_path = photoArr[photoArr.length - 1].url.toString();
+        eventObj.picture_path = photoArr[photoArr.length - 1].toString();
     }
     // update the event changes
     const eventId = document.querySelector('#updateEventSubmit').value;
