@@ -127,45 +127,59 @@ router.post("/", (req, res) => {
         });
 });
 //update Event
-router.put("/:id", (req, res) => {
-    if (!req.session.user) {
-        return res.status(401).json({ msg: "must log in to create event!" })
+router.put("/:id", async (req, res) => {
+    if (!req.session?.user) {
+        return res.status(401).json({ msg: "must log in to change event!" })
     }
-    Event.update({
-        event_name: req.body.event_name,
-        location: req.body.location,
-        start_time: req.body.start_time,
-        end_time: req.body.end_time,
-        picture_path: req.body.picture_path,
-        description: req.body.description,
-        public: req.body.public
-    }, {
-        where: {
-            id: req.params.id,
-            creator_id: req.session.user.id
+    try {
+        const curEvent = await Event.findByPk(req.params.id);
+        // only creator can update event
+        if (curEvent.creator_id != req.session?.user?.id) {
+            return res.status(401).json({ msg: "you don't have access to change this event!" })
         }
-    })
-        .then(updatedEvent => {
-            res.json(updatedEvent);
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({ msg: "an error occured", err });
+        const updatedEvent = await Event.update({
+            event_name: req.body.event_name,
+            location: req.body.location,
+            city: req.body.city,
+            state: req.body.state,
+            start_time: req.body.start_time,
+            end_time: req.body.end_time,
+            picture_path: req.body.picture_path,
+            description: req.body.description,
+            public: req.body.public
+        }, {
+            where: {
+                id: req.params.id,
+                creator_id: req.session.user.id
+            }
         });
+        res.json(updatedEvent);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ msg: "an error occured", err });
+    }
 });
 //delete a Event
-router.delete("/:id", (req, res) => {
-    Event.destroy({
-        where: {
-            id: req.params.id
+router.delete("/:id", async (req, res) => {
+    if (!req.session.user) {
+        return res.status(401).json({ msg: "must log in to delete event!" })
+    }
+    try {
+        const curEvent = await Event.findByPk(req.params.id);
+        // only creator can delete event
+        if (curEvent.creator_id != req.session?.user?.id) {
+            console.log (curEvent)
+            return res.status(401).json({ msg: "you don't have access to delete this event!" })
         }
-    })
-        .then(delEvent => {
-            res.json(delEvent);
+        const delEvent = await Event.destroy({
+            where: {
+                id: req.params.id
+            }
         })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({ msg: "an error occured", err });
-        });
+        res.json(delEvent);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ msg: "an error occured", err });
+    }
 });
 module.exports = router;

@@ -1,43 +1,51 @@
 const router = require('express').Router();
-const { Attendee, Item } = require('../../models');
-const bcrypt = require("bcrypt");
+const { Attendee, Item, Event } = require('../../models');
 
 //rsvp for event
-router.post("/:event_id", (req, res) => {
+router.post("/:event_id", async (req, res) => {
     if (!req.session.user) {
         return res.status(401).json({ msg: "must log in to rsvp event!" })
     }
-    Attendee.create({
-        event_id: req.params.event_id,
-        user_id: req.session.user.id,
-        rsvp_status: req.body.rsvp_status,
-    })
-        .then(newAttendee => {
-            res.json(newAttendee);
+    try {
+        const event = await Event.findByPk(req.params.event_id);
+        if (!event.public) {
+            return res.status(401).json({ msg: "private event, invite only!" })
+        }
+        const newAttendee = await Attendee.create({
+            event_id: req.params.event_id,
+            user_id: req.session.user.id,
+            rsvp_status: req.body.rsvp_status,
         })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({ msg: "an error occured", err });
-        });
+        res.json(newAttendee)
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ msg: "an error occured", err });
+    }
 });
 
 //invite for event
-router.post("/invite/:event_id", (req, res) => {
+router.post("/invite/:event_id", async (req, res) => {
     if (!req.session.user) {
         return res.status(401).json({ msg: "must log in to invite for event!" })
     }
-    Attendee.create({
-        event_id: req.params.event_id,
-        user_id: req.body.user_id,
-        rsvp_status: 0,
-    })
-        .then(newAttendee => {
-            res.json(newAttendee);
+    try {
+        const event = await Event.findByPk(req.params.event_id);
+        // if private, then only owner can invite
+        if (!event.public) {
+            if (event.creator_id != req.session.user.id) {
+                return res.status(401).json({ msg: "private event, only owner can invite!" })
+            }
+        }
+        const newAttendee = await Attendee.create({
+            event_id: req.params.event_id,
+            user_id: req.body.user_id,
+            rsvp_status: 0,
         })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({ msg: "an error occured", err });
-        });
+        res.json(newAttendee)
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ msg: "an error occured", err });
+    }
 });
 
 //change rsvp for event
