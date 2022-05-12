@@ -16,11 +16,7 @@ for (const check of claimChecks) {
             }
         }).then(res => {
             if (res.ok) {
-                if (obj.bring) {
-                    alert("you are bringing this item!")
-                } else {
-                    alert("you are no longer bringing this item")
-                }
+                location.reload(true);
             } else {
                 alert("update failed, check if logged in")
             }
