@@ -266,9 +266,7 @@ router.get('/profile/invite/:id', async (req, res) => {
               found = true;
             }
           }
-          if (found) {
-            users.splice(i, 1);
-          }
+          users[i].isInvited = found;
         }
 
         res.render('invite', { users, user, curEvent })
