@@ -1,3 +1,4 @@
+// delete event
 const deleteBtns = document.querySelectorAll(".deleteBtn");
 
 for (const deleteBtn of deleteBtns) {
@@ -18,7 +19,7 @@ for (const deleteBtn of deleteBtns) {
     }
     }
 }
-
+// direct the update event page
 const updateBtns = document.querySelectorAll(".updateBtn");
 for (const updateBtn of updateBtns) {
     updateBtn.addEventListener('click', updateEvent);

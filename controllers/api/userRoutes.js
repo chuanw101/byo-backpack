@@ -2,17 +2,15 @@ const router = require('express').Router();
 const { User, Event } = require('../../models');
 const bcrypt = require("bcrypt");
 
-
+// login
 router.post('/login', async (req, res) => {
   User.findOne({
     where: {
       user_name: req.body.user_name
     }
   }).then(foundUser => {
-    console.log(foundUser)
     if (!foundUser) {
       return res.status(400).json({ msg: "wrong login credentials" })
-
     }
     if (bcrypt.compareSync(req.body.password, foundUser.password)) {
 
@@ -32,9 +30,8 @@ router.post('/login', async (req, res) => {
 });
 
 
-
+//  change password
 router.put('/changePassword/:id', async (req, res) => {
-  console.log("whyyyyyyyyyyyyy")
   try {
     const userDb = await User.findOne({
       where: {
@@ -66,7 +63,7 @@ router.put('/changePassword/:id', async (req, res) => {
   }
 });
 
-
+// signup
 router.post("/signup", (req, res) => {
   User.create(req.body)
     .then(newUser => {

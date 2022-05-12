@@ -8,13 +8,11 @@ const searchLocationHandler = async (event) => {
         const locationArr = search_name.map(name => name.trim());
 
         if (locationArr != "") {
-            console.log(locationArr.length)
-            console.log(locationArr)
-            if(locationArr.length ===1){
+            if (locationArr.length === 1) {
 
                 document.location.replace(`/search/${locationArr[0]}`);
             }
-            else{
+            else {
                 document.location.replace(`/search/${locationArr[0]}/${locationArr[1]}`);
             }
 

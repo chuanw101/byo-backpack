@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { Event, Item, User, Attendee } = require("../../models");
 const cloudinary = require("cloudinary").v2
+
 //find all
 router.get("/", (req, res) => {
     Event.findAll({
@@ -40,6 +41,7 @@ router.get("/", (req, res) => {
             res.status(500).json({ msg: "an error occured", err });
         });
 });
+
 //find one
 router.get("/:id", (req, res) => {
     Event.findByPk(req.params.id, {
@@ -78,21 +80,12 @@ router.get("/:id", (req, res) => {
             res.status(500).json({ msg: "an error occured", err });
         });
 });
+
+
 //create Event
 router.post("/", (req, res) => {
-    /* req.body should look like this...
-    {
-        "event_name":"new event",
-        "location":"seattle",
-        "start_time":"2023-01-01T23:28:56.782Z",
-        "end_time":"2023-01-01T23:28:56.782Z",
-        "picture_path":"random",
-        "description:":"cool event"
-        "items":["stuff", "thing", "anotherthing"]
-    }
-    */
     if (!req.session.user) {
-        return res.status(401).json({ msg: "must log in to create event!" })
+        return res.status(401).json({ msg: "Must log in to create event!" })
     }
     Event.create({
         event_name: req.body.event_name,
@@ -134,6 +127,7 @@ router.post("/", (req, res) => {
             res.status(500).json({ msg: "an error occured", err });
         });
 });
+
 //update Event
 router.put("/:id", async (req, res) => {
     if (!req.session?.user) {
@@ -143,7 +137,7 @@ router.put("/:id", async (req, res) => {
         const curEvent = await Event.findByPk(req.params.id);
         // only creator can update event
         if (curEvent.creator_id != req.session?.user?.id) {
-            return res.status(401).json({ msg: "you don't have access to change this event!" })
+            return res.status(401).json({ msg: "You don't have access to change this event!" })
         }
         const updatedEvent = await Event.update({
             event_name: req.body.event_name,
@@ -167,6 +161,7 @@ router.put("/:id", async (req, res) => {
         res.status(500).json({ msg: "an error occured", err });
     }
 });
+
 //delete a Event
 router.delete("/:id", async (req, res) => {
     if (!req.session.user) {
