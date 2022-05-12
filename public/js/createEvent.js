@@ -1,4 +1,3 @@
-
 const formEl = document.querySelector('#newEventForm')
 var photoArr = []
 
@@ -29,10 +28,27 @@ document.getElementById("upload_widget").addEventListener(
   false
 );
 
-// make it so you can't have end date before start date
+
 const startEl = document.querySelector('#startDate');
 const endEl = document.querySelector('#endDate')
+// get current time
+let date = new Date();
+// add two hours
+date.setTime(date.getTime() + 2 * 60 * 60 * 1000);
+// take off offset
+temp = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
+// get rid of time zone and seconds
+const futTime = temp.substring(0, temp.length-8);
+
+// set mins and values
+startEl.min = futTime;
+startEl.value = futTime;
+endEl.min = futTime;
+endEl.value = futTime;
+
+// make it so you can't have end date before start date
 startEl.addEventListener("change", e => {
+  console.log (e.target.value)
   endEl.min = e.target.value;
 })
 endEl.addEventListener("change", e => {
