@@ -132,36 +132,37 @@ router.get('/search/:city/:state', (req, res) => {
 });
 
 //render event by id
-router.get("/eventbyid/:id", (req, res) => {
-  Event.findByPk(req.params.id, {
-    include: [{
-      model: Item,
-      include: [User]
-    }, {
-      model: User,
-      as: 'creator'
-    }, {
-      model: User,
-      as: 'attendees',
-    }, {
-      model: User,
-      as: 'noresponses',
-      where: { '$noresponses.attendee.rsvp_status$': 0 }, required: false
-    }, {
-      model: User,
-      as: 'yeses',
-      where: { '$yeses.attendee.rsvp_status$': 1 }, required: false
-    }, {
-      model: User,
-      as: 'noes',
-      where: { '$noes.attendee.rsvp_status$': 2 }, required: false
-    }, {
-      model: User,
-      as: 'maybes',
-      where: { '$maybes.attendee.rsvp_status$': 3 }, required: false
-    },
-    ],
-  }).then(eventData => {
+router.get("/eventbyid/:id", async (req, res) => {
+  try {
+    const eventData = await Event.findByPk(req.params.id, {
+      include: [{
+        model: Item,
+        include: [User]
+      }, {
+        model: User,
+        as: 'creator'
+      }, {
+        model: User,
+        as: 'attendees',
+      }, {
+        model: User,
+        as: 'noresponses',
+        where: { '$noresponses.attendee.rsvp_status$': 0 }, required: false
+      }, {
+        model: User,
+        as: 'yeses',
+        where: { '$yeses.attendee.rsvp_status$': 1 }, required: false
+      }, {
+        model: User,
+        as: 'noes',
+        where: { '$noes.attendee.rsvp_status$': 2 }, required: false
+      }, {
+        model: User,
+        as: 'maybes',
+        where: { '$maybes.attendee.rsvp_status$': 3 }, required: false
+      },
+      ],
+    })
     const data = eventData.get({ plain: true })
     data.user = req.session?.user
     if (data.user) {
@@ -184,12 +185,26 @@ router.get("/eventbyid/:id", (req, res) => {
         }
       }
     }
-    res.render("eventbyid", data)
-  }).catch(err => {
+
+    if (data.public) {
+      res.render("eventbyid", data)
+    } else {
+      if (data.user.isRSVP) {
+        res.render("eventbyid", data)
+      } else if (data.creator_id == data.user.id) {
+        res.render("eventbyid", data)
+      } else {
+        // access deny if private and not invited and not event creator
+        const user = req.session?.user
+        res.render('error401', { user })
+      }
+    }
+    
+  } catch (err) {
     console.log(err)
     const user = req.session?.user
     res.render('error404', { user })
-  })
+  }
 })
 
 // render profile
