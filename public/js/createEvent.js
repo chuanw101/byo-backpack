@@ -9,6 +9,7 @@ const myWidget = cloudinary.createUploadWidget(
     multiple: false,
     theme: "minimal",cropping: true,
     croppingAspectRatio: 1.389,
+    showSkipCropButton: false
   },
   (error, result) => {
     if (!error && result && result.event === "success") {
