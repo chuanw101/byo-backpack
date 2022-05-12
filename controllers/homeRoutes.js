@@ -193,7 +193,7 @@ router.get("/eventbyid/:id", (req, res) => {
 router.get('/profile', async (req, res) => {
   try {
     const user = req.session?.user
-    if (!req.session?.user?.logged_in) {
+    if (!user?.logged_in) {
       res.render('error401', { user });
     } else {
       const dbEvents = await Event.findAll({
