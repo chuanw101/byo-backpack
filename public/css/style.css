@@ -12,6 +12,14 @@
     z-index: 2;
 }
 
+.hover-show {
+    display: none;
+}
+
+.hover-target:hover .hover-show{
+    display: block;
+}
+
 #upload_widget {
     background-color: black;
     margin-top: 5px;
@@ -44,7 +52,8 @@
         align-items: center;
         justify-content: center;
     }
-    /* #cust-img {
-
-    } */
+    #cust-img {
+        justify-content: center !important;
+        margin-bottom: 10px;
+    }
 }
