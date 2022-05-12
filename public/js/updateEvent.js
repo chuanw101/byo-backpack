@@ -20,14 +20,16 @@ const myWidget = cloudinary.createUploadWidget(
         uploadPreset: 'usrvqzja',
         maxImageFileSize: 2000000,  //restrict file size to less than 2MB
         multiple: false,
-        theme: "minimal"
+        theme: "minimal",
+        cropping: true,
+        croppingAspectRatio: 1.389,
     },
     (error, result) => {
         if (!error && result && result.event === "success") {
             console.log("Done! Here is the image info: ", result.info);
             document
                 .getElementById("uploadedimage")
-                .setAttribute("src", result.info.secure_url);
+                .setAttribute("src", `https://res.cloudinary.com/da2jrzaai/image/upload/c_crop,g_custom/` + result.info.path);
             photoArr.push(result.info)
         }
     }

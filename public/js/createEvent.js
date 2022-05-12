@@ -7,14 +7,15 @@ const myWidget = cloudinary.createUploadWidget(
     uploadPreset: 'usrvqzja',
     maxImageFileSize: 2000000,  //restrict file size to less than 2MB
     multiple: false,
-    theme: "minimal"
+    theme: "minimal",cropping: true,
+    croppingAspectRatio: 1.389,
   },
   (error, result) => {
     if (!error && result && result.event === "success") {
       document
         .getElementById("uploadedimage")
-        .setAttribute("src", result.info.secure_url);
-      photoArr.push(result.info)
+        .setAttribute("src", `https://res.cloudinary.com/da2jrzaai/image/upload/c_crop,g_custom/` + result.info.path);
+      photoArr.push(`https://res.cloudinary.com/da2jrzaai/image/upload/c_crop,g_custom/` + result.info.path)
     }
   }
 );
@@ -76,7 +77,7 @@ document.querySelector("#newEventSubmit").addEventListener("click", e => {
     public: (document.querySelector("#public").checked),
   }
   if (photoArr.length) {
-    eventObj.picture_path = photoArr[photoArr.length - 1].url.toString();
+    eventObj.picture_path = photoArr[photoArr.length - 1].toString();
   }
   if (!eventObj.event_name) {
     alert("Please fill the Event name!")
