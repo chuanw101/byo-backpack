@@ -12,6 +12,11 @@
     z-index: 2;
 }
 
+#upload_widget {
+    background-color: black;
+    margin-top: 5px;
+}
+
 @media screen and (max-width: 992px) {
     #custom-navbar {
         flex-direction: column;
@@ -30,5 +35,8 @@
     #cust-upcoming h1 {
         text-align: center;
         font-size: xx-large !important;
+    }
+    #profile-btns {
+        flex-direction: column;
     }
 }
