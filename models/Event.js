@@ -47,7 +47,7 @@ Event.init({
     },
     picture_path: {
         type: DataTypes.STRING,
-        defaultValue: "/images/BYOB_Logo_Crop.png",
+        defaultValue: "/images/BYOB_Event_Default.png",
     },
     creator_id: {
         type: DataTypes.INTEGER,

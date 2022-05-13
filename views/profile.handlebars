@@ -5,10 +5,20 @@
             <h1 class="card-title my-4 text-center">Welcome back, {{user.user_name}}!</h1>
             <hr>
             <div class="d-flex justify-content-center" id="profile-btns">
-                <a href="/profile/changepassword" class="cust-btn btn btn-dark m-3" id="changePssword">Change Password</a>
+                <a href="/profile/changepassword" class="cust-btn btn btn-dark m-3" id="changePssword">Change
+                    Password</a>
                 <a class="cust-btn btn btn-dark m-3" href="#publicEvents">My Public Events</a>
                 <a class="cust-btn btn btn-dark m-3" href="#privateEvents">My Private Events</a>
-                <a class="cust-btn btn btn-dark m-3" href="#invitedEvents">My Invited Events</a>
+                <a class="cust-btn btn btn-dark m-3 position-relative" href="#invitedEvents">
+                    My Invited Events
+                    {{#if user.noResCount}}
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                        data-bs-toggle="tooltip" data-bs-placement="right" title="Invites to respond to">
+                        {{user.noResCount}}
+                    </span>
+                    {{/if}}
+                </a>
+                <a class="cust-btn btn btn-dark m-3" href="#pastEvents">My Past Events</a>
             </div>
         </div>
     </div>
@@ -16,6 +26,9 @@
 
 <div class="row d-flex justify-content-center mt-5">
     <h1 class="mb-4 text-center" id="publicEvents">My Public Events</h1>
+    {{#unless publicEvents.length}}
+    <h2 class="text-center">No public events</h2>
+    {{/unless}}
     {{#each publicEvents as |event|}}
     <div class="card col-12 col-lg-5 mb-3 mx-3 hover-target cust-card cust-public">
         <div class="card-body">
@@ -66,7 +79,8 @@
                     </div>
                     <div class="col">
                         <div class="d-grid gap-2 my-3">
-                            <button class="cust-btn btn btn-dark m-1 updateBtn" value={{event.id}}>Update Details</button>
+                            <button class="cust-btn btn btn-dark m-1 updateBtn" value={{event.id}}>Update
+                                Details</button>
                             <button class="btn btn-danger m-1 deleteBtn" value={{event.id}}>Delete Event</button>
                         </div>
                     </div>
@@ -81,8 +95,12 @@
     </div>
     {{/each}}
 </div>
+<hr>
 <div class="row d-flex justify-content-center mt-5">
     <h1 class="mb-4 text-center" id="privateEvents">My Private Events</h1>
+    {{#unless privateEvents.length}}
+    <h2 class="text-center">No private events</h2>
+    {{/unless}}
     {{#each privateEvents as |event|}}
     <div class="cust-card card col-12 col-lg-5 mb-3 mx-3 hover-target cust-priv">
         <div class="card-body">
@@ -136,29 +154,98 @@
                     </div>
                     <div class="col">
                         <div class="d-grid gap-2 my-3">
-                            <button class="cust-btn btn btn-dark m-1 updateBtn" value={{event.id}}>Update Details</button>
+                            <button class="cust-btn btn btn-dark m-1 updateBtn" value={{event.id}}>Update
+                                Details</button>
                             <button class="btn btn-danger m-1 deleteBtn" value={{event.id}}>Delete Event</button>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <a href="/profile/invite/{{id}}" class="cust-btn btn btn-dark m-1">Invite People</a>
+                    <div class="d-grid gap-2 mb-3">
+                        <a href="/profile/invite/{{id}}" class="cust-btn btn btn-dark m-1">Invite People</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     {{/each}}
 </div>
+<hr>
 <div class="row d-flex justify-content-center mt-5">
     <h1 class="mb-4 text-center" id="invitedEvents">Event Invites</h1>
+    {{#unless invitedEvents.length}}
+    <h2 class="text-center">No event invits</h2>
+    {{/unless}}
     {{#each invitedEvents as |event|}}
-    <div class="cust-card card col-12 col-lg-5 mb-3 mx-3 hover-target">
+    {{#if (compare attendees.0.attendee.rsvp_status 0)}}
+    <div class="cust-card card col-12 col-lg-5 mb-3 mx-3 hover-target cust-attn">
+        {{else}}
+        <div class="cust-card card col-12 col-lg-5 mb-3 mx-3 hover-target">
+            {{/if}}
+            <div class="card-body">
+                <h2 class="card-title my-4 text-center">{{event.event_name}}</h2>
+                <hr>
+                <img src={{picture_path}} class="card-img-top img-fluid" width="500" height="360" alt={{picture_path}}>
+                <hr>
+                <div class="row">
+                    <div class="mb-2">
+                        <div class="d-flex justify-content-center mb-2">
+                            <a class="text-center link-dark"
+                                href="https://maps.google.com/?q={{location}},+{{city}},+{{state}}"
+                                target="_blank">{{location}}<br>{{city}}, {{state}}</a>
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <h5 class="d-inline">Starts:</h5>
+                        <p class="d-inline">{{format_time start_time}}</p>
+                    </div>
+                    <div class="mb-2">
+                        <h5 class="d-inline">Ends:</h5>
+                        <p class="d-inline">{{format_time end_time}}</p>
+                    </div>
+                </div>
+                <div class="hover-show">
+                    <div class="row">
+                        <div class="col border m-2 p-2">
+                            <h5>Backpack:</h5>
+                            <ul>
+                                {{#each items}}
+                                <li>{{item_name}}</li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                        <div class="col border m-2 p-2">
+                            <h5>Attendees:</h5>
+                            <ul>
+                                {{#each yeses}}
+                                <li>{{user_name}}</li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <a href="/eventbyid/{{id}}" class="cust-btn btn btn-dark m-1">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+<hr>
+<div class="row d-flex justify-content-center mt-5 mb-5">
+    <h1 class="mb-4 text-center" id="pastEvents">My Past Events</h1>
+    {{#unless pastEvents.length}}
+    <h2 class="text-center">No past events</h2>
+    {{/unless}}
+    {{#each pastEvents}}
+    <div class="cust-card card col-12 col-lg-5 mb-3 mx-3 hover-target opacity-75">
         <div class="card-body">
-            <h2 class="card-title my-4 text-center">{{event.event_name}}</h2>
+            <h2 class="card-title my-4 text-center">{{event_name}}</h2>
             <hr>
             <img src={{picture_path}} class="card-img-top img-fluid" width="500" height="360" alt={{picture_path}}>
             <hr>
-            <div class="row mb-3">
+            <div class="row">
                 <div class="mb-2">
                     <div class="d-flex justify-content-center mb-2">
                         <a class="text-center link-dark"
@@ -177,29 +264,21 @@
             </div>
             <div class="hover-show">
                 <div class="row">
-                    <div class="col border m-2 p-2">
-                        <h5>Backpack:</h5>
-                        <ul>
-                            {{#each items}}
-                            <li>{{item_name}}</li>
-                            {{/each}}
-                        </ul>
+                    <div class="col">
+                        <div class="d-grid gap-2 my-3">
+                            <a href="/eventbyid/{{id}}" class="cust-btn btn btn-dark m-1">View Details</a>
+                        </div>
                     </div>
-                    <div class="col border m-2 p-2">
-                        <h5>Attendees:</h5>
-                        <ul>
-                            {{#each yeses}}
-                            <li>{{user_name}}</li>
-                            {{/each}}
-                        </ul>
+                    <div class="col">
+                        <div class="d-grid gap-2 my-3">
+                            <button class="btn btn-danger m-1 deleteBtn" value={{id}}>Delete Event</button>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <a href="/eventbyid/{{id}}" class="cust-btn btn btn-dark m-1">View Details</a>
                 </div>
             </div>
         </div>
     </div>
     {{/each}}
 </div>
+
 <script src="/js/eventAction.js"></script>

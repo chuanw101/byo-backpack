@@ -132,36 +132,37 @@ router.get('/search/:city/:state', (req, res) => {
 });
 
 //render event by id
-router.get("/eventbyid/:id", (req, res) => {
-  Event.findByPk(req.params.id, {
-    include: [{
-      model: Item,
-      include: [User]
-    }, {
-      model: User,
-      as: 'creator'
-    }, {
-      model: User,
-      as: 'attendees',
-    }, {
-      model: User,
-      as: 'noresponses',
-      where: { '$noresponses.attendee.rsvp_status$': 0 }, required: false
-    }, {
-      model: User,
-      as: 'yeses',
-      where: { '$yeses.attendee.rsvp_status$': 1 }, required: false
-    }, {
-      model: User,
-      as: 'noes',
-      where: { '$noes.attendee.rsvp_status$': 2 }, required: false
-    }, {
-      model: User,
-      as: 'maybes',
-      where: { '$maybes.attendee.rsvp_status$': 3 }, required: false
-    },
-    ],
-  }).then(eventData => {
+router.get("/eventbyid/:id", async (req, res) => {
+  try {
+    const eventData = await Event.findByPk(req.params.id, {
+      include: [{
+        model: Item,
+        include: [User]
+      }, {
+        model: User,
+        as: 'creator'
+      }, {
+        model: User,
+        as: 'attendees',
+      }, {
+        model: User,
+        as: 'noresponses',
+        where: { '$noresponses.attendee.rsvp_status$': 0 }, required: false
+      }, {
+        model: User,
+        as: 'yeses',
+        where: { '$yeses.attendee.rsvp_status$': 1 }, required: false
+      }, {
+        model: User,
+        as: 'noes',
+        where: { '$noes.attendee.rsvp_status$': 2 }, required: false
+      }, {
+        model: User,
+        as: 'maybes',
+        where: { '$maybes.attendee.rsvp_status$': 3 }, required: false
+      },
+      ],
+    })
     const data = eventData.get({ plain: true })
     data.user = req.session?.user
     if (data.user) {
@@ -183,22 +184,45 @@ router.get("/eventbyid/:id", (req, res) => {
           item.isBroughtByUser = true;
         }
       }
+      // check if user is creator
+      if (data.creator_id == data.user.id) {
+        data.user.isCreator = true;
+      } else {
+        data.user.isCreator = false;
+      }
     }
-    res.render("eventbyid", data)
-  }).catch(err => {
+
+    if (data.public) {
+      res.render("eventbyid", data)
+    } else {
+      if (data.user.isRSVP) {
+        res.render("eventbyid", data)
+      } else if (data.creator_id == data.user.id) {
+        res.render("eventbyid", data)
+      } else {
+        // access deny if private and not invited and not event creator
+        const user = req.session?.user
+        res.render('error401', { user })
+      }
+    }
+
+  } catch (err) {
     console.log(err)
     const user = req.session?.user
     res.render('error404', { user })
-  })
+  }
 })
 
 // render profile
 router.get('/profile', async (req, res) => {
   try {
-    const user = req.session?.user
-    if (!user?.logged_in) {
+    if (!req.session?.user.logged_in) {
       res.render('error401', { user });
     } else {
+      const today = new Date();
+      const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+      const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      const dateTime = date + ' ' + time;
       const dbEvents = await Event.findAll({
         include: [{
           model: Item,
@@ -208,13 +232,23 @@ router.get('/profile', async (req, res) => {
           where: { '$yeses.attendee.rsvp_status$': 1 }, required: false
         }],
         where: {
-          creator_id: req.session.user?.id
+          creator_id: req.session.user?.id,
+          start_time: { [Op.gt]: dateTime },
         },
         order: ['start_time']
       })
       const events = dbEvents.map(event => event.get({ plain: true }))
       const publicEvents = events.filter(event => event.public)
       const privateEvents = events.filter(event => !event.public)
+
+      const past = await Event.findAll({
+        where: {
+          creator_id: req.session.user?.id,
+          start_time: { [Op.lt]: dateTime },
+        },
+        order: ['start_time']
+      })
+      const pastEvents = past.map(event => event.get({ plain: true }))
 
       const invited = await Event.findAll({
         include: [{
@@ -228,12 +262,24 @@ router.get('/profile', async (req, res) => {
           where: { '$yeses.attendee.rsvp_status$': 1 }, required: false
         }],
         where: {
+          //invited, not creator, and upcoming events only
           '$attendees.id$': req.session.user?.id,
+          creator_id: { [Op.ne]: req.session.user?.id },
+          start_time: { [Op.gt]: dateTime },
         },
         order: ['start_time']
       })
+      let count = 0;
+      for (const event of invited) {
+        if (event.attendees[0].attendee.rsvp_status == 0) {
+          count++;
+        }
+      }
       const invitedEvents = invited.map(event => event.get({ plain: true }))
-      res.render('profile', { publicEvents, privateEvents, invitedEvents, user })
+      req.session.user.noti = 0;
+      const user = req.session?.user
+      user.noResCount = count;
+      res.render('profile', { publicEvents, privateEvents, invitedEvents, pastEvents, user })
     }
   } catch (err) {
     console.log(err);
@@ -344,7 +390,11 @@ router.get("/create_an_event", async (req, res) => {
 });
 
 router.get('/login', (req, res) => {
-  res.render('login')
+  if (req.session.user) {
+    res.redirect("/")
+  } else {
+    res.render('login')
+  }
 });
 
 

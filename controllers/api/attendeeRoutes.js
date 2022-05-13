@@ -9,7 +9,9 @@ router.post("/:event_id", async (req, res) => {
     try {
         const event = await Event.findByPk(req.params.event_id);
         if (!event.public) {
-            return res.status(401).json({ msg: "private event, invite only!" })
+            if (req.session.user.id != event.creator_id) {
+                return res.status(401).json({ msg: "private event, invite only!" })
+            }
         }
         const newAttendee = await Attendee.create({
             event_id: req.params.event_id,

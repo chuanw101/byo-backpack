@@ -5,6 +5,8 @@
     --darkGreen: #29402d;
     --mainTaupe: #dad7cd;
     --lightTaupe: #dad7cd63;
+    --ownedColor: #BCBD8B;
+    --attnColor: rgb(243, 215, 215);
 }
 
 body {
@@ -23,8 +25,16 @@ body {
     background-color: var(--publicGreen);
 }
 
+.cust-created {
+    background-color: var(--ownedColor);
+}
+
 .cust-priv {
     background-color: var(--privGreen);
+}
+
+.cust-attn {
+    background-color: var(--attnColor);
 }
 
 .cust-btn {
@@ -33,7 +43,7 @@ body {
 
 /* overload autocomplete bg so its not transparent */
 .ui-autocomplete {
-    background: white;
+    background: var(--mainTaupe);
     z-index: 2;
 }
 
@@ -45,8 +55,13 @@ body {
     display: block;
 }
 
+.cursor-hand {
+    cursor: pointer;
+}
+
 #upload_widget {
-    background-color: black;
+    background-color: var(--publicGreen);
+    color: var(--mainGreen);
     margin-top: 5px;
 }
 

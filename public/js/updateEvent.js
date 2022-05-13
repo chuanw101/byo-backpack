@@ -112,7 +112,7 @@ const updateEventHandler = async (event) => {
 
             if (res.ok) {
                 alert('the Event has been updated')
-                location.href = '/profile';
+                location.href = `/eventbyid/${eventId}`;
             } else {
                 alert('update failed')
             }
@@ -155,12 +155,10 @@ const newItemHandler = async (event) => {
         const item_name = document.querySelector('#newItem').value.trim();
         if (item_name) {
             const eventId = document.querySelector(".newItemBtn").getAttribute("name");
-            const owner_id = document.querySelector(".newItemBtn").value
             const response = await fetch(`/api/items/${eventId}`, {
                 method: 'POST',
                 body: JSON.stringify({
                     item_name,
-                    owner_id,
                 }),
                 headers: {
                     'Content-Type': 'application/json',
