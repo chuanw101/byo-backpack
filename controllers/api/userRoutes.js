@@ -31,6 +31,7 @@ router.post('/login', async (req, res) => {
         }],
         where: {
           '$attendees.id$': req.session.user?.id,
+          '$attendees.attendee.rsvp_status$': 0,
           creator_id: { [Op.ne]: req.session.user?.id },
           start_time: { [Op.gt]: dateTime },
         }

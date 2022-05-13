@@ -12,7 +12,7 @@
                 <a class="cust-btn btn btn-dark m-3 position-relative" href="#invitedEvents">
                     My Invited Events
                     {{#if user.noResCount}}
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" data-bs-toggle="tooltip" data-bs-placement="right" title="Invites to respond to">
                         {{user.noResCount}}
                     </span>
                     {{/if}}
