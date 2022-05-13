@@ -16,6 +16,10 @@ User.init({
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+        validate: {
+            len: [0, 15],
+            isAlphanumeric: true,
+        }
     },
     password: {
         type: DataTypes.STRING,

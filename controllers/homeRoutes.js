@@ -399,7 +399,11 @@ router.get('/login', (req, res) => {
 
 
 router.get('/signup', (req, res) => {
-  res.render('signup')
+  if (req.session.user) {
+    res.redirect("/")
+  } else {
+    res.render('signup')
+  }
 });
 router.get('/profile/changepassword', (req, res) => {
   const user = req.session.user
