@@ -46,9 +46,8 @@
                     <ul>
                         {{#eventUpdate.items}}
                         <li>
-                            <img class="deleteItem" src="/images/trash.png" value={{id}} name={{event_id}} width="2%"
-                                height="2%">
                             {{item_name}}
+                            <i class="bi bi-trash cursor-hand deleteItem" value={{id}} name={{event_id}} data-bs-toggle="tooltip" data-bs-placement="right" title="delete item"></i>
                         </li>
                         {{/eventUpdate.items}}
                     </ul>
@@ -56,7 +55,7 @@
 
                     <div class="mb-3">
                         <label for="newItem" class="form-label">New Item</label>
-                        <input class="form-control" id="newItem">
+                        <input class="form-control" id="newItem" placeholder="Item">
                         <button class="newItemBtn btn btn-dark cust-btn mt-2" value={{eventUpdate.creator_id}}
                             name={{eventUpdate.id}}> Add
                             Item
