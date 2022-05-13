@@ -205,7 +205,7 @@ router.get("/eventbyid/:id", async (req, res) => {
         res.render('error401', { user })
       }
     }
-    
+
   } catch (err) {
     console.log(err)
     const user = req.session?.user
@@ -248,7 +248,7 @@ router.get('/profile', async (req, res) => {
         },
         order: ['start_time']
       })
-      const pastEvents = past.map(event => event.get({ plain: true}))
+      const pastEvents = past.map(event => event.get({ plain: true }))
 
       const invited = await Event.findAll({
         include: [{
@@ -259,7 +259,7 @@ router.get('/profile', async (req, res) => {
         }, {
           model: User,
           as: 'yeses',
-          where: {'$yeses.attendee.rsvp_status$': 1 }, required: false
+          where: { '$yeses.attendee.rsvp_status$': 1 }, required: false
         }],
         where: {
           //invited, not creator, and upcoming events only
@@ -279,7 +279,7 @@ router.get('/profile', async (req, res) => {
       req.session.user.noti = 0;
       const user = req.session?.user
       user.noResCount = count;
-      res.render('profile', { publicEvents, privateEvents, invitedEvents, pastEvents, user})
+      res.render('profile', { publicEvents, privateEvents, invitedEvents, pastEvents, user })
     }
   } catch (err) {
     console.log(err);
@@ -390,7 +390,11 @@ router.get("/create_an_event", async (req, res) => {
 });
 
 router.get('/login', (req, res) => {
-  res.render('login')
+  if (req.session.user) {
+    res.redirect("/")
+  } else {
+    res.render('login')
+  }
 });
 
 
