@@ -5,18 +5,18 @@ for (const deleteBtn of deleteBtns) {
     deleteBtn.addEventListener('click', deleteEvent);
     async function deleteEvent(e) {
         if (confirm("ARE YOU SURE YOU WANT TO PERMANENTLY DELETE EVENT?")) {
-        const response = await fetch(`/api/events/${e.target.value}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
+            const response = await fetch(`/api/events/${e.target.value}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+            if (response.ok) {
+                location.reload();
+            } else {
+                alert('Failed to delete');
             }
-        });
-        if (response.ok) {
-            location.reload();
-        } else {
-            alert('Failed to delete');
         }
-    }
     }
 }
 // direct the update event page
@@ -24,8 +24,8 @@ const updateBtns = document.querySelectorAll(".updateBtn");
 for (const updateBtn of updateBtns) {
     updateBtn.addEventListener('click', updateEvent);
 
-     function updateEvent(e) {
-            document.location.href =`/profile/update/${e.target.value}`;
+    function updateEvent(e) {
+        document.location.href = `/profile/update/${e.target.value}`;
     }
 }
 

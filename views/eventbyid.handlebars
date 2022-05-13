@@ -1,6 +1,12 @@
 <div class="row d-flex justify-content-center">
     <div class="card col-12 my-5">
         <div class="card-body">
+            {{#if user.isCreator}}
+            <div class="col">
+                <a class="cust-btn btn btn-dark m-1" href ="/profile/update/{{id}}">Update Event</a>
+                <button class="btn btn-danger m-1" id="delBtn" value={{id}}>Delete Event</button>
+            </div>
+            {{/if}}
             <h1 class="card-title my-4 text-center">{{event_name}}</h1>
             <div class="row pt-1" id="cust-detail">
                 <div class="col d-flex justify-content-end" id="cust-img">
@@ -43,8 +49,12 @@
                     <hr class="my-2">
                     {{#each items}}
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input claimCheck" type="checkbox" id={{id}} value={{item_name}} {{#unless ../user.isGoing}}disabled{{/unless}} {{#if owner_id}} {{#if isBroughtByUser}} checked {{else}} checked disabled {{/if}}{{/if}}>
-                        <label class="form-check-label" for={{id}}>{{item_name}}{{#if owner_id}}{{#if isBroughtByUser}}, from <span class="fst-italic">you</span>{{else}}, from <span class="fst-italic">{{user.user_name}}</span>{{/if}}{{/if}}</label>
+                        <input class="form-check-input claimCheck" type="checkbox" id={{id}} value={{item_name}}
+                            {{#unless ../user.isGoing}}disabled{{/unless}} {{#if owner_id}} {{#if isBroughtByUser}}
+                            checked {{else}} checked disabled {{/if}}{{/if}}>
+                        <label class="form-check-label" for={{id}}>{{item_name}}{{#if owner_id}}{{#if isBroughtByUser}},
+                            from <span class="fst-italic">you</span>{{else}}, from <span
+                                class="fst-italic">{{user.user_name}}</span>{{/if}}{{/if}}</label>
                     </div>
                     {{/each}}
                 </div>
@@ -95,7 +105,8 @@
                 </select>
                 <button class="btn btn-dark" id="rsvpBtn" value={{id}}>RSVP</button>
                 {{else}}
-                {{!-- <hr> --}}
+                {{!--
+                <hr> --}}
                 <h2 class="text-center">Your RSVP Status</h2>
                 <select name="rsvp-choice" id="rsvp-choice" class="form-control" status={{user.rsvp_status}}>
                     <option id="option-0" value=0>No response</option>

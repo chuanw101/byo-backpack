@@ -184,6 +184,12 @@ router.get("/eventbyid/:id", async (req, res) => {
           item.isBroughtByUser = true;
         }
       }
+      // check if user is creator
+      if (data.creator_id == data.user.id) {
+        data.user.isCreator = true;
+      } else {
+        data.user.isCreator = false;
+      }
     }
 
     if (data.public) {

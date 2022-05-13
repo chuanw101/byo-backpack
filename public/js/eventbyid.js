@@ -90,3 +90,24 @@ if (leaveBtn) {
         }
     })
 }
+
+// delete event, button only generated if it's creator visiting page
+const delBtn = document.querySelector("#delBtn");
+if(delBtn) {
+    delBtn.addEventListener('click', deleteEvent);
+    async function deleteEvent(e) {
+        if (confirm("ARE YOU SURE YOU WANT TO PERMANENTLY DELETE EVENT?")) {
+            const response = await fetch(`/api/events/${e.target.value}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+            if (response.ok) {
+                location.replace("/");
+            } else {
+                alert('Failed to delete');
+            }
+        }
+    }
+}
