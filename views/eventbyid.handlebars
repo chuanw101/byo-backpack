@@ -3,7 +3,7 @@
         <div class="card-body">
             {{#if user.isCreator}}
             <div class="col">
-                <a class="cust-btn btn btn-dark m-1" href ="/profile/update/{{id}}">Update Event</a>
+                <a class="cust-btn btn btn-dark cust-btn m-1" href ="/profile/update/{{id}}">Update Event</a>
                 <button class="btn btn-danger m-1" id="delBtn" value={{id}}>Delete Event</button>
             </div>
             {{/if}}
@@ -103,7 +103,7 @@
                     <option value=2>I'm not attending</option>
                     <option value=3>Maybe</option>
                 </select>
-                <button class="btn btn-dark" id="rsvpBtn" value={{id}}>RSVP</button>
+                <button class="btn btn-dark cust-btn" id="rsvpBtn" value={{id}}>RSVP</button>
                 {{else}}
                 {{!--
                 <hr> --}}
@@ -115,7 +115,7 @@
                     <option id="option-3" value=3>Maybe</option>
                     <option value=4>Take me off the list</option>
                 </select>
-                <button class="btn btn-dark" id="leaveBtn" value={{id}}>Update RSVP</button>
+                <button class="btn btn-dark cust-btn" id="leaveBtn" value={{id}}>Update RSVP</button>
                 {{/unless}}
                 {{/if}}
             </div>
