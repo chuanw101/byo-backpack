@@ -5,6 +5,7 @@
     --darkGreen: #29402d;
     --mainTaupe: #dad7cd;
     --lightTaupe: #dad7cd63;
+    --ownedColor: #BCBD8B;
 }
 
 body {
@@ -21,6 +22,10 @@ body {
 
 .cust-public {
     background-color: var(--publicGreen);
+}
+
+.cust-created {
+    background-color: var(--ownedColor);
 }
 
 .cust-priv {

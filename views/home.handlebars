@@ -14,7 +14,7 @@
 <div class="row d-flex justify-content-center">
     {{#each event}}
     {{#if (compare creator_id ../user.id)}}
-    <div class="card col-12 col-md-5 my-3 mx-3 p-2 cust-card">
+    <div class="card col-12 col-md-5 my-3 mx-3 p-2 cust-card cust-created">
     {{else}}
     <div class="card col-12 col-md-5 my-3 mx-3 p-2 cust-card cust-public">
     {{/if}}
