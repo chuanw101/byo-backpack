@@ -1,6 +1,6 @@
 {{!-- profile page --}}
 <div class="row d-flex justify-content-center">
-    <div class="cust-card card col-12 my-5">
+    <div class="cust-card cust-created card col-12 my-5">
         <div class="card-body">
             <h1 class="card-title my-4 text-center">Welcome back, {{user.user_name}}!</h1>
             <hr>
@@ -174,13 +174,13 @@
 <div class="row d-flex justify-content-center mt-5">
     <h1 class="mb-4 text-center" id="invitedEvents">Event Invites</h1>
     {{#unless invitedEvents.length}}
-    <h2 class="text-center">No event invits</h2>
+    <h2 class="text-center">No event invites</h2>
     {{/unless}}
     {{#each invitedEvents as |event|}}
     {{#if (compare attendees.0.attendee.rsvp_status 0)}}
     <div class="cust-card-inv card col-12 col-lg-5 mb-3 mx-3 hover-target cust-attn">
         {{else}}
-        <div class="cust-card-inv card col-12 col-lg-5 mb-3 mx-3 hover-target">
+        <div class="cust-card-resp card col-12 col-lg-5 mb-3 mx-3 hover-target">
             {{/if}}
             <div class="card-body">
                 <h2 class="card-title my-4 text-center">{{event.event_name}}</h2>
