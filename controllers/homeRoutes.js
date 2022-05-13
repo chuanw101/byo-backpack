@@ -220,6 +220,10 @@ router.get('/profile', async (req, res) => {
     if (!user?.logged_in) {
       res.render('error401', { user });
     } else {
+      const today = new Date();
+      const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+      const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      const dateTime = date + ' ' + time;
       const dbEvents = await Event.findAll({
         include: [{
           model: Item,
@@ -246,10 +250,13 @@ router.get('/profile', async (req, res) => {
         }, {
           model: User,
           as: 'yeses',
-          where: { '$yeses.attendee.rsvp_status$': 1 }, required: false
+          where: {'$yeses.attendee.rsvp_status$': 1 }, required: false
         }],
         where: {
+          //invited, not creator, and upcoming events only
           '$attendees.id$': req.session.user?.id,
+          creator_id: { [Op.ne]: req.session.user?.id },
+          start_time: { [Op.gt]: dateTime },
         },
         order: ['start_time']
       })
