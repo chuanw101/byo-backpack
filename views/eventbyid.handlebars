@@ -4,6 +4,7 @@
             {{#if user.isCreator}}
             <div class="col">
                 <a class="cust-btn btn btn-dark cust-btn m-1" href ="/profile/update/{{id}}">Update Event</a>
+                <a href="/profile/invite/{{id}}" class="cust-btn btn btn-dark m-1">Invite People</a>
                 <button class="btn btn-danger m-1" id="delBtn" value={{id}}>Delete Event</button>
             </div>
             {{/if}}
