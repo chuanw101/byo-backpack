@@ -12,7 +12,7 @@
         {{#unless isInvited}}
         <ul class="list-group list-group-horizontal">
             <li class="list-group-item flex-fill border-0 border-bottom pb-1">{{user_name}}</li>
-            <li><button class="btn btn-dark inviteBtn flex-fill m-1" eventId={{../curEvent.id}}
+            <li><button class="cust-btn btn btn-dark inviteBtn flex-fill m-1" eventId={{../curEvent.id}}
                     value={{id}}>Invite</button></li>
         </ul>
         {{/unless}}
@@ -21,7 +21,7 @@
         {{#if isInvited}}
         <ul class="list-group list-group-horizontal">
             <li class="list-group-item flex-fill border-0 border-bottom pb-1">{{user_name}}</li>
-            <li><button class="btn btn-dark inviteBtn flex-fill m-1 disabled">Invited</button></li>
+            <li><button class="cust-btn btn btn-dark inviteBtn flex-fill m-1 disabled">Invited</button></li>
         </ul>
         {{/if}}
         {{/each}}
