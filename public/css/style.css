@@ -6,6 +6,7 @@
     --mainTaupe: #dad7cd;
     --lightTaupe: #dad7cd63;
     --ownedColor: #BCBD8B;
+    --attnColor: rgb(243, 215, 215);
 }
 
 body {
@@ -30,6 +31,10 @@ body {
 
 .cust-priv {
     background-color: var(--privGreen);
+}
+
+.cust-attn {
+    background-color: var(--attnColor);
 }
 
 .cust-btn {

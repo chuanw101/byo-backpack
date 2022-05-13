@@ -151,21 +151,20 @@
     </div>
     {{/each}}
 </div>
-<div class="row d-flex justify-content-center mt-5">
+<div class="row d-flex justify-content-center mt-5 mb-5">
     <h1 class="mb-4 text-center" id="invitedEvents">Event Invites</h1>
     {{#each invitedEvents as |event|}}
     {{#if (compare attendees.0.attendee.rsvp_status 0)}}
-    <div class="cust-card card col-12 col-lg-5 mb-3 mx-3 hover-target cust-public">
+    <div class="cust-card card col-12 col-lg-5 mb-3 mx-3 hover-target cust-attn">
     {{else}}
     <div class="cust-card card col-12 col-lg-5 mb-3 mx-3 hover-target">
     {{/if}}
         <div class="card-body">
             <h2 class="card-title my-4 text-center">{{event.event_name}}</h2>
-            <h2>{{attendees.0.attendee.rsvp_status}}</h2>
             <hr>
             <img src={{picture_path}} class="card-img-top img-fluid" width="500" height="360" alt={{picture_path}}>
             <hr>
-            <div class="row mb-3">
+            <div class="row">
                 <div class="mb-2">
                     <div class="d-flex justify-content-center mb-2">
                         <a class="text-center link-dark"
