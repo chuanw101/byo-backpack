@@ -12,36 +12,39 @@ AS a user,
 I WANT an application that lets me post events, RSVP to others, and sign up to bring supplies,
 SO THAT I can connect with my community, meet new people, and try new things.
 
+## Deployed link
 
+Here is the link to the website DEMO:
+[Deployed Link](https://byo-backpack.herokuapp.com/)
     
 ## Table of Contents 
     
   - [Contribute](#contribute)
   - [User Story](#user-story)
+  - [Deployed link](#deployed-link)
   - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
   - [Consept](#concept)
-  - [Demo link](#demo-link)
   - [Test](#test)
+  - [ERD](#erd)
 
 ## Installation
 Here are some guidelines to help you get started:
 
 1. Clone the project in your laptop  
 2. Make sure you installed Node on your visual studio 
-3. Run the `npm init -y` comand in your terminal (your can see _package.json_ file in your folder)
-4. Run `npm install express connect-session-sequelize sequelize mysql2 mysql-promisify bcrypt express-handlebars util` comand in your terminal to get all the libraries 
-5.  inside it should have:
+3. Run the `npm install` comand in your terminal
+4.  inside it should have:
     * DB_USER=root
     * DB_PASSWORD= what ever your password is for root user
     * DB_NAME= byo_backpac_db
-    * SESSION_SECRET = super secret
-Or just go to deployed site, no need for install    
- 
-6.  start the terminal from index.js
-7.  run the `npm run resetdb` in terminal
-8.  run the `npm run seeds` in terminal
-9.  run the `node server.js`in terminal
+    * SESSION_SECRET = super secret 
+5.  start the terminal from index.js
+6.  run the `npm run resetdb` in terminal
+7.  run the `npm run seeds` in terminal
+8.  run the `npm start` in terminal
+
+Or just go to deployed site, no need for install   
 
 ## Concept
 A Collaborative Event Management System
@@ -52,12 +55,6 @@ A Collaborative Event Management System
 * See events created by other users
 * RSVP & sign up to bring items
 * Search for events in your city
-
-
-## Demo link
-
-Here is the link to the website DEMO:
-[Demo Link](https://byo-backpack.herokuapp.com/)
 
 ## Test
  
@@ -90,9 +87,8 @@ you can see diffrent pages in the Byo-Backpack:
 
 ![login](./public/images/m3.png)
 
-
-
-
+## ERD
+![ERD](./public/images/BYOB_erd.png)
 
 
 
