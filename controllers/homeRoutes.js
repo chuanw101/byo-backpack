@@ -216,8 +216,7 @@ router.get("/eventbyid/:id", async (req, res) => {
 // render profile
 router.get('/profile', async (req, res) => {
   try {
-    const user = req.session?.user
-    if (!user?.logged_in) {
+    if (!req.session?.user.logged_in) {
       res.render('error401', { user });
     } else {
       const today = new Date();
@@ -261,6 +260,8 @@ router.get('/profile', async (req, res) => {
         order: ['start_time']
       })
       const invitedEvents = invited.map(event => event.get({ plain: true }))
+      req.session.user.noti = 0;
+      const user = req.session?.user
       res.render('profile', { publicEvents, privateEvents, invitedEvents, user })
     }
   } catch (err) {
