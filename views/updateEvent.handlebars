@@ -40,61 +40,61 @@
                     <input type="datetime-local" class="form-control" value="{{format_time_value eventUpdate.end_time}}"
                         aria-label="endTime" id="endTime">
                 </div>
+                <div class="mb-3">
+                    <label for="backpackItems" class="form-label">Backpack Items</label>
+
+                    <ul>
+                        {{#eventUpdate.items}}
+                        <li>
+                            <img class="deleteItem" src="/images/trash.png" value={{id}} name={{event_id}} width="2%"
+                                height="2%">
+                            {{item_name}}
+                        </li>
+                        {{/eventUpdate.items}}
+                    </ul>
+
+
+                    <div class="mb-3">
+                        <label for="newItem" class="form-label">New Item</label>
+                        <input class="form-control" id="newItem">
+                        <button class="newItemBtn btn btn-dark cust-btn mt-2" value={{eventUpdate.creator_id}}
+                            name={{eventUpdate.id}}> Add
+                            Item
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="eventType" class="form-label">Event Type</label>
+                    <div>
+
+                        {{#if eventUpdate.public}}
+                        <input type="radio" name="eventType" value="1" id="public" checked="checked">
+                        <label for="public">Public </label>
+                        <input type="radio" name="eventType" value="0" id="private">
+                        <label for="private">Private</label>
+                        {{else}}
+                        <h1>test</h1>
+                        <input type="radio" name="eventType" value="1" id="public">
+                        <label for="public">Public </label>
+                        <input type="radio" name="eventType" value="0" id="private" checked="checked">
+                        <label for="private">Private</label>
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="startDate" class="form-label">Event Description</label>
+                    <textarea class="form-control" id="eventDescription" rows="6"
+                        placeholder="More details...">{{eventUpdate.description}}</textarea>
+                </div>
+
+                <div class="d-grid gap-2 my-3">
+                    <button type="button" class="btn btn-dark cust-btn" id="updateEventSubmit"
+                        value={{eventUpdate.id}}>Update</button>
+                </div>
+            </form>
         </div>
-
-        <div class="mb-3">
-            <label for="backpackItems" class="form-label">Backpack Items</label>
-
-            <ul>
-                {{#eventUpdate.items}}
-                <li>
-                    <img class="deleteItem" src="/images/trash.png" value={{id}} name={{event_id}} width="2%"
-                        height="2%">
-                    {{item_name}}
-                </li>
-                {{/eventUpdate.items}}
-            </ul>
-
-
-            <div class="mb-3">
-                <label for="newItem" class="form-label">New Item</label>
-                <input class="form-control" id="newItem">
-                <button class="newItemBtn" value={{eventUpdate.creator_id}} name={{eventUpdate.id}}> Add
-                    Item
-                </button>
-            </div>
-        </div>
-        <div>
-            <label for="eventType" class="form-label">Event Type</label>
-            <div>
-
-                {{#if eventUpdate.public}}
-                <input type="radio" name="eventType" value="1" id="public" checked="checked">
-                <label for="public">Public </label>
-                <input type="radio" name="eventType" value="0" id="private">
-                <label for="private">Private</label>
-                {{else}}
-                <h1>test</h1>
-                <input type="radio" name="eventType" value="1" id="public">
-                <label for="public">Public </label>
-                <input type="radio" name="eventType" value="0" id="private" checked="checked">
-                <label for="private">Private</label>
-                {{/if}}
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label for="startDate" class="form-label">Event Description</label>
-            <textarea class="form-control" id="eventDescription" rows="6"
-                placeholder="More details...">{{eventUpdate.description}}</textarea>
-        </div>
-
-        <div class="d-grid gap-2 my-3">
-            <button type="button" class="btn btn-dark" id="updateEventSubmit" value={{eventUpdate.id}}>Update</button>
-        </div>
-        </form>
     </div>
-</div>
 </div>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <!-- jQuery UI <script> tag -->

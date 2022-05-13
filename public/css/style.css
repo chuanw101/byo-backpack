@@ -33,7 +33,7 @@ body {
 
 /* overload autocomplete bg so its not transparent */
 .ui-autocomplete {
-    background: white;
+    background: var(--mainTaupe);
     z-index: 2;
 }
 
@@ -46,7 +46,8 @@ body {
 }
 
 #upload_widget {
-    background-color: black;
+    background-color: var(--publicGreen);
+    color: var(--mainGreen);
     margin-top: 5px;
 }
 
