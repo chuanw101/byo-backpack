@@ -52,7 +52,7 @@ for (const button of privBtns) {
     });
 }
 
-//Make private btns
+//Make public btns
 const pubBtns = document.querySelectorAll(".pubBtn");
 for (const button of pubBtns) {
     button.addEventListener('click', e => {
