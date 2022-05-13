@@ -259,10 +259,17 @@ router.get('/profile', async (req, res) => {
         },
         order: ['start_time']
       })
+      let count = 0;
+      for (const event of invited) {
+        if (event.attendees[0].attendee.rsvp_status == 0) {
+          count++;
+        }
+      }
       const invitedEvents = invited.map(event => event.get({ plain: true }))
       req.session.user.noti = 0;
       const user = req.session?.user
-      res.render('profile', { publicEvents, privateEvents, invitedEvents, user })
+      user.noResCount = count;
+      res.render('profile', { publicEvents, privateEvents, invitedEvents, user})
     }
   } catch (err) {
     console.log(err);
