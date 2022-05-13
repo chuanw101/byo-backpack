@@ -25,6 +25,9 @@ hbs.handlebars.registerHelper('format_time', function(date) {
 hbs.handlebars.registerHelper('format_time_value', function(date) {
   return moment(date).format("YYYY-MM-DDThh:mm");
 })
+hbs.handlebars.registerHelper('compare', function(a, b) {
+  return a==b;
+})
 
 const sess = {
   secret: process.env.SESSION_SECRET,
