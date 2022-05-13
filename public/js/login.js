@@ -14,7 +14,8 @@ document.querySelector("#login").addEventListener("submit",e=>{
       }
   }).then(res=>{
       if(res.ok){
-        document.location.href = '/profile';
+        // reload last page
+        window.location=document.referrer;
       } else {
           alert("login failed")
       }
