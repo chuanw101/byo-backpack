@@ -1,7 +1,8 @@
 :root {
     --mainGreen: #3a5a40;
     --publicGreen: #cef7d528;
-    --privGreen: #9fb0a228;
+    --respGreen: #9fb0a228;
+    --privGreen: #868d835d;
     --darkGreen: #29402d;
     --mainTaupe: #dad7cd;
     --lightTaupe: #dad7cd63;
@@ -24,6 +25,11 @@ body {
 
 .cust-card-inv {
     border: 2px solid var(--attnBorder);
+}
+
+.cust-card-resp {
+    border: 2px solid var(--mainGreen);
+    background-color: var(--respGreen);
 }
 
 .cust-public {
