@@ -29,6 +29,8 @@ for (const updateBtn of updateBtns) {
     }
 }
 
+
+
 //Make private btns
 const privBtns = document.querySelectorAll(".privBtn");
 for (const button of privBtns) {
