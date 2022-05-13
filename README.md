@@ -9,12 +9,10 @@
   
 ## User Story
 AS a user, 
-I WANT an application that lets me post events, RSVP to others, and sign up to bring supplies,
+I WANT an application that lets me post events, RSVP to others, invite others and sign up to bring supplies,
 SO THAT I can connect with my community, meet new people, and try new things.
 
 ## Deployed link
-
-Here is the link to the website DEMO:
 [Deployed Link](https://byo-backpack.herokuapp.com/)
     
 ## Table of Contents 
