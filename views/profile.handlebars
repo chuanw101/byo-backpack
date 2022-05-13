@@ -12,11 +12,13 @@
                 <a class="cust-btn btn btn-dark m-3 position-relative" href="#invitedEvents">
                     My Invited Events
                     {{#if user.noResCount}}
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" data-bs-toggle="tooltip" data-bs-placement="right" title="Invites to respond to">
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                        data-bs-toggle="tooltip" data-bs-placement="right" title="Invites to respond to">
                         {{user.noResCount}}
                     </span>
                     {{/if}}
                 </a>
+                <a class="cust-btn btn btn-dark m-3" href="#pastEvents">My Past Events</a>
             </div>
         </div>
     </div>
@@ -90,6 +92,7 @@
     </div>
     {{/each}}
 </div>
+<hr>
 <div class="row d-flex justify-content-center mt-5">
     <h1 class="mb-4 text-center" id="privateEvents">My Private Events</h1>
     {{#each privateEvents as |event|}}
@@ -161,7 +164,8 @@
     </div>
     {{/each}}
 </div>
-<div class="row d-flex justify-content-center mt-5 mb-5">
+<hr>
+<div class="row d-flex justify-content-center mt-5">
     <h1 class="mb-4 text-center" id="invitedEvents">Event Invites</h1>
     {{#each invitedEvents as |event|}}
     {{#if (compare attendees.0.attendee.rsvp_status 0)}}
@@ -218,4 +222,51 @@
         </div>
         {{/each}}
     </div>
-    <script src="/js/eventAction.js"></script>
+</div>
+<hr>
+<div class="row d-flex justify-content-center mt-5 mb-5">
+    <h1 class="mb-4 text-center" id="pastEvents">My Past Events</h1>
+    {{#each pastEvents}}
+    <div class="cust-card card col-12 col-lg-5 mb-3 mx-3 hover-target opacity-75">
+        <div class="card-body">
+            <h2 class="card-title my-4 text-center">{{event_name}}</h2>
+            <hr>
+            <img src={{picture_path}} class="card-img-top img-fluid" width="500" height="360" alt={{picture_path}}>
+            <hr>
+            <div class="row">
+                <div class="mb-2">
+                    <div class="d-flex justify-content-center mb-2">
+                        <a class="text-center link-dark"
+                            href="https://maps.google.com/?q={{location}},+{{city}},+{{state}}"
+                            target="_blank">{{location}}<br>{{city}}, {{state}}</a>
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <h5 class="d-inline">Starts:</h5>
+                    <p class="d-inline">{{format_time start_time}}</p>
+                </div>
+                <div class="mb-2">
+                    <h5 class="d-inline">Ends:</h5>
+                    <p class="d-inline">{{format_time end_time}}</p>
+                </div>
+            </div>
+            <div class="hover-show">
+                <div class="row">
+                    <div class="col">
+                        <div class="d-grid gap-2 my-3">
+                            <a href="/eventbyid/{{id}}" class="cust-btn btn btn-dark m-1">View Details</a>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="d-grid gap-2 my-3">
+                            <button class="btn btn-danger m-1 deleteBtn" value={{event.id}}>Delete Event</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
+
+<script src="/js/eventAction.js"></script>

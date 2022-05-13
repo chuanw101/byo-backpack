@@ -232,13 +232,23 @@ router.get('/profile', async (req, res) => {
           where: { '$yeses.attendee.rsvp_status$': 1 }, required: false
         }],
         where: {
-          creator_id: req.session.user?.id
+          creator_id: req.session.user?.id,
+          start_time: { [Op.gt]: dateTime },
         },
         order: ['start_time']
       })
       const events = dbEvents.map(event => event.get({ plain: true }))
       const publicEvents = events.filter(event => event.public)
       const privateEvents = events.filter(event => !event.public)
+
+      const past = await Event.findAll({
+        where: {
+          creator_id: req.session.user?.id,
+          start_time: { [Op.lt]: dateTime },
+        },
+        order: ['start_time']
+      })
+      const pastEvents = past.map(event => event.get({ plain: true}))
 
       const invited = await Event.findAll({
         include: [{
@@ -269,7 +279,7 @@ router.get('/profile', async (req, res) => {
       req.session.user.noti = 0;
       const user = req.session?.user
       user.noResCount = count;
-      res.render('profile', { publicEvents, privateEvents, invitedEvents, user})
+      res.render('profile', { publicEvents, privateEvents, invitedEvents, pastEvents, user})
     }
   } catch (err) {
     console.log(err);
