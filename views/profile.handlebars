@@ -26,6 +26,9 @@
 
 <div class="row d-flex justify-content-center mt-5">
     <h1 class="mb-4 text-center" id="publicEvents">My Public Events</h1>
+    {{#unless publicEvents.length}}
+    <h2 class="text-center">No public events</h2>
+    {{/unless}}
     {{#each publicEvents as |event|}}
     <div class="card col-12 col-lg-5 mb-3 mx-3 hover-target cust-card cust-public">
         <div class="card-body">
@@ -95,6 +98,9 @@
 <hr>
 <div class="row d-flex justify-content-center mt-5">
     <h1 class="mb-4 text-center" id="privateEvents">My Private Events</h1>
+    {{#unless privateEvents.length}}
+    <h2 class="text-center">No private events</h2>
+    {{/unless}}
     {{#each privateEvents as |event|}}
     <div class="cust-card card col-12 col-lg-5 mb-3 mx-3 hover-target cust-priv">
         <div class="card-body">
@@ -167,6 +173,9 @@
 <hr>
 <div class="row d-flex justify-content-center mt-5">
     <h1 class="mb-4 text-center" id="invitedEvents">Event Invites</h1>
+    {{#unless invitedEvents.length}}
+    <h2 class="text-center">No event invits</h2>
+    {{/unless}}
     {{#each invitedEvents as |event|}}
     {{#if (compare attendees.0.attendee.rsvp_status 0)}}
     <div class="cust-card card col-12 col-lg-5 mb-3 mx-3 hover-target cust-attn">
@@ -226,6 +235,9 @@
 <hr>
 <div class="row d-flex justify-content-center mt-5 mb-5">
     <h1 class="mb-4 text-center" id="pastEvents">My Past Events</h1>
+    {{#unless pastEvents.length}}
+    <h2 class="text-center">No past events</h2>
+    {{/unless}}
     {{#each pastEvents}}
     <div class="cust-card card col-12 col-lg-5 mb-3 mx-3 hover-target opacity-75">
         <div class="card-body">
