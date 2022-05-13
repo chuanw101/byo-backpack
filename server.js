@@ -31,8 +31,9 @@ hbs.handlebars.registerHelper('compare', function(a, b) {
 
 const sess = {
   secret: process.env.SESSION_SECRET,
-//   secret: 'Super secret secret',
-  cookie: {},
+  cookie: {
+    maxAge: 1 * 60 * 60 * 1000
+  },
   resave: false,
   saveUninitialized: true,
   store: new SequelizeStore({
