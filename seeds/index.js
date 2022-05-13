@@ -29,7 +29,7 @@ const events = [
         start_time:"2022-05-24T15:30",
         end_time:"2022-05-24T17:45",
         description: "We will be tasting a variety of cheeses!",
-       picture_path: "http://res.cloudinary.com/da2jrzaai/image/upload/v1652382671/epj86yurxd9txk4thwwr.jpg",
+       picture_path: "https://res.cloudinary.com/da2jrzaai/image/upload/c_crop,g_custom/v1652467865/kmkcnk7l6hq835uuumfo.jpg",
         creator_id:3
     },{
         event_name:"Pub Crawl",
