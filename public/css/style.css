@@ -5,8 +5,9 @@
     --darkGreen: #29402d;
     --mainTaupe: #dad7cd;
     --lightTaupe: #dad7cd63;
-    --ownedColor: #BCBD8B;
-    --attnColor: #d3d0f15f;
+    --ownedColor: #d0e9f150;
+    --attnColor: #f1d0e53b;
+    --attnBorder: #6a0e0e;
 }
 
 body {
@@ -19,6 +20,10 @@ body {
 
 .cust-card {
     border: 2px solid var(--mainGreen);
+}
+
+.cust-card-inv {
+    border: 2px solid var(--attnBorder);
 }
 
 .cust-public {
