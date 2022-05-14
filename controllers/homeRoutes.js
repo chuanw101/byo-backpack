@@ -8,7 +8,9 @@ router.get('/', (req, res) => {
   const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
   const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
   //const dateTime = date + ' ' + time;
-  const dateTime = today.toISOString();
+  const offset = today.getTimezoneOffset();
+  const utc = today.toUTCString();
+  const dateTime = new Date(today.getTime() - offset*60*1000 + 7*60*60*1000);
   Event.findAll({
     include: [{
       model: Item,
@@ -27,7 +29,7 @@ router.get('/', (req, res) => {
     .then(dbEvents => {
       const hbsEvents = dbEvents.map(event => event.get({ plain: true }))
       const user = req.session?.user
-      res.render('home', { event: hbsEvents, user})
+      res.render('home', { event: hbsEvents, user, newDate, dateTime})
     });
 });
 
