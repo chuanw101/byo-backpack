@@ -29,7 +29,7 @@ router.get('/', (req, res) => {
     .then(dbEvents => {
       const hbsEvents = dbEvents.map(event => event.get({ plain: true }))
       const user = req.session?.user
-      res.render('home', { event: hbsEvents, user, dateTime})
+      res.render('home', { event: hbsEvents, user, today, offset, dateTime})
     });
 });
 
