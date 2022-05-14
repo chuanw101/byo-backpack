@@ -5,11 +5,7 @@ const Op = require('sequelize').Op;
 // home route, only shows public events
 router.get('/', (req, res) => {
   const today = new Date();
-  const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-  const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-  //const dateTime = date + ' ' + time;
   const offset = today.getTimezoneOffset();
-  const utc = today.toUTCString();
   const dateTime = new Date(today.getTime() + offset*60*1000 - 7*60*60*1000);
   Event.findAll({
     include: [{
@@ -29,16 +25,15 @@ router.get('/', (req, res) => {
     .then(dbEvents => {
       const hbsEvents = dbEvents.map(event => event.get({ plain: true }))
       const user = req.session?.user
-      res.render('home', { event: hbsEvents, user, today, offset, dateTime})
+      res.render('home', { event: hbsEvents, user })
     });
 });
 
 // search events by city or state
 router.get('/search/:location', (req, res) => {
   const today = new Date();
-  const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-  const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-  const dateTime = date + ' ' + time;
+  const offset = today.getTimezoneOffset();
+  const dateTime = new Date(today.getTime() + offset*60*1000 - 7*60*60*1000);
   // its a city
   if (req.params.location.length > 2) {
     Event.findAll({
@@ -103,9 +98,8 @@ router.get('/search/:location', (req, res) => {
 // search events by city and state
 router.get('/search/:city/:state', (req, res) => {
   const today = new Date();
-  const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-  const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-  const dateTime = date + ' ' + time;
+  const offset = today.getTimezoneOffset();
+  const dateTime = new Date(today.getTime() + offset*60*1000 - 7*60*60*1000);
   Event.findAll({
     include: [{
       model: Item,
@@ -223,9 +217,8 @@ router.get('/profile', async (req, res) => {
       res.render('error401', { user });
     } else {
       const today = new Date();
-      const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-      const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-      const dateTime = date + ' ' + time;
+      const offset = today.getTimezoneOffset();
+      const dateTime = new Date(today.getTime() + offset*60*1000 - 7*60*60*1000);
       const dbEvents = await Event.findAll({
         include: [{
           model: Item,
