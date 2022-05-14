@@ -1,6 +1,28 @@
 # byo-backpack
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  
 
+## Description
+User can view public upcoming events without logging in, can search by city/state. <br>
+User can sign up, user name = under 15 characters, alphanumeric only, password must be at least 8 chars. <br>
+Once logged in, profile will have notification if there is any unresponded invites, this turns off upon going to profile (until next log in, sessions last 1 hour). <br>
+Once logged in, you can change pw / create events / update your own events / rsvp for public events and private events you are invited to. <br>
+Events have default picture, default time is 2 hour after current time, once start/end time is selected, the other will be auto set so that end time is always after start time. <br>
+Event time ignores time zones, assumes you are entering for time zone of the event, when site filters out past events, it uses the default -7PDT time zone if user isn't logged in, pulls users time zone to session if logged in. <br>
+Can edit/invite/delete events from either profile or from event details page (if logged in and is creator) <br>
+RSVP is possible for all users for public events, private events can only be viewed/rsvp'd if invited by creator. <br>
+You can only click to bring item for event if your RSVP status is set to attending, if it changes to something else, auto takes you off the table from bringing items. <br>
+
+## Table of Contents 
+    
+  - [Contribute](#contribute)
+  - [User Story](#user-story)
+  - [Deployed link](#deployed-link)
+  - [Table of Contents](#table-of-contents)
+  - [Installation](#installation)
+  - [Consept](#concept)
+  - [Test](#test)
+  - [ERD](#erd)
+
 ## Contribute
 *   Lola Applegate
 *   Chuan Wang
@@ -14,18 +36,7 @@ SO THAT I can connect with my community, meet new people, and try new things.
 
 ## Deployed link
 [Deployed Link](https://byo-backpack.herokuapp.com/)
-    
-## Table of Contents 
-    
-  - [Contribute](#contribute)
-  - [User Story](#user-story)
-  - [Deployed link](#deployed-link)
-  - [Table of Contents](#table-of-contents)
-  - [Installation](#installation)
-  - [Consept](#concept)
-  - [Test](#test)
-  - [ERD](#erd)
-
+  
 ## Installation
 Here are some guidelines to help you get started:
 
