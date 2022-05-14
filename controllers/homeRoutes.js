@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
   //const dateTime = date + ' ' + time;
   const offset = today.getTimezoneOffset();
   const utc = today.toUTCString();
-  const dateTime = new Date(today.getTime() - offset*60*1000 + 7*60*60*1000);
+  const dateTime = new Date(today.getTime() + offset*60*1000 - 7*60*60*1000);
   Event.findAll({
     include: [{
       model: Item,
