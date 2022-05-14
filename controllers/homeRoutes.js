@@ -4,9 +4,16 @@ const Op = require('sequelize').Op;
 
 // home route, only shows public events
 router.get('/', (req, res) => {
+  // account for time zones when checking upcoming events
   const today = new Date();
   const offset = today.getTimezoneOffset();
-  const dateTime = new Date(today.getTime() + offset*60*1000 - 7*60*60*1000);
+  let dateTime;
+  // use user's time zone if logged in, else use -7 as default time zone
+  if (req.session?.user?.offset) {
+    dateTime = new Date(today.getTime() + offset * 60 * 1000 - req.session.user.offset * 60 * 1000);
+  } else {
+    dateTime = new Date(today.getTime() + offset * 60 * 1000 - 7 * 60 * 60 * 1000);
+  }
   Event.findAll({
     include: [{
       model: Item,
@@ -31,9 +38,16 @@ router.get('/', (req, res) => {
 
 // search events by city or state
 router.get('/search/:location', (req, res) => {
+  // account for time zones when checking upcoming events
   const today = new Date();
   const offset = today.getTimezoneOffset();
-  const dateTime = new Date(today.getTime() + offset*60*1000 - 7*60*60*1000);
+  let dateTime;
+  // use user's time zone if logged in, else use -7 as default time zone
+  if (req.session?.user?.offset) {
+    dateTime = new Date(today.getTime() + offset * 60 * 1000 - req.session.user.offset * 60 * 1000);
+  } else {
+    dateTime = new Date(today.getTime() + offset * 60 * 1000 - 7 * 60 * 60 * 1000);
+  }
   // its a city
   if (req.params.location.length > 2) {
     Event.findAll({
@@ -97,9 +111,16 @@ router.get('/search/:location', (req, res) => {
 
 // search events by city and state
 router.get('/search/:city/:state', (req, res) => {
+  // account for time zones when checking upcoming events
   const today = new Date();
   const offset = today.getTimezoneOffset();
-  const dateTime = new Date(today.getTime() + offset*60*1000 - 7*60*60*1000);
+  let dateTime;
+  // use user's time zone if logged in, else use -7 as default time zone
+  if (req.session?.user?.offset) {
+    dateTime = new Date(today.getTime() + offset * 60 * 1000 - req.session.user.offset * 60 * 1000);
+  } else {
+    dateTime = new Date(today.getTime() + offset * 60 * 1000 - 7 * 60 * 60 * 1000);
+  }
   Event.findAll({
     include: [{
       model: Item,
@@ -216,9 +237,16 @@ router.get('/profile', async (req, res) => {
     if (!req.session?.user.logged_in) {
       res.render('error401', { user });
     } else {
+      // account for time zones when checking upcoming events
       const today = new Date();
       const offset = today.getTimezoneOffset();
-      const dateTime = new Date(today.getTime() + offset*60*1000 - 7*60*60*1000);
+      let dateTime;
+      // use user's time zone if logged in, else use -7 as default time zone
+      if (req.session?.user?.offset) {
+        dateTime = new Date(today.getTime() + offset * 60 * 1000 - req.session.user.offset * 60 * 1000);
+      } else {
+        dateTime = new Date(today.getTime() + offset * 60 * 1000 - 7 * 60 * 60 * 1000);
+      }
       const dbEvents = await Event.findAll({
         include: [{
           model: Item,
