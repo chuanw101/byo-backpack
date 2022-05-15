@@ -18,6 +18,7 @@ router.post('/login', async (req, res) => {
       req.session.user = {
         id: foundUser.id,
         user_name: foundUser.user_name,
+        offset: req.body.timeZoneOffset,
         logged_in: true
       }
       const today = new Date();
