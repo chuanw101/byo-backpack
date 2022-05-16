@@ -1,0 +1,130 @@
+<div class="row d-flex justify-content-center">
+    <div class="card col-12 my-5">
+        <div class="card-body">
+            {{#if user.isCreator}}
+            <div class="col">
+                <a class="cust-btn btn btn-dark cust-btn m-1" href ="/profile/update/{{id}}">Update Event</a>
+                <a href="/profile/invite/{{id}}" class="cust-btn btn btn-dark m-1">Invite People</a>
+                <button class="btn btn-danger m-1" id="delBtn" value={{id}}>Delete Event</button>
+            </div>
+            {{/if}}
+            <h1 class="card-title my-4 text-center">{{event_name}}</h1>
+            <div class="row pt-1" id="cust-detail">
+                <div class="col d-flex justify-content-end" id="cust-img">
+                    <img class="img-fluid" src={{picture_path}} width="500" height="360" alt={{picture_path}}>
+                </div>
+                <div class="col pt-2">
+                    <div class="mb-2">
+                        <h5 class="d-inline">Address:</h5>
+                        <a class="d-inline link-dark"
+                            href="https://maps.google.com/?q={{location}},+{{city}},+{{state}}"
+                            target="_blank">{{location}} {{city}}, {{state}}</a>
+                    </div>
+                    <div class="mb-2">
+                        <h5 class="d-inline">Event Type:</h5>
+                        {{#if public}}
+                        <p class="d-inline">Public</p>
+                        {{else}}
+                        <p class="d-inline">Private</p>
+                        {{/if}}
+                    </div>
+                    <div class="mb-2">
+                        <h5 class="d-inline">Starts:</h5>
+                        <p class="d-inline">{{format_time start_time}}</p>
+                    </div>
+                    <div class="mb-2">
+                        <h5 class="d-inline">Ends:</h5>
+                        <p class="d-inline">{{format_time end_time}}</p>
+                    </div>
+                    <div class="mb-2">
+                        <h5 class="d-inline">Event Host:</h5>
+                        <p class="d-inline">{{creator.user_name}}</p>
+                    </div>
+                    <h5>Description:</h5>
+                    <p>{{description}}</p>
+                </div>
+            </div>
+            <div class="row my-5">
+                <h2 class="text-center mb-3">Backpack Items</h2>
+                <div class="d-flex flex-wrap justify-content-center">
+                    <hr class="my-2">
+                    {{#each items}}
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input claimCheck" type="checkbox" id={{id}} value={{item_name}}
+                            {{#unless ../user.isGoing}}disabled{{/unless}} {{#if owner_id}} {{#if isBroughtByUser}}
+                            checked {{else}} checked disabled {{/if}}{{/if}}>
+                        <label class="form-check-label" for={{id}}>{{item_name}}{{#if owner_id}}{{#if isBroughtByUser}},
+                            from <span class="fst-italic">you</span>{{else}}, from <span
+                                class="fst-italic">{{user.user_name}}</span>{{/if}}{{/if}}</label>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+            <div class="row my-5 d-flex flex-wrap justify-content-around">
+                <h2 class="text-center mb-3">Attendees</h2>
+                <div class="col px-3 mx-2 text-center border py-3 {{#if user.isRSVP}}cursor-hand{{/if}}" id="noRes" value={{id}}>
+                    <h5>No Response</h5>
+                    <ul class="list-group list-group-flush">
+                        {{#each noresponses}}
+                        <li class="list-group-item">{{user_name}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <div class="col px-3 mx-2 text-center border py-3 {{#if user.isRSVP}}cursor-hand{{/if}}" id="attend">
+                    <h5>Attending</h5>
+                    <ul class="list-group list-group-flush">
+                        {{#each yeses}}
+                        <li class="list-group-item">{{user_name}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <div class="col px-3 mx-2 text-center border py-3 {{#if user.isRSVP}}cursor-hand{{/if}}" id="maybe">
+                    <h5>Maybe</h5>
+                    <ul class="list-group list-group-flush">
+                        {{#each maybes}}
+                        <li class="list-group-item">{{user_name}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <div class="col px-3 mx-2 text-center border py-3 {{#if user.isRSVP}}cursor-hand{{/if}}" id="decline">
+                    <h5>Declined</h5>
+                    <ul class="list-group list-group-flush">
+                        {{#each noes}}
+                        <li class="list-group-item">{{user_name}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="d-grid gap-2 my-3">
+                {{#if user.logged_in}}
+                {{#unless user.isRSVP}}
+                <select name="rsvp-choice" id="rsvp-choice" class="form-control">
+                    <option value=1>I'm attending!</option>
+                    <option value=2>I'm not attending</option>
+                    <option value=3>Maybe</option>
+                </select>
+                <button class="btn btn-dark cust-btn" id="rsvpBtn" value={{id}}>RSVP</button>
+                {{else}}
+                {{!--
+                <hr> --}}
+                <h2 class="text-center">Your RSVP Status</h2>
+                <select name="rsvp-choice" id="rsvp-choice" class="form-control" status={{user.rsvp_status}}>
+                    <option id="option-0" value=0>No response</option>
+                    <option id="option-1" value=1>I'm attending!</option>
+                    <option id="option-2" value=2>I'm not attending</option>
+                    <option id="option-3" value=3>Maybe</option>
+                    <option value=4>Take me off the list</option>
+                </select>
+                <button class="btn btn-dark cust-btn" id="leaveBtn" value={{id}}>Update RSVP</button>
+                {{/unless}}
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/eventbyid.js"></script>
+{{#if user.isRSVP}}
+<script src="/js/changeRsvp.js"></script>
+{{/if}}

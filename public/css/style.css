@@ -1,0 +1,110 @@
+:root {
+    --mainGreen: #3a5a40;
+    --publicGreen: #cef7d528;
+    --respGreen: #9fb0a228;
+    --privGreen: #868d835d;
+    --darkGreen: #29402d;
+    --mainTaupe: #dad7cd;
+    --lightTaupe: #dad7cd63;
+    --ownedColor: #d0e9f150;
+    --attnColor: #f1d0e53b;
+    --attnBorder: #6a0e0e;
+}
+
+body {
+    background-color: var(--lightTaupe);
+}
+
+.custom-nav {
+    background-color: var(--mainGreen)
+}
+
+.cust-card {
+    border: 2px solid var(--mainGreen);
+}
+
+.cust-card-inv {
+    border: 2px solid var(--attnBorder);
+}
+
+.cust-card-resp {
+    border: 2px solid var(--mainGreen);
+    background-color: var(--respGreen);
+}
+
+.cust-public {
+    background-color: var(--publicGreen);
+}
+
+.cust-created {
+    background-color: var(--ownedColor);
+}
+
+.cust-priv {
+    background-color: var(--privGreen);
+}
+
+.cust-attn {
+    background-color: var(--attnColor);
+}
+
+.cust-btn {
+    background-color: var(--darkGreen);
+}
+
+/* overload autocomplete bg so its not transparent */
+.ui-autocomplete {
+    background: var(--mainTaupe);
+    z-index: 2;
+}
+
+.hover-show {
+    display: none;
+}
+
+.hover-target:hover .hover-show{
+    display: block;
+}
+
+.cursor-hand {
+    cursor: pointer;
+}
+
+#upload_widget {
+    background-color: var(--publicGreen);
+    color: var(--mainGreen);
+    margin-top: 5px;
+}
+
+@media screen and (max-width: 992px) {
+    #custom-navbar {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+    #custom-navlinks {
+        flex-direction: row;
+    }
+    #custom-navlinks li {
+        margin: 10px;
+    }
+    #custom-search {
+        justify-content: center !important;
+    }
+    #cust-upcoming h1 {
+        text-align: center;
+        font-size: xx-large !important;
+    }
+    #profile-btns {
+        flex-direction: column;
+    }
+    #cust-detail {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    #cust-img {
+        justify-content: center !important;
+        margin-bottom: 10px;
+    }
+}

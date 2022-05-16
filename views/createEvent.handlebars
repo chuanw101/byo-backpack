@@ -1,0 +1,81 @@
+{{!-- create event page --}}
+<div class="row mt-5">
+    <h1>Welcome, {{user.user_name}}!</h1>
+    <div class="card col-12 my-5">
+        <div class="card-body">
+            <h2 class="card-title  mt-2 mb-3">Create a New Event</h2>
+            <form id="newEventForm">
+                <div class="mb-3">
+                    <label for="eventName" class="form-label">Event Name</label>
+                    <input class="form-control" id="eventName" placeholder="Beach Bonfire">
+                </div>
+                <div class="mb-3">
+                    <label for="location" class="form-label">Address</label>
+                    <input class="form-control" id="location" placeholder="123 Fake St. NE">
+                </div>
+                <div class="mb-3">
+                    <label for="city" class="form-label">City</label>
+                    <input class="form-control" id="city" placeholder="Seattle">
+                </div>
+                <div class="mb-3">
+                    <label for="state" class="form-label">State</label>
+                    <input class="form-control" id="state" placeholder="WA">
+                </div>
+
+                <div>
+                    <img id="uploadedimage" src="/images/BYOB_Event_Default.png" class="img-fluid" width="500" height="360"></img>
+                </div>
+                <div class="mb-3">
+                    <button for="formFile" id="upload_widget" class="form-label cloudinary-button">Upload
+                        Image</button>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="startDate" class="form-label">Start Date</label>
+                        <input type="datetime-local" class="form-control" placeholder="Click to select"
+                            aria-label="startDate" id="startDate">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="endDate" class="form-label">End Date</label>
+                        <input type="datetime-local" class="form-control" placeholder="Click to select"
+                            aria-label="endDate" id="endDate">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="backpackItems" class="form-label">Backpack Items</label>
+                    <input class="form-control" id="backpackItems" placeholder="Umbrella, towels, etc.">
+                </div>
+
+                <div class="mb-3">
+                    <label for="eventType" class="form-label">Event Type</label>
+                    <div>
+                        <input type="radio" name="eventType" value="1" id="public" checked="checked">
+                        <label for="public">Public </label>
+                        <input type="radio" name="eventType" value="0" id="private">
+                        <label for="private">Private</label>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="eventDescription" class="form-label">Event Description</label>
+                    <textarea class="form-control" id="eventDescription" rows="6"
+                        placeholder="More details..."></textarea>
+                </div>
+
+                <div class="d-grid gap-2 my-3">
+                    <button type="button" class="btn btn-dark cust-btn" id="newEventSubmit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<!-- jQuery UI <script> tag -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+<script src="/js/createEvent.js"></script>
